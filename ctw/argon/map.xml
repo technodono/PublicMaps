@@ -1,0 +1,180 @@
+<map proto="1.5.0">
+<name>Argon</name>
+<version>1.2.13</version>
+<include id="gapple-kill-reward"/>
+<objective>Capture the wools from the enemy wool rooms and return them to your spawn</objective>
+<authors>
+    <author uuid="22ba442b-cf26-4d09-b290-8d4e50a551b2"/> <!-- dinner1111 -->
+    <author uuid="060baa18-2852-40d8-afcb-e61607c04be3"/> <!-- pepsidawg00 -->
+    <author uuid="9310b44c-55b2-4a51-8be6-151b379d3d4d"/> <!-- legobmw99 -->
+</authors>
+<teams>
+    <team id="cyan-team" color="dark aqua" max="40">Cyan</team>
+    <team id="purple-team" color="dark purple" max="40">Purple</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <clear/>
+        <item slot="0" material="iron sword"/>
+        <item slot="1" material="bow"/>
+        <item slot="2" enchantment="durability:3;dig speed:3" material="iron pickaxe"/>
+        <item slot="3" enchantment="durability:3;dig speed:2" material="iron axe"/>
+        <item slot="4" amount="64" damage="2" material="log"/>
+        <item slot="5" amount="64" material="glass"/>
+        <item slot="7" material="golden apple"/>
+        <item slot="8" amount="64" material="cooked beef"/>
+        <item slot="28" amount="64" material="arrow"/>
+    </kit>
+</kits>
+<spawns>
+    <spawns kit="spawn-kit" safe="true">
+        <spawn team="cyan-team" yaw="270">
+            <regions>
+                <cylinder base="-407,13,33" radius="6" height="0"/>
+            </regions>
+        </spawn>
+        <spawn team="purple-team" yaw="90">
+            <regions>
+                <cylinder base="-19,13,33" radius="6" height="0"/>
+            </regions>
+        </spawn>
+    </spawns>
+    <default yaw="90">
+        <regions>
+            <cylinder base="-213,46,33" radius="4" height="0"/>
+        </regions>
+    </default>
+</spawns>
+<filters>
+    <material id="only-iron">iron block</material>
+    <any id="wool-room-blocks">
+        <material>web</material>
+        <material>glass</material>
+        <material>log:2</material>
+        <material>log:6</material>
+        <material>log:10</material>
+        <material>wood:2</material>
+        <material>piston base</material>
+        <material>redstone wire</material>
+        <material>wool:9</material>
+        <material>smooth brick</material>
+        <material>wool:10</material>
+        <material>stationary water</material>
+        <material>water</material>
+    </any>
+    <deny id="deny-beacon">
+        <material>beacon</material>
+    </deny>
+</filters>
+<regions>
+    <union id="woolrooms">
+        <union id="purple-woolrooms">
+            <circle id="lightblue" center="-106.5,115.5" radius="12.5"/>
+            <circle id="blue" center="-106.5,-48.5" radius="12.5"/>
+        </union>
+        <union id="cyan-woolrooms">
+            <circle id="magenta" center="-320.5,115" radius="12.5"/>
+            <circle id="red" center="-320.5,-48.5" radius="12.5"/>
+        </union>
+    </union>
+    <union id="spawns">
+        <rectangle id="purple-spawn" min="-36,89" max="36,-22"/>
+        <rectangle id="cyan-spawn" min="-390,-22" max="-463,89"/>
+    </union>
+    <rectangle id="purple-spawn-enter" min="-36,37" max="-34,29"/>
+    <rectangle id="cyan-spawn-enter" min="-390,29" max="-392,47"/>
+    <negative id="outside-playable">
+        <rectangle min="43,-71" max="-470,138"/>
+    </negative>
+    <apply region="purple-spawn-enter" enter="purple-team" block="never"/>
+    <apply region="cyan-spawn-enter" enter="cyan-team" block="never"/>
+    <apply region="purple-woolrooms" block="wool-room-blocks" enter="cyan-team" use="cyan-team"/>
+    <apply region="cyan-woolrooms" block="wool-room-blocks" enter="purple-team" use="purple-team"/>
+    <apply enter="never">
+        <region>
+            <cuboid min="-33,19,27" max="-34,oo,40"/>
+            <cuboid min="-394,19,27" max="-393,oo,40"/>
+        </region>
+    </apply>
+    <apply block="never" use="never">
+        <region>
+            <block>-320.5,9,115.5</block>
+            <block>-320.5,9,-48.5</block>
+            <block>-106.5,9,-48.5</block>
+            <block>-106.5,9,115.5</block>
+            <block>-19.5,24,33.5</block>
+            <block>-407.5,9,33.5</block>
+        </region>
+    </apply>
+    <apply region="spawns" block-break="only-iron" block-place="never" message="You may only break iron blocks in the spawn"/>
+    <apply block="never">
+        <region>
+            <!-- Iron at spawn beacons -->
+            <circle center="-19.5,33.5" radius="3"/> <!-- Purple -->
+            <circle center="-407.5,33.5" radius="3"/> <!-- Cyan -->
+        </region>
+    </apply>
+    <apply use="deny-beacon"/>
+    <negative id="outside-void">
+        <union id="allow-void">
+            <rectangle min="-270,3" max="-157,26"/>
+            <rectangle min="-270,64" max="-157,41"/>
+            <rectangle min="-232,81" max="-195,-14"/>
+        </union>
+    </negative>
+    <apply region="outside-void" block-place="deny(void)" message="You may not build in the void!"/>
+    <apply region="outside-playable" block="never"/>
+</regions>
+<wools>
+    <wool team="cyan-team" color="light blue" location="-107,11,115">
+        <monument>
+            <block>-398.5,14,24.5</block>
+        </monument>
+    </wool>
+    <wool team="cyan-team" color="blue" location="-107,11,-49">
+        <monument>
+            <block>-398.5,14,42.5</block>
+        </monument>
+    </wool>
+    <wool team="purple-team" color="magenta" location="-321,11,115">
+        <monument>
+            <block>-28.5,14,42.5</block>
+        </monument>
+    </wool>
+    <wool team="purple-team" color="red" location="-321,11,-49">
+        <monument>
+            <block>-28.5,14,24.5</block>
+        </monument>
+    </wool>
+</wools>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+    <tool>iron axe</tool>
+    <tool>iron pickaxe</tool>
+</toolrepair>
+<itemremove>
+    <item>step</item>
+    <item>sapling:3</item>
+    <item>string</item>
+    <item>trap door</item>
+    <item>coal block</item>
+    <item>glowstone dust</item>
+    <item>cooked beef</item>
+    <item>redstone wire</item>
+    <item>log</item>
+    <item>glass</item>
+    <item>arrow</item>
+    <item>wood</item>
+</itemremove>
+<itemkeep>
+    <item>golden apple</item>
+</itemkeep>
+<kill-rewards>
+    <kill-reward>
+        <item amount="16" material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+<timelock>on</timelock>
+<maxbuildheight>35</maxbuildheight>
+</map>

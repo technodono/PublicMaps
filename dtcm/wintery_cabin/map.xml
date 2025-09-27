@@ -1,0 +1,129 @@
+<map proto="1.5.0">
+<name>Wintery Cabin</name>
+<version>1.1.5</version>
+<objective>Destroy the enemy's monument and core.</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="8f9344cf-7367-4e28-9f24-5c66422f28c9"/> <!-- Timothee38 -->
+    <author uuid="af9c1942-af66-42d1-89f9-9b677c281e03"/> <!-- _IQ -->
+</authors>
+<teams>
+   <team id="red" color="dark red" max="35" max-overfill="50">Red</team>
+   <team id="blue" color="blue" max="35" max-overfill="50">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="stone sword"/>
+        <item slot="1" enchantment="arrow infinite" material="bow"/>
+        <item slot="3" material="stone axe"/>
+        <item slot="2" material="diamond pickaxe"/>
+        <item slot="4" amount="32" material="golden carrot"/>
+        <item slot="5" amount="64" damage="2" material="log"/>
+        <item slot="6" material="water bucket"/>
+        <item slot="28" material="arrow"/>
+        <helmet team-color="true" material="leather helmet"/>
+        <chestplate team-color="true" material="leather chestplate"/>
+        <effect duration="3">heal</effect>
+        <effect duration="3">damage resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red" kit="spawn-kit" yaw="-24">
+        <regions>
+            <point>79.5,4,-545.5</point>
+        </regions>
+    </spawn>
+    <spawn team="blue" kit="spawn-kit" yaw="-158">
+        <regions>
+            <point>79.5,4,-236.5</point>
+        </regions>
+    </spawn>
+    <default>
+        <regions>
+            <cuboid min="54,90,-391" max="54,90,-390"/>
+        </regions>
+    </default>
+</spawns>
+<filters>
+    <deny id="deny-beacon">
+        <material>beacon</material>
+    </deny>
+</filters>
+<regions>
+    <union id="spawns">
+        <rectangle id="redspawn" min="74,-551" max="89,-534"/>
+        <rectangle id="bluespawn" min="89,-231" max="74,-248"/>
+    </union>
+    <negative id="not-map">
+        <rectangle id="map" min="3,-622" max="102,-160"/>
+    </negative>
+    <apply use="deny-beacon"/>
+    <apply region="spawns" block="never" message="You may not build in spawns!"/>
+    <apply region="not-map" block="never" message="You may not edit outside the map boundaries!"/>
+</regions>
+<cores material="obsidian" leak="1">
+    <core team="blue">
+        <region>
+            <cuboid min="32,8,-236" max="28,16,-232"/>
+        </region>
+    </core>
+    <core team="red">
+        <region>
+            <cuboid min="28,8,-549" max="32,16,-545"/>
+        </region>
+    </core>
+</cores>
+<destroyables name="Monument" materials="obsidian" mode-changes="true">
+    <destroyable owner="blue">
+        <region>
+            <cuboid min="28,5,-276" max="24,10,-272"/>
+        </region>
+    </destroyable>
+    <destroyable owner="red">
+        <region>
+            <cuboid min="28,5,-509" max="24,10,-505"/>
+        </region>
+    </destroyable>
+</destroyables>
+<modes>
+    <mode after="15m" material="beacon"/>
+    <mode after="25m" material="gold block"/>
+</modes>
+<renewables>
+    <renewable rate="2.5" particles="true" sound="true">
+        <region>
+            <cuboid id="iron1" min="86,0,-281" max="72,6,-291"/>
+            <cuboid id="iron2" min="86,0,-501" max="72,6,-491"/>
+        </region>
+        <renew-filter>
+            <material>iron block</material>
+        </renew-filter>
+    </renewable>
+</renewables>
+<itemremove>
+    <item>carpet</item>
+    <item>golden carrot</item>
+    <item>leather chestplate</item>
+    <item>leather helmet</item>
+    <item>arrow</item>
+    <item>apple</item>
+    <item>crops</item>
+    <item>sapling</item>
+    <item>grass</item>
+    <item>red rose</item>
+    <item>stained clay</item>
+    <item>obsidian</item>
+    <item>wool</item>
+    <item>bucket</item>
+    <item>golden apple</item>
+</itemremove>
+<toolrepair>
+    <tool>diamond pickaxe</tool>
+    <tool>bow</tool>
+    <tool>stone sword</tool>
+    <tool>iron sword</tool>
+    <tool>stone axe</tool>
+</toolrepair>
+<maxbuildheight>31</maxbuildheight>
+<timelock>on</timelock>
+</map> 

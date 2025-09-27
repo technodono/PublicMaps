@@ -1,0 +1,65 @@
+<map proto="1.5.0">
+<name>BN: Classic</name>
+<version>1.2.2</version>
+<include id="blasternauts"/>
+<timelock>on</timelock>
+<authors>
+    <author uuid="ba4a93aa-4935-4a71-bab2-a58f9a124e7b"/> <!-- ItsMiiOlly -->
+    <author uuid="dee1cc51-66d2-4c5e-a8d4-403dcd1d8c83"/> <!-- lonelyhornet -->
+    <author uuid="9bfbc560-244a-4e28-ab70-185f39740ec1"/> <!-- TheZaner -->
+    <author uuid="9909505b-1f0f-4af1-ae21-afbee92427ce"/> <!-- Winarve -->
+    <author uuid="939a9a1c-f735-467a-bfd7-ae77cafd6693"/> <!-- PlasmaCross -->
+</authors>
+<teams>
+    <team id="blue-team" color="blue" max="4">Blue</team>
+    <team id="yellow-team" color="yellow" max="4">Yellow</team>
+    <team id="orange-team" color="gold" max="4">Orange</team>
+    <team id="purple-team" color="dark purple" max="4">Purple</team>
+</teams>
+<spawns>
+    <spawn team="blue-team" kit="blasternaut-kit" yaw="-45">
+        <region><cylinder base="-39.5,11,-48.5" radius="1" height="0"/></region>
+    </spawn>
+    <spawn team="yellow-team" kit="blasternaut-kit" yaw="-135">
+        <region><cylinder base="-39.5,11,13.5" radius="1" height="0"/></region>
+    </spawn>
+    <spawn team="purple-team" kit="blasternaut-kit" yaw="135">
+        <region><cylinder base="22.5,11,13.5" radius="1" height="0"/></region>
+    </spawn>
+    <spawn team="orange-team" kit="blasternaut-kit" yaw="45">
+        <region><cylinder base="22.5,11,-48.5" radius="1" height="0"/></region>
+    </spawn>
+    <default yaw="-180">
+        <region><cylinder base="-8.5,26,25.5" radius="3" height="0"/></region>
+    </default>
+</spawns>
+<filters>
+    <material id="only-spawner">mob spawner</material>
+</filters>
+<regions>
+    <union id="spawn-areas">
+        <cuboid id="blue-spawn-area" min="-22,9,-51" max="-42,20,-31"/>
+        <cuboid id="yellow-spawn-area" min="-22,9,15" max="-42,20,-5"/>
+        <cuboid id="orange-spawn-area" min="4,9,-51" max="24,20,-31"/>
+        <cuboid id="purple-spawn-area" min="4,9,15" max="24,20,-5"/>
+    </union>
+    <apply enter="blue-team" region="blue-spawn-area" message="You may not enter the enemy's base"/>
+    <apply enter="yellow-team" region="yellow-spawn-area" message="You may not enter the enemy's base"/>
+    <apply enter="orange-team" region="orange-spawn-area" message="You may not enter the enemy's base"/>
+    <apply enter="purple-team" region="purple-spawn-area" message="You may not enter the enemy's base"/>
+    <cuboid id="middle-spawner" min="-12,5,-21" size="7,2,7"/>
+    <cuboid id="real-spawners" min="-12,4,-21" size="7,1,7"/>
+</regions>
+<actions> <!-- leaves the original spawners visible before the match starts - the items they spawn don't work as custom projectiles -->
+    <action id="replace-spawners" scope="match">
+        <fill region="real-spawners" material="159:15" filter="only-spawner"/>
+        <kill-entities filter="old-fireball"/>
+    </action>
+    <trigger action="replace-spawners" filter="match-started" scope="match"/>
+</actions>
+<spawners>
+    <spawner spawn-region="middle-spawner" player-region="everywhere" max-entities="6" delay="4s">
+        <item amount="1" name="`cGrenade MK II `6| `9Right click to use." material="fireball" projectile="fireball-grenade"/>
+    </spawner>
+</spawners>
+</map>

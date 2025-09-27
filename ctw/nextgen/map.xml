@@ -1,0 +1,228 @@
+<map proto="1.5.0">
+<name>NextGen</name>
+<version>3.4.11</version>  <!-- Based upon the TE edition -->
+<objective>Take the enemy's wool located to either side of the enemy's base and place it in your victory monument.</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="dad8b95c-cf6a-44df-982e-8c8dd70201e0" contribution="Reinventing the map"/> <!-- ElectroidFilms -->
+</authors>
+<contributors>
+    <contributor uuid="cbdc7b1d-7a07-465b-bebb-4f20bfb8ebd8" contribution="Re-reinventing the map"/> <!-- Cratain -->
+    <contributor uuid="621b2aa8-4e5f-4ed8-bd36-0ae2f8952a06" contribution="Bias"/>
+    <contributor uuid="ef4ea031-998f-4ec9-b7b6-1bdd428bcef8" contribution="Old map design"/> <!-- Plastix -->
+    <contributor uuid="82c796a5-c033-43be-af30-fa06496995f9" contribution="Old map design"/> <!-- IM_A_H0B0 -->
+    <contributor uuid="3c7db14d-ac4b-4e35-b2c6-3b2237f382be" contribution="Old map design and gameplay management"/> <!-- MonsieurApple -->
+    <contributor uuid="25961a08-c90c-4abd-b136-dad90e89c2eb" contribution="Old map design and item management"/> <!-- Anxuiz -->
+</contributors>
+<teams>
+    <team id="blue" color="blue" max="24">Blue</team>
+    <team id="red" color="dark red" max="24">Red</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <clear/>
+        <item slot="0" unbreakable="true" material="iron_sword"/>
+        <item slot="1" unbreakable="true" material="bow">
+            <enchantment>infinity</enchantment>
+        </item>
+        <item slot="28" material="arrow"/>
+        <item slot="2" unbreakable="true" material="iron pickaxe">
+            <enchantment>efficiency</enchantment>
+        </item>
+        <item slot="3" unbreakable="true" material="iron axe"/>
+        <item slot="4" amount="64" damage="2" material="wood"/>
+        <item slot="5" amount="64" material="glass"/>
+        <item slot="6" amount="64" material="ladder"/>
+        <item slot="8" material="golden apple"/>
+        <item slot="30" unbreakable="true" material="iron spade"/>
+        <item slot="31" amount="64" damage="2" material="wood"/>
+        <helmet unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" team-color="true" material="leather chestplate"/>
+        <leggings unbreakable="true" team-color="true" material="leather leggings"/>
+        <boots unbreakable="true" team-color="true" material="leather boots"/>
+        <effect duration="5" amplifier="255">damage resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <default yaw="-90">
+        <region>
+            <cylinder base="-158.5,51,13.5" radius="3" height="0"/>
+        </region>
+    </default>
+    <spawn team="blue" kit="spawn-kit">
+        <region>
+            <point>-158.5,4,-42.5</point>
+        </region>
+    </spawn>
+    <spawn team="red" kit="spawn-kit" yaw="180">
+        <region>
+            <point>-158.5,4,69.5</point>
+        </region>
+    </spawn>
+</spawns>
+<filters>
+    <deny id="deny-glass">
+        <material>glass</material>
+    </deny>
+    <not id="blue-in-wr">
+        <any>
+            <material>chest</material>
+            <team id="only-red">red</team>
+        </any>
+    </not>
+    <not id="red-in-wr">
+        <any>
+            <material>chest</material>
+            <team id="only-blue">blue</team>
+        </any>
+    </not>
+    <not id="only-blue-usage">
+        <all>
+            <any>
+                <material>chest</material>
+                <material>workbench</material>
+            </any>
+            <filter id="only-red"/>
+        </all>
+    </not>
+    <not id="only-red-usage">
+        <all>
+            <any>
+                <material>chest</material>
+                <material>workbench</material>
+            </any>
+            <filter id="only-blue"/>
+        </all>
+    </not>
+</filters>
+<regions>
+    <union id="spawns">
+        <cuboid id="red-spawn" min="-144,0,56" max="-173,9,80"/>
+        <mirror id="blue-spawn" region="red-spawn" origin="-158.5,0,13.5" normal="0,0,-1"/>
+    </union>
+    <union id="side-lanes">
+        <rectangle min="-115,70" max="-130,-43"/>
+        <rectangle min="-187,70" max="-202,-43"/>
+    </union>
+    <union id="wool-rooms">
+        <union id="blue-rooms">
+            <union id="purple-room">
+                <rectangle min="-188,96" max="-202,86"/>
+                <rectangle min="-189,85" max="-202,86"/>
+                <rectangle min="-190,84" max="-202,86"/>
+                <rectangle min="-191,83" max="-202,86"/>
+                <rectangle min="-192,82" max="-202,86"/>
+            </union>
+            <union id="yellow-room">
+                <rectangle min="-129,96" max="-115,86"/>
+                <rectangle min="-128,85" max="-115,86"/>
+                <rectangle min="-127,84" max="-115,86"/>
+                <rectangle min="-126,83" max="-115,86"/>
+                <rectangle min="-125,82" max="-115,86"/>
+            </union>
+        </union>
+        <union id="red-rooms">
+            <union id="lime-room">
+                <rectangle min="-129,-69" max="-115,-59"/>
+                <rectangle min="-128,-58" max="-115,-59"/>
+                <rectangle min="-127,-57" max="-115,-59"/>
+                <rectangle min="-126,-56" max="-115,-59"/>
+                <rectangle min="-125,-55" max="-115,-59"/>
+            </union>
+            <union id="orange-room">
+                <rectangle min="-188,-69" max="-202,-59"/>
+                <rectangle min="-189,-58" max="-202,-59"/>
+                <rectangle min="-190,-57" max="-202,-59"/>
+                <rectangle min="-191,-56" max="-202,-59"/>
+                <rectangle min="-192,-55" max="-202,-59"/>
+            </union>
+        </union>
+    </union>
+    <complement id="void-region">
+        <everywhere/>
+        <rectangle min="-115,70" max="-130,-43"/>
+        <rectangle min="-187,70" max="-202,-43"/>
+        <rectangle min="-187,31" max="-163,-4"/>
+        <rectangle min="-130,-4" max="-154,31"/>
+        <rectangle min="-163,7" max="-154,20"/>
+        <rectangle min="-163,-28" max="-154,-21"/>
+        <rectangle min="-163,48" max="-154,55"/>
+    </complement>
+    <union id="wool-placements">
+        <block location="-159.5,5.5,-51.5" id="purple-wool"/>
+        <block location="-157.5,5.5,-51.5" id="yellow-wool"/>
+        <block location="-157.5,5.5,78.5" id="lime-wool"/>
+        <block location="-159.5,5.5,78.5" id="orange-wool"/>
+    </union>
+    <!-- Entry Rules -->
+    <apply enter="only-blue" message="You may not enter the enemy's wool room!" region="blue-rooms"/>
+    <apply enter="only-red" message="You may not enter the enemy's wool room!" region="red-rooms"/>
+    <!-- Block Rules -->
+    <apply block="never" message="You may not edit the spawn area!" region="spawns"/>
+    <apply block-place="deny-glass" message="You may not place glass in the side lanes!" region="side-lanes"/>
+    <apply block="blue-in-wr" use="only-blue-usage" region="blue-rooms"/>
+    <apply block="red-in-wr" use="only-red-usage" region="red-rooms"/>
+    <apply block-place="deny(void)" message="You may not build outside of the map!" region="void-region"/>
+</regions>
+<wools craftable="false" wool-proximity-metric="none" monument-proximity-metric="closest block">
+    <wool team="blue" color="purple" location="-196.5,14.5,90.5" monument="purple-wool"/>
+    <wool team="blue" color="yellow" location="-120.5,14.5,90.5" monument="yellow-wool"/>
+    <wool team="red" color="lime" location="-120.5,14.5,-63.5" monument="lime-wool"/>
+    <wool team="red" color="orange" location="-196.5,14.5,-63.5" monument="orange-wool"/>
+</wools>
+<block-drops>
+    <rule wrong-tool="true">
+        <filter>
+            <material>gravel</material>
+        </filter>
+        <drops>
+            <item material="flint"/>
+        </drops>
+    </rule>
+</block-drops>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+    <tool>iron pickaxe</tool>
+    <tool>iron axe</tool>
+    <tool>iron spade</tool>
+    <tool>arrow</tool>
+</toolrepair>
+<itemremove>
+    <item>wood</item>
+    <item>glass</item>
+    <item>golden carrot</item>
+    <item>glowstone dust</item>
+    <item>clay ball</item>
+    <item>sand</item>
+    <item>gravel</item>
+    <item>stone plate</item>
+    <item>log 2</item>
+    <item>string</item>
+    <item>apple</item>
+    <item>sapling</item>
+    <item>sugar cane</item>
+    <item>glass bottle</item>
+    <item>redstone</item>
+    <item>stick</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+</itemremove>
+<itemkeep>
+    <item>golden apple</item>
+</itemkeep>
+<maxbuildheight>28</maxbuildheight>
+<crafting>
+    <disable>iron trapdoor</disable>
+    <disable>minecart</disable>
+    <disable>boat</disable>
+</crafting>
+<gamerules>
+    <doDaylightCycle>true</doDaylightCycle>
+</gamerules>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+</map>

@@ -1,0 +1,92 @@
+<map proto="1.5.0">
+<name>Greecia II</name>
+<version>1.0.4</version>
+<objective>Destroy the other team's core before they destroy yours!</objective>
+<created>2014-12-30</created>
+<authors>
+    <author uuid="b8539c6d-533b-4be2-8f0d-3f70431eee87"/> <!-- CatchingMC -->
+</authors>
+<contributors>
+    <contributor uuid="bdb417b7-8d57-460f-951e-69dfaf764430" contribution="XML"/> <!-- C4477 -->
+</contributors>
+<teams>
+   <team id="blue-team" color="blue" max="16" max-overfill="20">Blue</team>
+   <team id="red-team" color="red" max="16" max-overfill="20">Red</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="stone sword"/>
+        <item slot="1" material="bow"/>
+        <item slot="2" material="diamond pickaxe"/>
+        <item slot="3" material="iron axe"/>
+        <item slot="4" material="iron spade"/>
+        <item slot="5" amount="16" damage="2" material="wood"/>
+        <item slot="6" amount="16" material="quartz block"/>
+        <item slot="7" amount="32" material="cooked fish"/>
+        <item slot="28" amount="16" material="arrow"/>
+        <helmet team-color="true" material="leather helmet"/>
+        <chestplate team-color="true" material="leather chestplate"/>
+        <leggings material="chainmail leggings"/>
+        <boots team-color="true" material="leather boots"/>
+        <effect duration="5" amplifier="4">damage resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="blue-team" kit="spawn-kit" yaw="90">
+        <region>
+            <point>-484.5,38,484.5</point>
+        </region>
+    </spawn>
+    <spawn team="red-team" kit="spawn-kit" yaw="-90">
+        <region>
+            <point>-634.5,38,512.5</point>
+        </region>
+    </spawn>
+    <default yaw="180">
+        <region>
+            <point>-560,57,556</point>
+        </region>
+    </default>
+</spawns>
+<regions>
+    <union id="spawns">
+        <cuboid id="blue-spawn" min="-496,37,496" max="-480,45,480"/>
+        <cuboid id="red-spawn"  min="-638,45,516" max="-622,37,500"/>
+    </union>
+    <negative id="not-playable">
+        <cuboid id="playable" min="-642,19,520" max="-477,oo,477"/>
+    </negative>
+    <apply region="spawns" block="never" message="You may not edit the spawns!"/>
+    <apply region="not-playable" block="never" message="You may not build outside the map!"/>
+</regions>
+<cores leak="4">
+    <core team="blue-team">
+        <region>
+            <cuboid min="-520,40,513" max="-523,35,510"/>
+        </region>
+    </core>
+    <core team="red-team">
+        <region>
+            <cuboid min="-596,40,487" max="-599,35,484"/>
+        </region>
+    </core>
+</cores>
+<toolrepair>
+    <tool>stone sword</tool>
+    <tool>bow</tool>
+    <tool>iron pickaxe</tool>
+    <tool>iron spade</tool>
+    <tool>diamond pickaxe</tool>
+</toolrepair>
+<itemremove>
+    <item>leather helmet</item>
+    <item>cooked fish</item>
+    <item>leather chestplate</item>
+    <item>leather boots</item>
+    <item>chainmail leggings</item>
+    <item>obsidian</item>
+    <item>seeds</item>
+    <item>yellow flower</item>
+    <item>red rose</item>
+</itemremove>
+</map>

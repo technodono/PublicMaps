@@ -1,0 +1,80 @@
+<map proto="1.5.0">
+<name>Longhorn</name>
+<version>1.2</version>
+<if variant="default">
+    <slug>flag_football_longhorn</slug>
+</if>
+<variant id="comp" slug="flag_football_longhorn_te">TE</variant>
+<constants>
+    <constant id="team-1-spawn-yaw">90</constant>
+    <constant id="team-2-spawn-yaw">-90</constant>
+    <constant id="team-1-spawn-pitch">-20</constant>
+    <constant id="team-2-spawn-pitch">-20</constant>
+    <constant id="flag-color">brown</constant>
+    <constant id="flag-post">1.5,8,5.5</constant>
+    <constant id="team-size">8</constant>
+    <constant id="max-overfill" delete="true"/>
+    <constant id="respawn-timer">3s</constant>
+    <if variant="comp">
+        <constant id="team-size">5</constant>
+        <constant id="max-overfill">5</constant>
+        <constant id="respawn-timer">5s</constant>
+    </if>
+</constants>
+<include id="ffb"/>
+<objective>Capture the flag as many times as possible in eight minutes!</objective>
+<authors>
+    <author uuid="0c44ca5a-6a42-49b7-81f2-58dc6d2ae3e9"/> <!-- Xerocoles -->
+</authors>
+<teams>
+    <team id="team-1" color="blue" max="${team-size}" max-overfill="${max-overfill}">Blue</team>
+    <team id="team-2" color="dark red" max="${team-size}" max-overfill="${max-overfill}">Red</team>
+</teams>
+<spawns>
+    <default>
+        <region yaw="90">
+            <cuboid min="23.5,25,7.5" max="22.5,25,3.5"/>
+        </region>
+    </default>
+    <spawn team="team-1" kit="spawn-kit">
+        <region yaw="${team-1-spawn-yaw}" pitch="${team-1-spawn-pitch}">
+            <point>21.5,6,5.5</point>
+        </region>
+    </spawn>
+    <spawn team="team-2" kit="spawn-kit">
+        <region yaw="${team-2-spawn-yaw}" pitch="${team-2-spawn-pitch}">
+            <point>-17.5,6,5.5</point>
+        </region>
+    </spawn>
+</spawns>
+<filters>
+    <not id="not-above-nor-below">
+        <cuboid min="-1,8,3" max="3,6,7"/>
+    </not>
+</filters>
+<regions>
+    <union id="spawn-points">
+        <point id="team-1-spawn-point">21.5,6.25,5.5</point>
+        <point id="team-2-spawn-point">-17.5,6.25,5.5</point>
+    </union>
+    <union id="sides">
+        <rectangle id="team-1-side" min="8,14" max="-5,61"/>
+        <rectangle id="team-2-side" min="-5,-3" max="8,-50"/>
+    </union>
+    <union id="nets">
+        <cuboid id="team-1-net" min="7,4,49" max="-4,7,60"/>
+        <cuboid id="team-2-net" min="-4,4,-38" max="7,7,-49"/>
+    </union>
+    <union id="spawns">
+        <cuboid id="team-1-spawn" min="19,4,3" max="23,10,7"/>
+        <cuboid id="team-2-spawn" min="-15,4,3" max="-19,10,7"/>
+    </union>
+    <union id="crossing-areas">
+        <cuboid min="2,10,62" max="1,18,72"/>
+        <cuboid min="1,10,-51" max="2,18,-61"/>
+        <cuboid min="2,4,70" max="1,9,75"/>
+        <cuboid min="1,4,-59" max="2,9,-64"/>
+    </union>
+    <apply enter="never" region="crossing-areas" message="You may not cross this land!"/>
+</regions>
+</map>

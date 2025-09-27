@@ -1,0 +1,121 @@
+<map proto="1.5.0">
+<name>Basilica</name>
+<version>2.1.9</version>
+<variant id="5v5">5v5</variant>
+<objective>Capture the enemy flag as many times as possible before time runs out!</objective>
+<time result="score" overtime="1m" max-overtime="3m">12m</time>
+<constant id="damage-resistance">2s</constant>
+<unless variant="5v5">
+    <constant id="team-size">12</constant>
+    <constant id="max-overfill" delete="true"/>
+    <constant id="respawn-timer">3s</constant>
+    <include id="conquest"/>
+</unless>
+<if variant="5v5">
+    <constant id="team-size">5</constant>
+    <constant id="max-overfill">5</constant>
+    <constant id="respawn-timer">4.5s</constant>
+    <include id="conquest-comp"/>
+</if>
+<authors>
+    <author uuid="459fd919-0d58-401a-9601-6cab1eb721ab"/> <!-- Reshif -->
+    <author uuid="cbdc7b1d-7a07-465b-bebb-4f20bfb8ebd8"/> <!-- Cratain -->
+</authors>
+<contributors>
+    <contributor uuid="621b2aa8-4e5f-4ed8-bd36-0ae2f8952a06" contribution="2.0 update, aesthetics"/> <!-- Strangey -->
+    <contributor uuid="13d54b8b-4abf-46a7-b3ad-f12d5dd74bc3" contribution="Aesthetics"/> <!-- BlueSnowflakes -->
+    <contributor uuid="6bec5c3a-4934-4b19-9aa8-c7c569820f7d" contribution="Aesthetics"/> <!-- Claf -->
+</contributors>
+<teams>
+    <team id="blue-team" color="blue" max="${team-size}" max-overfill="${max-overfill}">Blue</team>
+    <team id="red-team" color="dark red" max="${team-size}" max-overfill="${max-overfill}">Red</team>
+</teams>
+<kits>
+    <kit id="default-kit">
+        <effect>night vision</effect>
+    </kit>
+    <kit id="spawn-kit" parents="default-kit,base-kit"/>
+    <kit id="flag-carry-kit">
+        <effect>slowness</effect>
+    </kit>
+</kits>
+<spawns>
+    <default kit="default-kit">
+        <region yaw="0">
+            <cylinder base="0.5,14,-23.5" height="0" radius="1"/>
+        </region>
+    </default>
+    <spawn team="blue-team" kit="spawn-kit">
+        <region yaw="90">
+            <cylinder base="38,8,-17" height="0" radius="1"/>
+        </region>
+    </spawn>
+    <spawn team="red-team" kit="spawn-kit">
+        <region yaw="-90">
+            <cylinder base="-37,8,-17" height="0" radius="1"/>
+        </region>
+    </spawn>
+</spawns>
+<regions>
+    <cuboid id="blue-net" min="22,7,11" size="3,5,3"/>
+    <cuboid id="red-net" min="-24,7,11" size="3,5,3"/>
+    <apply block="never" use="never"/>
+</regions>
+<flags flag-proximity-metric="none" net-proximity-metric="none" required="false">
+    <flag id="blue-flag"
+          name="Blue Flag"
+          owner="blue-team"
+          color="blue"
+          carry-kit="flag-carry-kit">
+        <post pickup-filter="red-team" recover-time="15s" respawn-time="10s">23.5,8,12.5</post>
+        <net region="red-net" points="1"/>
+    </flag>
+    <flag id="red-flag"
+          name="Red Flag"
+          owner="red-team"
+          color="red"
+          carry-kit="flag-carry-kit">
+        <post pickup-filter="blue-team" recover-time="15s" respawn-time="10s">-22.5,8,12.5</post>
+        <net region="blue-net" points="1"/>
+    </flag>
+</flags>
+<score/>
+<spawners>
+    <spawner id="arrow-blue" delay="2s">
+        <spawn-region>
+            <point>13.5,11.2,-3.5</point>
+        </spawn-region>
+        <player-region>
+            <cylinder base="13.5,10,-3.5" height="4" radius="2"/>
+        </player-region>
+        <item material="arrow"/>
+    </spawner>
+    <spawner id="arrow-red" delay="2s">
+        <spawn-region>
+            <point>-12.5,11.2,-3.5</point>
+        </spawn-region>
+        <player-region>
+            <cylinder base="-12.5,10,-3.5" height="4" radius="2"/>
+        </player-region>
+        <item material="arrow"/>
+    </spawner>
+    <spawner id="arrow-cove" delay="1.8s">
+        <spawn-region>
+            <point>0.5,9.2,-26.5</point>
+        </spawn-region>
+        <player-region>
+            <cylinder base="0.5,8,-26.5" height="4" radius="2"/>
+        </player-region>
+        <item material="arrow"/>
+    </spawner>
+    <spawner id="golden-apple" delay="6s">
+        <spawn-region>
+            <point>0.5,10.2,12.5</point>
+        </spawn-region>
+        <player-region>
+            <cylinder base="0.5,10,12.5" height="4" radius="2.5"/>
+        </player-region>
+        <item material="golden apple"/>
+    </spawner>
+</spawners>
+</map>

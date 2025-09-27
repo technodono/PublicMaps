@@ -1,0 +1,53 @@
+<map proto="1.5.0">
+<name>Hekla</name>
+<version>1.0.6</version>
+<include id="kotf"/>
+<constant id="damage-resistance">4s</constant>
+<constant id="respawn-timer">3.5s</constant>
+<constant id="score">120</constant>
+<constant id="flag-respawn-timer">8s</constant>
+<objective>Hold the flag for ${score} seconds to win!</objective>
+<authors>
+    <author uuid="bbfac3db-dd46-4996-b936-0e2432f33285"/> <!-- Valky -->
+    <author uuid="0b4f8c7a-b80c-4fb1-86c8-999ef5b799be"/> <!-- LeoDerLastwagen -->
+</authors>
+<teams>
+    <team id="blue" color="blue" max="5">Blue</team>
+    <team id="red" color="dark red" max="5">Red</team>
+</teams>
+<spawns>
+    <default>
+        <region yaw="-90">
+            <cylinder base="-184.5,12,-1.5" radius="1" height="0"/>
+        </region>
+    </default>
+    <spawn team="blue" kit="base-kit" filter="has-flag">
+        <region yaw="180">
+            <point>-179,14,36</point>
+        </region>
+    </spawn>
+    <spawn team="red" kit="base-kit" filter="has-flag">
+        <region yaw="0">
+            <point>-179,14,-39</point>
+        </region>
+    </spawn>
+</spawns>
+<regions>
+    <apply block="never" block-physics="never" use="never"/>
+</regions>
+<flags>
+    <flag id="flag"
+          name="Flag"
+          shared="true"
+          points-rate="1"
+          pickup-kit="flag-kit"
+          drop-kit="reset-health"
+          flag-proximity-metric="none"
+          show-respawn-on-pickup="${announce-post-pickup}">
+        <post return-time="0s" respawn-time="${flag-respawn-timer}">
+            <post name="East Post">-175.5,14,-1.5</post>
+            <post name="West Post" yaw="-90">-184.5,11,-1.5</post>
+        </post>
+    </flag>
+</flags>
+</map>

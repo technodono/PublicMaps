@@ -1,0 +1,168 @@
+<map proto="1.5.0">
+<name>Astro</name>
+<version>1.0.16</version>
+<objective>Destroy the enemy team's core!</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="e37f18f1-117b-47db-8806-6d3a0854b518"/> <!-- chickolympics -->
+    <author uuid="15dc7f7a-40cd-4389-ad45-f8a33a09a394"/> <!-- moo88888888 -->
+</authors>
+<teams>
+    <team id="purple" color="dark purple" max="35">Purple</team>
+    <team id="orange" color="gold" max="35">Orange</team>
+</teams>
+<kits>
+    <kit id="all">
+        <effect>night vision</effect>
+    </kit>
+    <kit id="teams" parents="all">
+        <item slot="0" unbreakable="true" material="iron sword"/>
+        <item slot="1" unbreakable="true" material="bow" enchantment="arrow damage"/>
+        <item slot="28" amount="64" material="arrow"/>
+        <item slot="2" unbreakable="true" material="iron pickaxe">
+            <enchantment level="3">dig_speed</enchantment>
+        </item>
+        <item slot="3" unbreakable="true" material="iron axe"/>
+        <item slot="4" amount="64" damage="1" material="log"/>
+        <item slot="5" amount="64" damage="9" material="stained clay"/>
+        <item slot="6" amount="2" material="golden apple"/>
+    </kit>
+</kits>
+<spawns>
+    <spawns>
+        <spawn team="purple" kit="teams" yaw="180">
+            <region>
+                <cylinder base="-1.5,120,-15.5" radius="2" height="0"/>
+            </region>
+        </spawn>
+        <spawn team="orange" kit="teams">
+            <region>
+                <cylinder base="-1.5,120,-268.5" radius="2" height="0"/>
+            </region>
+        </spawn>
+    </spawns>
+    <default yaw="90" kit="all">
+        <region>
+            <cylinder base="73.5,34,-142.0" radius="2" height="0"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <material id="only-iron">iron block</material>
+    <not id="anti-grief-orange">
+        <all>
+            <material>tnt</material>
+            <team id="only-orange">orange</team>
+        </all>
+    </not>
+    <not id="anti-grief-purple">
+        <all>
+            <material>tnt</material>
+            <team id="only-purple">purple</team>
+        </all>
+    </not>
+</filters>
+<regions>
+    <negative id="center-inverse">
+        <rectangle id="center" min="-24,-197" max="51,-87"/>
+    </negative>
+    <!-- Orange Regions -->
+    <cylinder id="orange-ship" base="-1.5,106,-261.5" radius="23" height="oo"/>
+    <cuboid id="around-orange-portal" min="3,119,-266" max="-6,123,-257"/>
+    <cuboid id="orange-portal-a" min="-4,119,-259" max="1,123,-264"/>
+    <cuboid id="orange-base" min="-13,52,-274" max="3,63,-258"/>
+    <cuboid id="orange-portal-b" min="0,52,-268" max="1,55,-265"/>
+    <cuboid id="orange-portal-c" min="-4,52,-261" max="-7,55,-260"/>
+    <!-- Purpe Regions -->
+    <cylinder id="purple-ship" base="-1.5,104,-24.5" radius="23" height="oo"/>
+    <cuboid id="around-purple-portal" min="-6,119,-27" max="3,123,-18"/>
+    <cuboid id="purple-portal-a" min="1,119,-20" max="-4,123,-25"/>
+    <cuboid id="purple-base" min="-13,52,-10" max="3,63,-26"/>
+    <cuboid id="purple-portal-b" min="-7,52,-23" max="-4,55,-24"/>
+    <cuboid id="purple-portal-c" min="0,52,-19" max="1,55,-16"/>
+    <!-- Applied -->
+    <apply block="never">
+        <region>
+            <region id="around-purple-portal"/>
+            <region id="around-orange-portal"/>
+            <region id="purple-base"/>
+            <region id="orange-base"/>
+        </region>
+    </apply>
+    <apply block="only-iron" message="You may not modify the base area">
+        <region>
+            <region id="orange-ship"/>
+            <region id="purple-ship"/>
+        </region>
+    </apply>
+    <apply region="center-inverse" block="deny(void)" message="You may not build outside the map!"/>
+</regions>
+<cores material="obsidian" leak="3" mode-changes="true">
+    <core name="Back Core" team="purple">
+        <region>
+            <cuboid min="18,58,-27" max="23,63,-32"/>
+        </region>
+    </core>
+    <core name="Front Core" team="purple">
+        <region>
+            <cuboid min="15,29,-63" max="20,34,-58"/>
+        </region>
+    </core>
+    <core name="Front Core" team="orange">
+        <region>
+            <cuboid min="20,29,-221" max="15,34,-226"/>
+        </region>
+    </core>
+    <core name="Back Core" team="orange">
+        <region>
+            <cuboid min="18,58,-252" max="23,63,-257"/>
+        </region>
+    </core>
+</cores>
+<modes>
+    <mode after="20m" material="gold block" name="GOLD CORE MODE"/>
+    <mode after="30m" material="glass" name="GLASS CORE MODE"/>
+</modes>
+<portals>
+    <portal x="@-5.5" y="@55" z="@-266.5" pitch="@10" yaw="@-45" region="orange-portal-a" filter="only-orange"/>
+    <portal x="@-1.5" y="@120" z="@-274.5" pitch="@0" yaw="@0" filter="only-orange">
+        <region>
+            <region id="orange-portal-b"/>
+            <region id="orange-portal-c"/>
+        </region>
+    </portal>
+    <portal x="@-5.5" y="@55" z="@-17.5" pitch="@10" yaw="@-135" region="purple-portal-a" filter="only-purple"/>
+    <portal x="@-1.5" y="@120" z="@-9.5" pitch="@0" yaw="@180" filter="only-purple">
+        <region>
+            <region id="purple-portal-b"/>
+            <region id="purple-portal-c"/>
+        </region>
+    </portal>
+</portals>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+    <tool>iron pickaxe</tool>
+    <tool>iron axe</tool>
+</toolrepair>
+<itemremove>
+    <item>sapling</item>
+    <item>beacon</item>
+    <item>arrow</item>
+    <item>log</item>
+    <item>wood</item>
+    <item>stained clay</item>
+    <item>golden apple</item>
+    <item>obsidian</item>
+    <item>gold block</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+        <item amount="16" material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+<maxbuildheight>100</maxbuildheight>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+</map>

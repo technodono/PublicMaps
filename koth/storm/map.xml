@@ -1,0 +1,131 @@
+<map proto="1.5.0">
+<name>Storm</name>
+<variant id="classic" world="classic">Classic</variant>
+<version>2.0</version>
+<include id="conquest"/>
+<constant id="respawn-timer">3s</constant>
+<constant id="damage-resistance">4s</constant>
+<if variant="classic">
+    <phase>staging</phase>
+</if>
+<objective>Control the hills to be the first to ${score} points!</objective>
+<authors>
+    <author uuid="ef4ea031-998f-4ec9-b7b6-1bdd428bcef8"/> <!-- Plastix -->
+    <author uuid="5986da63-a546-49c5-812d-d5c41a42510a"/> <!-- Lyzak -->
+    <author uuid="90e029a3-6873-46a7-8430-0ec3dbc42aba"/> <!-- SajinZero -->
+</authors>
+<teams>
+    <team id="blue" color="blue" max="32">Blue</team>
+    <team id="red" color="dark red" max="32">Red</team>
+</teams>
+<filters>
+    <deny id="no-gui">
+        <any>
+            <material>beacon</material>
+            <material>hopper</material>
+            <material>furnace</material>
+        </any>
+    </deny>
+</filters>
+<regions>
+    <cylinder id="spawn-default" base="95,60,0" radius="3" height="0"/>
+    <cylinder id="blue-spawn" base="-48,3,-65" radius="4" height="0"/>
+    <cylinder id="red-spawn" base="49,3,66" radius="4" height="0"/>
+    <apply block="never" use="no-gui"/>
+</regions>
+<spawns>
+    <default yaw="90" region="spawn-default"/>
+    <spawn team="blue" kit="base-kit" region="blue-spawn"/>
+    <spawn team="red" kit="base-kit" yaw="180" region="red-spawn"/>
+</spawns>
+<constants>
+    <unless variant="classic">
+        <constant id="mid-capture-time">5</constant>
+        <constant id="a-b-capture-time">5</constant>
+        <constant id="mid-points">3.5</constant>
+        <constant id="a-b-points">2.75</constant>
+        <constant id="score">2500</constant>
+    </unless>
+    <if variant="classic">
+        <constant id="mid-capture-time">15</constant>
+        <constant id="a-b-capture-time">10</constant>
+        <constant id="mid-points">1</constant>
+        <constant id="a-b-points">1</constant>
+        <constant id="score">750</constant>
+    </if>
+</constants>
+<king>
+    <hills required="false" time-multiplier="0" show-progress="true" neutral-state="true" incremental="true" permanent="false">
+        <hill name="Hill A" capture-time="${a-b-capture-time}" points="${a-b-points}">
+            <capture>
+                <cuboid min="37,12,-38" max="46,15,-29"/>
+            </capture>
+            <progress>
+                <cuboid min="36,11,-39" max="48,17,-27"/>
+            </progress>
+        </hill>
+        <hill name="Middle" capture-time="${mid-capture-time}" points="${mid-points}">
+            <capture>
+                <cuboid min="-4,4,-4" max="5,7,5"/>
+            </capture>
+            <progress>
+                <cuboid min="-5,3,-5" max="6,10,6"/>
+            </progress>
+        </hill>
+        <hill name="Hill B" capture-time="${a-b-capture-time}" points="${a-b-points}">
+            <capture>
+                <cuboid min="-45,12,30" max="-36,15,39"/>
+            </capture>
+            <progress>
+                <cuboid min="-46,11,29" max="-34,17,41"/>
+            </progress>
+        </hill>
+    </hills>
+</king>
+<score>
+    <limit>${score}</limit>
+</score>
+<world>
+    <timeset>18000</timeset>
+</world>
+</map>
+<!-- include src="tutorial.xml"/>
+<tutorial>
+    <stage title="King of the Hill">
+        <message>
+            <line>§rThis map is a §a§lKing of the Hill §r(KotH) map</line>
+            <line>First team to hold all `a3 hills `rwins. You can also win by having the most hills `bcontrolled `rat the end of the time limit.</line>
+        </message>
+        <teleport>
+            <point yaw="135" pitch="30">30.5,38,30.5</point>
+        </teleport>
+    </stage>
+    <stage title="Spawn">
+        <message>
+            <line>This is the `cRed Team `rspawn. The `9Blue Team `rspawn is identical.</line>
+            <line>You spawn with gear ready to go into battle!</line>
+        </message>
+        <teleport>
+            <point yaw="125" pitch="10">59.5,7,73.5</point>
+        </teleport>
+    </stage>
+    <stage title="Hills">
+        <message>
+            <line>There is a `bhill `rin the `acenter`r, to the left is `aHill B`r, and to the right is `aHill A`r.</line>
+            <line>Hills are indicated with a `bbeacon.</line>
+            <line>The center hill will mostly be the most active.</line>
+        </message>
+        <teleport>
+            <point yaw="135" pitch="30">30.5,38,30.5</point>
+        </teleport>
+    </stage>
+    <stage title="Health Potions">
+        <message>
+            <line>There are chests like this scattered about the map.</line>
+            <line>They contain `bInstant Health 2 `rPotions.</line>
+        </message>
+        <teleport>
+            <point yaw="0" pitch="15">-28.5,6,16.5</point>
+        </teleport>
+    </stage>
+</tutorial> -->

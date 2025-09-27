@@ -1,0 +1,70 @@
+<map proto="1.5.0">
+<name>Skyfall</name>
+<version>1.0.5</version>
+<objective>Avoid the TNT falling from the sky!</objective>
+<authors>
+    <author uuid="459fd919-0d58-401a-9601-6cab1eb721ab"/> <!-- Reshif -->
+</authors>
+<broadcasts>
+    <alert after="5s">TNT will start to fall from the sky! Survive the longest!</alert>
+</broadcasts>
+<players max="75" colors="true"/>
+<kits>
+    <kit id="spawn-kit">
+        <!-- <item slot="0" amount="8" material="tnt"/> try it without this to start-->
+        <helmet material="iron helmet"/>
+        <chestplate enchantment="protection_explosions:2" material="diamond chestplate"/>
+        <leggings material="leather leggings"/>
+        <boots material="leather boots"/>
+        <effect duration="3">heal</effect>
+        <effect duration="10" amplifier="50">weakness</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawns kit="spawn-kit" safe="true">
+        <spawn>
+            <region>
+                <cylinder base="0.5,6,0.5" radius="25" height="1"/>
+            </region>
+        </spawn>
+    </spawns>
+    <default yaw="180">
+        <region>
+            <cylinder base="0.5,6,0.5" radius="3" height="0"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <material id="only-tnt">tnt</material>
+</filters>
+<regions>
+    <apply block="only-tnt"/>
+</regions>
+<time>4m</time>
+<blitz>
+    <lives>1</lives>
+</blitz>
+<itemremove>
+    <item>tnt</item>
+    <item>iron helmet</item>
+    <item>diamond chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+</itemremove>
+<mobs>
+    <filter>
+        <any>
+            <spawn>spawner egg</spawn>
+            <spawn>spawner</spawn>
+        </any>
+    </filter>
+</mobs>
+<tnt>
+    <instantignite>on</instantignite>
+    <blockdamage>off</blockdamage>
+</tnt>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<respawn auto="true"/>
+</map>

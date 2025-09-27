@@ -1,0 +1,125 @@
+<map proto="1.5.0">
+<name>Loyalty DTM</name>
+<version>1.1.6</version>
+<include id="gapple-kill-reward"/>
+<objective>Break the other team's two obsidian monuments to win!</objective>
+<authors>
+    <author uuid="130be12a-f3b9-4b7d-ad39-7b45e84d3d0f"/>  <!-- Veiyl AKA g_a_r_b_o -->
+    <author uuid="36dc036a-dfbc-4627-b66a-501223f08075"/> <!-- ieatboulders2 AKA bend -->
+</authors>
+<teams>
+    <team id="red" color="dark red" max="14">Red</team>
+    <team id="blue" color="blue" max="14">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <clear/>
+        <item unbreakable="true" slot="0" material="stone sword"/>
+        <item unbreakable="true" slot="1" enchantment="arrow infinite" material="bow"/>
+        <item unbreakable="true" slot="2" material="diamond pickaxe"/>
+        <item slot="28" material="arrow"/>
+        <item unbreakable="true" slot="3" material="iron axe"/>
+        <item slot="4" amount="32" material="log"/>
+        <item slot="5" material="golden apple"/>
+        <helmet unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" material="iron chestplate"/>
+        <leggings unbreakable="true" team-color="true" material="leather leggings"/>
+        <boots unbreakable="true" team-color="true" material="leather boots"/>
+        <effect duration="5">heal</effect>
+        <effect duration="5">damage resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red" kit="spawn-kit" yaw="-90">
+        <region>
+            <cuboid min="-370,10,1173" max="-374,10,1174"/>
+        </region>
+    </spawn>
+    <spawn team="blue" kit="spawn-kit" yaw="90">
+        <region>
+            <cuboid min="-256,10,1173" max="-260,10,1174"/>
+        </region>
+    </spawn>
+    <default yaw="90">
+        <region>
+            <cylinder base="-315.5,49,1173.5" radius="1" height="0"/>
+        </region>
+    </default>
+</spawns>
+<regions>
+    <union id="spawns">
+        <union id="red-spawn">
+            <rectangle min="-354,1184" max="-366,1178"/>
+            <rectangle min="-354,1162" max="-366,1168"/>
+            <rectangle min="-357,1167" max="-379,1179"/>
+        </union>
+        <union id="blue-spawn">
+            <rectangle min="-276,1162" max="-264,1168"/>
+            <rectangle min="-276,1184" max="-264,1178"/>
+            <rectangle min="-273,1167" max="-251,1179"/>
+        </union>
+        <!-- weird regions that select the monument housing, no filters that allow obsidian breakage
+        <cuboid min="-338,23,1189" max="-343,oo,1196"/>
+        <cuboid min="-338,23,1151" max="-343,oo,1158"/>
+        <cuboid min="-286,23,1189" max="-291,oo,1196"/>
+        <cuboid min="-286,23,1151" max="-291,oo,1158"/>
+        -->
+    </union>
+    <negative id="playable-inverse">
+        <cuboid min="-380,1,1149" max="-250,43,1199"/>
+    </negative>
+    <apply region="spawns" block="never" message="You may not modify spawn areas!"/>
+    <apply region="playable-inverse" block="never" message="You may not build outside the map! Go back to battle!"/>
+</regions>
+<destroyables materials="obsidian">
+    <destroyable name="Monument A" owner="blue">
+        <region>
+            <cuboid min="-290,27,1192" max="-289,29,1193"/>
+        </region>
+    </destroyable>
+    <destroyable name="Monument B" owner="blue">
+        <region>
+            <cuboid min="-290,27,1154" max="-289,29,1155"/>
+        </region>
+    </destroyable>
+    <destroyable name="Monument A" owner="red">
+        <region>
+            <cuboid min="-342,27,1154" max="-341,29,1155"/>
+        </region>
+    </destroyable>
+    <destroyable name="Monument B" owner="red">
+        <region>
+            <cuboid min="-342,27,1192" max="-341,29,1193"/>
+        </region>
+    </destroyable>
+</destroyables>
+<toolrepair>
+    <tool>stone sword</tool>
+    <tool>bow</tool>
+    <tool>diamond pickaxe</tool>
+    <tool>iron axe</tool>
+    <tool>arrow</tool>
+</toolrepair>
+<itemkeep>
+    <item>golden apple</item>
+    <item>log</item>
+    <item>wood</item>
+</itemkeep>
+<itemremove>
+    <item>leather helmet</item>
+    <item>iron chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>bread</item>
+    <item>seeds</item>
+    <item>yellow flower</item>
+    <item>red rose</item>
+    <item>sugar cane</item>
+    <item>obsidian</item>
+</itemremove>
+<timelock>on</timelock>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<maxbuildheight>42</maxbuildheight>
+</map>

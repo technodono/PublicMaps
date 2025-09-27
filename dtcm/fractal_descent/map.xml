@@ -1,0 +1,144 @@
+<map proto="1.5.0">
+<name>Fractal Descent</name>
+<version>1.2.8</version>
+<include id="gapple-kill-reward"/>
+<objective>Leak lava from the enemy's obsidian core and destroy their two endstone monuments.</objective>
+<created>2013-12-24</created>
+<authors>
+    <author uuid="c33a03bf-0f73-46e2-a93e-ddb7d25232d1" contribution="Design and building"/> <!-- teheggy -->
+    <author uuid="459fd919-0d58-401a-9601-6cab1eb721ab" contribution="Design, building, and XML"/> <!-- Reshif -->
+</authors>
+<rules>
+    <rule>Players have resistance and reduced knockback in spawn!</rule>
+</rules>
+<teams>
+    <team id="red-team" color="dark red" max="32">Red</team>
+    <team id="blue-team" color="blue" max="32">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <clear/>
+        <item slot="0" unbreakable="true" material="diamond sword"/>
+        <item slot="1" unbreakable="true" enchantment="arrow infinite" material="bow"/>
+        <item slot="28" material="arrow"/>
+        <item slot="2" unbreakable="true" material="diamond pickaxe"/>
+        <item slot="3" unbreakable="true" material="diamond axe"/>
+        <item slot="4" amount="64" material="smooth brick"/>
+        <item slot="31" amount="64" material="smooth brick"/>
+        <item slot="5" amount="64" material="glass"/>
+        <item slot="6" amount="64" damage="1" material="wood"/>
+        <item slot="7" amount="32" material="ladder"/>
+        <item slot="8" amount="32" material="golden carrot"/>
+        <chestplate unbreakable="true" material="chainmail chestplate"/>
+        <boots unbreakable="true" team-color="true" material="leather boots"/>
+    </kit>
+    <kit id="spawn-protection">
+        <effect amplifier="20">damage resistance</effect>
+        <knockback-reduction>1</knockback-reduction>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="blue-team" kit="spawn-kit">
+        <region>
+            <cuboid min="-1,18,-102" max="1,18,-100"/>
+        </region>
+    </spawn>
+    <spawn team="red-team" kit="spawn-kit" yaw="180">
+        <region>
+            <cuboid min="-1,18,100" max="1,18,102"/>
+        </region>
+    </spawn>
+    <default yaw="-90">
+        <region>
+            <cuboid min="-58,29,-2" max="-54,29,2"/>
+        </region>
+    </default>
+</spawns>
+<regions>
+    <negative id="outside-playable">
+        <cuboid id="main" min="-42,12,-92" max="42,45,92"/>
+        <cuboid id="center" min="-42,-oo,-48" max="42,45,48"/>
+    </negative>
+    <union id="spawns">
+        <circle id="red-spawn" center="0,84" radius="10"/>
+        <circle id="blue-spawn" center="0,-84" radius="10"/>
+    </union>
+    <apply lend-kit="spawn-protection" filter="blue-team">
+        <region>
+            <cuboid min="-9,17,-75" max="9,25,-99"/>
+        </region>
+    </apply>
+    <apply lend-kit="spawn-protection" filter="red-team">
+        <region>
+            <cuboid min="-9,17,75" max="9,25,99"/>
+        </region>
+    </apply>
+    <apply region="spawns" block="never" message="You may not destroy the spawn area!"/>
+    <apply region="outside-playable" block="never" message="You may not interact with blocks outside the playing field."/>
+</regions>
+<modes>
+    <mode after="10m" material="gold block" name="GOLD CORE MODE"/>
+    <mode after="15m" material="glass" name="GLASS CORE MODE"/>
+</modes>
+<cores material="obsidian" leak="6" mode-changes="true">
+    <core team="blue-team">
+        <region>
+            <cuboid min="-3,17,-45" max="3,23,-39"/>
+        </region>
+    </core>
+    <core team="red-team">
+        <region>
+            <cuboid min="-3,17,39" max="3,23,45"/>
+        </region>
+    </core>
+</cores>
+<destroyables sparks="true" materials="ender stone">
+    <destroyables owner="blue-team">
+        <destroyable name="West Monument">
+            <region>
+                <cuboid min="-26,11,-31" max="-22,15,-27"/>
+            </region>
+        </destroyable>
+        <destroyable name="East Monument">
+            <region>
+                <cuboid min="22,11,-31" max="26,15,-27"/>
+            </region>
+        </destroyable>
+    </destroyables>
+    <destroyables owner="red-team">
+        <destroyable name="East Monument">
+            <region>
+                <cuboid min="22,11,27" max="26,15,31"/>
+            </region>
+        </destroyable>
+        <destroyable name="West Monument">
+            <region>
+                <cuboid min="-26,11,27" max="-22,15,31"/>
+            </region>
+        </destroyable>
+    </destroyables>
+</destroyables>
+<toolrepair>
+    <tool>diamond sword</tool>
+    <tool>bow</tool>
+    <tool>diamond pickaxe</tool>
+    <tool>arrow</tool>
+    <tool>diamond axe</tool>
+</toolrepair>
+<itemremove>
+    <item>obsidian</item>
+    <item>gold block</item>
+    <item>smooth brick</item>
+    <item>glass</item>
+    <item>ladder</item>
+    <item>ender stone</item>
+    <item>arrow</item>
+    <item>golden carrot</item>
+    <item>wood</item>
+    <item>chainmail chestplate</item>
+    <item>leather boots</item>
+</itemremove>
+<itemkeep>
+    <item>golden apple</item>
+</itemkeep>
+</map>

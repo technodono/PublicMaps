@@ -1,0 +1,85 @@
+<map proto="1.5.0">
+<name>Quavilla</name>
+<version>1.1.7</version>
+<objective>Eliminate the other team before 3 minutes is up.</objective>
+<gamemode>br</gamemode>
+<authors>
+    <author uuid="dad8b95c-cf6a-44df-982e-8c8dd70201e0"/> <!-- ElectroidFilms -->
+</authors>
+<teams>
+    <team id="red" color="dark red" max="4">Red</team>
+    <team id="blue" color="blue" max="4">Blue</team>
+    <team id="green" color="green" max="4">Green</team>
+    <team id="yellow" color="yellow" max="4">Yellow</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" enchantment="damage all:10" lore="`8One-Hit Kill" material="iron sword"/>
+        <item slot="1" enchantment="arrow damage:10" lore="`8One-Shot Kill" material="bow"/>
+        <item slot="2" material="arrow"/>
+        <helmet team-color="true" locked="true" material="leather helmet"/>
+        <chestplate team-color="true" locked="true" material="leather chestplate"/>
+        <leggings locked="true" material="iron leggings"/>
+        <boots team-color="true" locked="true" material="leather boots"/>
+        <effect duration="4.5" amplifier="100">heal</effect>
+        <effect duration="4.5" amplifier="100">damage resistance</effect>
+        <game-mode>adventure</game-mode>
+    </kit>
+</kits>
+<spawns safe="true">
+    <spawn team="green" kit="spawn-kit" yaw="-45">
+        <regions>
+            <cuboid min="15,10,-69" max="18,11,-66"/>
+        </regions>
+    </spawn>
+    <spawn team="red" kit="spawn-kit" yaw="45">
+        <regions>
+            <cuboid min="58,10,-65" max="61,11,-62"/>
+        </regions>
+    </spawn>
+    <spawn team="blue" kit="spawn-kit" yaw="-145">
+        <regions>
+            <cuboid min="11,10,-26" max="14,11,-23"/>
+        </regions>
+    </spawn>
+    <spawn team="yellow" kit="spawn-kit" yaw="145">
+        <regions>
+            <cuboid min="54,10,-22" max="57,11,-19"/>
+        </regions>
+    </spawn>
+    <default yaw="45">
+        <regions>
+            <cuboid min="-5,38,-6" max="-2,39,-3"/>
+        </regions>
+    </default>
+ </spawns>
+<regions>
+    <apply block="never"/>
+</regions>
+<time>3m</time>
+<rage/>
+<blitz>
+    <lives>1</lives>
+</blitz>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+</toolrepair>
+<itemremove>
+    <item>arrow</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>iron leggings</item>
+    <item>leather boots</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+        <item material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<timelock>on</timelock>
+<respawn auto="true"/>
+</map>

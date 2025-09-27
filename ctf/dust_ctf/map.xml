@@ -1,0 +1,146 @@
+<map proto="1.5.0">
+<name>Dust CTF</name>
+<version>2.1.1</version>
+<gamemode>ad</gamemode>
+<gamemode>ctf</gamemode>
+<gamemode>rage</gamemode>
+<objective>Attackers must get 5 flag captures in 5 minutes. Defenders must stop them.</objective>
+<authors>
+    <author uuid="06078e7e-6a7b-4d31-8f74-853072b182bb"/> <!-- xXFracXx -->
+    <author uuid="ba4a93aa-4935-4a71-bab2-a58f9a124e7b"/> <!-- ItsMiiOlly -->
+    <author uuid="754d58b3-1516-4ee0-a318-dd8e4457a610"/> <!-- _kitr -->
+</authors>
+<contributors>
+    <contributor uuid="dee1cc51-66d2-4c5e-a8d4-403dcd1d8c83" contribution="Building help"/> <!-- lonelyhornet -->
+    <contributor uuid="ad3111ab-627d-4860-86d9-93a34542db09" contribution="Building and Aesthetics"/> <!-- Cascoid -->
+    <contributor uuid="a47bffe6-43fe-4713-a8b0-ebc501de65b7" contribution="Tower"/> <!-- lymibom -->
+    <contributor uuid="f706e288-c0af-461d-b9a7-89a17ea8628c" contribution="Testing things"/> <!-- erwintrude -->
+    <contributor uuid="7acb07b6-1d45-4557-b370-694d02c8947a" contribution="Name ideas"/> <!-- Azur0n -->
+</contributors>
+<rules>
+    <rule>Fall damage is disabled!</rule>
+</rules>
+<broadcasts>
+    <alert after="1s">`9`lDefenders: `rprotect the flags from the attackers</alert>
+    <alert after="3s">`4`lAttackers: `rcapture the flags and return it to base</alert>
+    <alert after="5s">`rThe flags are located at the beacons</alert>
+</broadcasts>
+<teams>
+    <team id="attackers" show-name-tags="allies" color="dark red" max="12" max-overfill="14" plural="true">Attackers</team>
+    <team id="defenders" show-name-tags="allies" color="blue" max="12" max-overfill="14" plural="true">Defenders</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" enchantment="damage all:10" unbreakable="true" name="`bKnife" material="iron sword"/>
+        <item slot="1" enchantment="arrow damage:10" unbreakable="true" name="`cAWP" material="bow"/>
+        <item slot="3" name="`4Landmine `6| `bFuse: 1s `6| `bPower: 2" lore="`9Use this strategically! It could be helpful..." material="tnt"/>
+        <item slot="4" amount="2" material="arrow"/>
+        <helmet unbreakable="true" locked="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" locked="true" team-color="true" material="iron chestplate"/>
+        <leggings unbreakable="true" locked="true" team-color="true" material="leather leggings"/>
+        <boots unbreakable="true" locked="true" team-color="true" material="leather boots"/>
+        <effect amplifier="2">speed</effect>
+        <effect amplifier="-4">health boost</effect>
+        <effect duration="5" amplifier="25">heal</effect>
+        <effect duration="5" amplifier="25">damage resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="defenders" kit="spawn-kit" yaw="-180">
+        <region>
+            <cylinder base="-18,1,78" radius="2" height="0"/>
+        </region>
+    </spawn>
+    <spawn team="defenders" kit="spawn-kit" yaw="-90">
+        <region>
+            <cylinder base="-18,1,78" radius="2" height="0"/>
+        </region>
+    </spawn>
+    <spawn team="attackers" kit="spawn-kit" yaw="-90">
+        <region>
+            <cylinder base="3,10,2" radius="2" height="0"/>
+        </region>
+    </spawn>
+    <spawn team="attackers" kit="spawn-kit" yaw="90">
+        <region>
+            <cylinder base="3,10,2" radius="2" height="0"/>
+        </region>
+    </spawn>
+    <default>
+        <region>
+            <cylinder base="-8,24,-19" radius="4" height="0"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <material id="only-tnt">tnt</material>
+    <team id="only-attackers">attackers</team>
+</filters>
+<regions>
+    <apply enter="never" message="You may not go above the map">
+        <region>
+            <above y="13"/>
+        </region>
+    </apply>
+    <apply block="only-tnt" message="You may only use TNT!"/>
+</regions>
+<flags color="red">
+    <flag id="a-flag" name="A Flag" pickup-filter="only-attackers">
+        <post yaw="180" return-time="10s">-41.5,7,83.5</post>
+        <net points="1">
+            <region>
+                <cuboid min="7,10,6" max="0,13,-1"/>
+            </region>
+        </net>
+    </flag>
+    <flag id="b-flag" name="B Flag" pickup-filter="only-attackers">
+        <post yaw="180" return-time="10s">31.5,7,86.5</post>
+        <net owner="attackers" points="1">
+            <region>
+                <cuboid min="7,10,6" max="0,13,-1"/>
+            </region>
+        </net>
+    </flag>
+</flags>
+<score>
+    <limit>5</limit>
+</score>
+<time result="defenders">5m</time>
+<rage/>
+<itemremove>
+    <item>leather helmet</item>
+    <item>iron chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>tnt</item>
+    <item>arrow</item>
+    <item>iron sword</item>
+    <item>bow</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+        <item material="arrow"/>
+        <item name="`4Landmine `6| `bFuse: 1s `6| `bPower: 2" lore="`9Use this strategically! It could be helpful..." material="tnt"/>
+    </kill-reward>
+</kill-rewards>
+<tnt>
+    <instantignite>on</instantignite>
+    <licensing>off</licensing>
+    <friendly-defuse>off</friendly-defuse>
+    <fuse>1s</fuse>
+    <power>2</power>
+    <blockdamage>false</blockdamage>
+</tnt>
+<disabledamage>
+    <damage ally="true" self="true" enemy="false" other="false">block explosion</damage>
+    <damage>fall</damage>
+</disabledamage>
+<modifybowprojectile>
+    <potion duration="2" amplifier="1">blindness</potion>
+    <velocityMod>2.5</velocityMod>
+</modifybowprojectile>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<respawn auto="true"/>
+</map>

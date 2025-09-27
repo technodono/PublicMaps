@@ -1,0 +1,119 @@
+<map proto="1.5.0">
+<name>Embers 1</name>
+<version>1.2.1</version>
+<objective>Destroy the enemy team's monuments!</objective>
+<include id="gapple-kill-reward"/>
+<phase>staging</phase>
+<authors>
+    <author uuid="da98a2f1-673c-4cec-b547-e0a342abfde4"/> <!-- timaeusTestified -->
+</authors>
+<teams>
+    <team id="red-team" color="red" max="25">Red</team>
+    <team id="blue-team" color="blue" max="25">Blue</team>
+</teams>
+<spawns>
+    <spawn team="blue-team" kit="spawn-kit" yaw="90">
+        <region>
+            <cylinder base="119.5,88,17.5" height="0" radius="2"/>
+        </region>
+    </spawn>
+    <spawn team="red-team" kit="spawn-kit" yaw="-90">
+        <region>
+            <cylinder base="-76.5,88,17.5" height="0" radius="2"/>
+        </region>
+    </spawn>
+    <default yaw="180">
+        <region>
+            <cylinder base="22.5,132,118.5" height="0" radius="3"/>
+        </region>
+    </default>
+</spawns>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="stone sword"/>
+        <item slot="1" enchantment="arrow infinite" material="bow"/>
+        <item slot="2" material="diamond pickaxe"/>
+        <item slot="3" amount="32" material="log 2"/>
+        <item slot="4" amount="64" material="stained glass" team-color="true"/>
+        <item slot="7" amount="32" material="golden carrot"/>
+        <item slot="8" amount="2" material="golden apple"/>
+        <item slot="28" material="arrow"/>
+        <helmet team-color="true" material="leather helmet"/>
+        <chestplate team-color="true" material="leather chestplate"/>
+        <leggings team-color="true" material="leather leggings"/>
+        <boots team-color="true" material="leather boots"/>
+        <effect duration="5" amplifier="255">damage resistance</effect>
+        <effect duration="5" amplifier="255">heal</effect>
+    </kit>
+</kits>
+<regions>
+    <union id="spawns">
+        <circle center="22.5,118.5" radius="10.5"/>
+        <circle id="red-spawn" center="-76.5,17.5" radius="8.5"/>
+        <circle id="blue-spawn" center="119.5,17.5" radius="8.5"/>
+    </union>
+    <apply region="blue-spawn" enter="blue-team" message="You may not enter the enemy's spawn!"/>
+    <apply region="red-spawn" enter="red-team" message="You may not enter the enemy's spawn!"/>
+    <apply region="spawns" block="never" message="You may not modify spawn areas!"/>
+</regions>
+<destroyables materials="obsidian">
+    <destroyable name="Front Left" owner="blue-team">
+        <region>
+            <block>74,90,-43</block>
+        </region>
+    </destroyable>
+    <destroyable name="Back Left" owner="blue-team">
+        <region>
+            <block>161,90,-18</block>
+        </region>
+    </destroyable>
+    <destroyable name="Back Right" owner="blue-team">
+        <region>
+            <block>161,90,52</block>
+        </region>
+    </destroyable>
+    <destroyable name="Front Right" owner="blue-team">
+        <region>
+            <block>74,90,77</block>
+        </region>
+    </destroyable>
+    <destroyable name="Front Left" owner="red-team">
+        <region>
+            <block>-32,90,77</block>
+        </region>
+    </destroyable>
+    <destroyable name="Back Left" owner="red-team">
+        <region>
+            <block>-119,90,52</block>
+        </region>
+    </destroyable>
+    <destroyable name="Back Right" owner="red-team">
+        <region>
+            <block>-119,90,-18</block>
+        </region>
+    </destroyable>
+    <destroyable name="Front Right" owner="red-team">
+        <region>
+            <block>-32,90,-43</block>
+        </region>
+    </destroyable>
+</destroyables>
+<toolrepair>
+    <tool>stone sword</tool>
+    <tool>bow</tool>
+    <tool>diamond pickaxe</tool>
+</toolrepair>
+<itemremove>
+    <item>obsidian</item>
+    <item>log 2</item>
+    <item>stained glass</item>
+    <item>arrow</item>
+    <item>wood</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>golden carrot</item>
+    <item>golden apple</item>
+</itemremove>
+</map>

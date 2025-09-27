@@ -1,0 +1,119 @@
+<map proto="1.5.0">
+<name>Nightsail</name>
+<version>2.3.7</version>
+<created>2013-08-30</created>
+<objective>Leak lava from the enemy's obsidian core</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="2ca8072f-74be-4798-85b8-bbce03aa91af"/> <!-- Tywnis -->
+</authors>
+<teams>
+    <team id="red-team" color="dark red" max="16" max-overfill="20">Red</team>
+    <team id="blue-team" color="blue" max="16" max-overfill="20">Blue</team>
+</teams>
+<broadcasts>
+    <tip after="5s" every="5m">Don't forget to grab a `3diamond pickaxe `rat the center of your team's side before mining the core!</tip>
+</broadcasts>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" unbreakable="true" material="stone sword"/>
+        <item slot="1" unbreakable="true" enchantment="arrow infinite" material="bow"/>
+        <item slot="2" unbreakable="true" material="stone pickaxe"/>
+        <item slot="3" unbreakable="true" material="stone axe"/>
+        <item slot="4" damage="2" amount="64" material="log"/>
+        <item slot="5" amount="64" team-color="true" material="wool"/>
+        <item slot="6" amount="64" material="cooked fish"/>
+        <item slot="7" enchantment="knockback" material="stick"/>
+        <item slot="28" material="arrow"/>
+        <chestplate unbreakable="true" team-color="true" material="leather chestplate"/>
+        <boots unbreakable="true" team-color="true" material="leather boots"/>
+        <effect duration="5" amplifier="4">damage resistance</effect>
+        <effect duration="5" amplifier="4">heal</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red-team" kit="spawn-kit">
+        <regions yaw="-45">
+            <cuboid min="2022,7,-1580" max="2026,7,-1576"/>
+        </regions>
+        <regions yaw="45">
+            <cuboid min="2104,7,-1577" max="2108,7,-1579"/>
+        </regions>
+    </spawn>
+    <spawn team="blue-team" kit="spawn-kit">
+        <regions yaw="135">
+            <cuboid min="2104,7,-1438" max="2108,7,-1434"/>
+        </regions>
+        <regions yaw="-135">
+            <cuboid min="2025,7,-1438" max="2023,7,-1434"/>
+        </regions>
+    </spawn>
+    <default yaw="-90">
+        <region>
+            <cylinder base="2030.5,55,-1507.5" radius="2" height="0"/>
+        </region>
+    </default>
+</spawns>
+<regions>
+    <union id="spawns">
+        <union id="r-spawns">
+            <circle id="r-spawn-1" center="2105,-1579" radius="10"/>
+            <circle id="r-spawn-2" center="2023,-1579" radius="10"/>
+        </union>
+        <union id="b-spawns">
+            <circle id="b-spawn-1" center="2023,-1437" radius="10"/>
+            <circle id="b-spawn-2" center="2105,-1437" radius="10"/>
+        </union>
+    </union>
+    <negative id="playable-inverse">
+        <rectangle id="main-area" min="2024,-1433" max="2105,-1582"/>
+    </negative>
+    <apply region="r-spawns" enter="deny(blue-team)" message="You may not enter Red's spawn!"/>
+    <apply region="b-spawns" enter="deny(red-team)" message="You may not enter Blue's spawn!"/>
+    <apply region="spawns" block="never" message="You may not modify the spawn!"/>
+    <apply block="never">
+        <region>
+            <circle center="2064,-1436" radius="5"/>
+            <circle center="2064,-1580" radius="5"/>
+        </region>
+    </apply>
+    <apply region="playable-inverse" block="never"/>
+</regions>
+<cores leak="8" mode-changes="true">
+    <core team="red-team">
+        <region>
+            <cuboid min="2066,16,-1552" max="2062,13,-1548"/>
+        </region>
+    </core>
+    <core team="blue-team">
+        <region>
+            <cuboid min="2062,16,-1464" max="2066,13,-1468"/>
+        </region>
+    </core>
+</cores>
+<modes>
+    <mode after="15m" material="gold block"/>
+    <mode after="20m" material="glass"/>
+</modes>
+<toolrepair>
+    <tool>stone sword</tool>
+    <tool>bow</tool>
+    <tool>stone pickaxe</tool>
+    <tool>stone axe</tool>
+    <tool>arrow</tool>
+    <tool>diamond pickaxe</tool>
+</toolrepair>
+<itemremove>
+    <item>stick</item>
+    <item>wool</item>
+    <item>cooked fish</item>
+    <item>log</item>
+    <item>wood</item>
+    <item>leather chestplate</item>
+    <item>leather boots</item>
+    <item>obsidian</item>
+    <item>gold block</item>
+</itemremove>
+<maxbuildheight>20</maxbuildheight>
+<timelock>off</timelock>
+</map>

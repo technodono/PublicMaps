@@ -1,0 +1,223 @@
+<map proto="1.5.0">
+<name>Barf Box</name>
+<version>3.2.5</version>
+<gamemode>arcade</gamemode>
+<objective>Mine blocks of team color.</objective>
+<authors>
+    <author uuid="105f6a09-f533-412b-93cb-501601763c11"/> <!-- JTerwiesch -->
+</authors>
+<contributors>
+    <contributor uuid="6e347123-c684-4d7e-996c-44d4924ff172" contribution="XML"/> <!-- SheriffSoco -->
+</contributors>
+<rules>
+    <rule>Fall Damage is disabled</rule>
+</rules>
+<broadcasts>
+    <tip after="1s" every="30s" count="4">Mine your team's Color Blocks and redeem the item it drops in the 4 portals.</tip>
+    <tip after="15s" every="45s" count="3">White blocks which drop music disks are worth quadruple `c(x4)</tip>
+</broadcasts>
+<teams>
+    <team id="blue-team" color="blue" min="1" max="2">Blue</team>
+    <team id="green-team" color="green" min="1" max="2">Green</team>
+    <team id="red-team" color="dark red" min="1" max="2">Red</team>
+    <team id="yellow-team" color="yellow" min="1" max="2">Yellow</team>
+</teams>
+<kits>
+    <kit id="default-kit">
+        <effect>night vision</effect>
+    </kit>
+    <kit id="spawn-kit" potion-particles="false" parent="default-kit">
+        <item slot="0" name="KB Stick" material="stick">
+            <enchantment level="2">knockback</enchantment>
+        </item>
+        <item slot="1" unbreakable="true" material="iron pickaxe"/>
+        <item slot="8" team-color="true" material="wool"/>
+        <helmet unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" team-color="true" material="leather chestplate"/>
+        <leggings unbreakable="true" team-color="true" material="leather leggings"/>
+        <boots unbreakable="true" team-color="true" material="leather boots"/>
+        <effect amplifier="2">regeneration</effect>
+    </kit>
+</kits>
+<spawns>
+    <default kit="default-kit" region="obs-spawn" yaw="90"/>
+    <spawn team="blue-team" kit="spawn-kit" region="blue-spawn" yaw="-45"/>
+    <spawn team="green-team" kit="spawn-kit" region="green-spawn" yaw="45"/>
+    <spawn team="red-team" kit="spawn-kit" region="red-spawn" yaw="-135"/>
+    <spawn team="yellow-team" kit="spawn-kit" region="yellow-spawn" yaw="135"/>
+</spawns>
+<filters>
+    <material id="only-tnt">tnt</material>
+</filters>
+<regions>
+    <union id="spawns">
+        <block id="obs-spawn">-67,21,-1</block>
+        <point id="blue-spawn">-87.5,48,-21.5</point>
+        <point id="green-spawn">-45.5,48,-21.5</point>
+        <point id="red-spawn">-87.5,48,20.5</point>
+        <point id="yellow-spawn">-45.5,48,20.5</point>
+    </union>
+    <union id="portals">
+        <cylinder id="n-portal" base="-66.5,1,-20.5" radius="4" height="0.5"/>
+        <cylinder id="s-portal" base="-66.5,1,19.5" radius="4" height="0.5"/>
+        <cylinder id="w-portal" base="-86.5,1,-0.5" radius="4" height="0.5"/>
+        <cylinder id="e-portal" base="-46.5,1,-0.5" radius="4" height="0.5"/>
+    </union>
+    <negative id="outside-box">
+        <cuboid id="box" min="-76,2,-10" max="-57,21,9"/>
+    </negative>
+    <apply block-break="never" region="outside-box" message="You can only destroy what's in the Barf Box!"/>
+    <apply block-place="only-tnt" message="You may only place TNT!"/>
+</regions>
+<time result="score">2m</time>
+<score>
+    <box filter="blue-team" region="portals">
+        <redeemables>
+            <item points="20">gold record</item>
+            <item points="1">redstone</item>
+            <item points="1">gold ingot</item>
+            <item points="1">emerald</item>
+            <item points="5">ink sack:4</item>
+        </redeemables>
+    </box>
+    <box filter="green-team" region="portals">
+        <redeemables>
+            <item points="20">gold record</item>
+            <item points="1">redstone</item>
+            <item points="1">gold ingot</item>
+            <item points="5">emerald</item>
+            <item points="1">ink sack:4</item>
+        </redeemables>
+    </box>
+    <box filter="red-team" region="portals">
+        <redeemables>
+            <item points="20">gold record</item>
+            <item points="5">redstone</item>
+            <item points="1">gold ingot</item>
+            <item points="1">emerald</item>
+            <item points="1">ink sack:4</item>
+        </redeemables>
+    </box>
+    <box filter="yellow-team" region="portals">
+        <redeemables>
+            <item points="20">gold record</item>
+            <item points="1">redstone</item>
+            <item points="5">gold ingot</item>
+            <item points="1">emerald</item>
+            <item points="1">ink sack:4</item>
+        </redeemables>
+    </box>
+</score>
+<portals pitch="@0">
+    <portal region="n-portal" filter="blue-team" destination="blue-spawn" yaw="@-45"/>
+    <portal region="n-portal" filter="green-team" destination="green-spawn" yaw="@45"/>
+    <portal region="n-portal" filter="red-team" destination="red-spawn" yaw="@-135"/>
+    <portal region="n-portal" filter="yellow-team" destination="yellow-spawn" yaw="@135"/>
+    <portal region="s-portal" filter="blue-team" destination="blue-spawn" yaw="@-45"/>
+    <portal region="s-portal" filter="green-team" destination="green-spawn" yaw="@45"/>
+    <portal region="s-portal" filter="red-team" destination="red-spawn" yaw="@-135"/>
+    <portal region="s-portal" filter="yellow-team" destination="yellow-spawn" yaw="@135"/>
+    <portal region="w-portal" filter="blue-team" destination="blue-spawn" yaw="@-45"/>
+    <portal region="w-portal" filter="green-team" destination="green-spawn" yaw="@45"/>
+    <portal region="w-portal" filter="red-team" destination="red-spawn" yaw="@-135"/>
+    <portal region="w-portal" filter="yellow-team" destination="yellow-spawn" yaw="@135"/>
+    <portal region="e-portal" filter="blue-team" destination="blue-spawn" yaw="@-45"/>
+    <portal region="e-portal" filter="green-team" destination="green-spawn" yaw="@45"/>
+    <portal region="e-portal" filter="red-team" destination="red-spawn" yaw="@-135"/>
+    <portal region="e-portal" filter="yellow-team" destination="yellow-spawn" yaw="@135"/>
+</portals>
+<renewables>
+    <renewable rate="8" region="box">
+        <shuffle-filter>
+            <any>
+                <material>stained clay:4</material>
+                <material>stained clay:5</material>
+                <material>stained clay:11</material>
+                <material>stained clay:14</material>
+            </any>
+        </shuffle-filter>
+    </renewable>
+</renewables>
+<block-drops>
+    <rule>
+        <filter>
+            <all>
+                <material>stained clay</material>
+                <random>(0.0,0.05]</random>
+            </all>
+        </filter>
+        <replacement>stained clay:0</replacement>
+    </rule>
+    <rule>
+        <filter>
+            <material>stained clay:4</material>
+        </filter>
+        <drops>
+            <item>gold ingot</item>
+        </drops>
+    </rule>
+    <rule>
+        <filter>
+            <material>stained clay:14</material>
+        </filter>
+        <drops>
+            <item>redstone</item>
+        </drops>
+    </rule>
+    <rule>
+        <filter>
+            <material>stained clay:11</material>
+        </filter>
+        <drops>
+            <item damage="4">ink sack</item>
+        </drops>
+    </rule>
+    <rule>
+        <filter>
+            <material>stained clay:5</material>
+        </filter>
+        <drops>
+            <item>emerald</item>
+        </drops>
+    </rule>
+    <rule>
+        <filter>
+            <material>stained clay:0</material>
+        </filter>
+        <drops>
+            <item>gold record</item>
+        </drops>
+    </rule>
+</block-drops>
+<itemremove>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>stick</item>
+    <item>iron pickaxe</item>
+    <item>tnt</item>
+    <item>wool</item>
+    <item>clay brick</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+        <item material="tnt"/>
+    </kill-reward>
+</kill-rewards>
+<disabledamage>
+    <damage>fall</damage>
+    <damage>block explosion</damage>
+</disabledamage>
+<tnt>
+    <instantignite>true</instantignite>
+    <blockdamage>true</blockdamage>
+    <yield>1</yield>
+    <fuse>1s</fuse>
+    <power>3</power>
+    <licensing>false</licensing>
+</tnt>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+</map>

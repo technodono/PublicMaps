@@ -1,0 +1,181 @@
+<map proto="1.5.0">
+<name>Atromix</name>
+<version>1.6.10</version>
+<objective>Destroy the enemy team's front and back monuments!</objective>
+<gamemode>dtm</gamemode>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="9909505b-1f0f-4af1-ae21-afbee92427ce"/> <!-- Winarve -->
+    <author uuid="ba4a93aa-4935-4a71-bab2-a58f9a124e7b"/> <!-- ItsMiiOlly -->
+</authors>
+<contributors>
+    <contributor uuid="374988d6-4569-444e-885a-409c2f55e310" contribution="Design help"/> <!-- Articray -->
+    <contributor uuid="939a9a1c-f735-467a-bfd7-ae77cafd6693" contribution="Castle design"/> <!-- PlasmaCross -->
+    <contributor uuid="9bfbc560-244a-4e28-ab70-185f39740ec1" contribution="XML"/> <!-- TheZaner -->
+    <contributor uuid="dad8b95c-cf6a-44df-982e-8c8dd70201e0" contribution="Server Hosting and XML fixing"/> <!-- ElectroidFilms -->
+    <contributor uuid="dee1cc51-66d2-4c5e-a8d4-403dcd1d8c83" contribution="Feedback and Design"/> <!-- lonelyhornet -->
+    <contributor uuid="06078e7e-6a7b-4d31-8f74-853072b182bb" contribution="Feedback and Design"/> <!-- xXFracXx -->
+</contributors>
+<teams>
+    <team id="red-team" color="dark red" max="14" max-overfill="20">Red</team>
+    <team id="orange-team" color="gold" max="14" max-overfill="20">Orange</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <clear/>
+        <item slot="0" material="stone sword" unbreakable="true"/>
+        <item slot="1" material="bow" unbreakable="true">
+            <enchantment>arrow infinite</enchantment>
+        </item>
+        <item slot="2" material="diamond pickaxe" unbreakable="true"/>
+        <item slot="3" material="iron axe" unbreakable="true">
+            <enchantment>dig speed</enchantment>
+        </item>
+        <item slot="4" material="wood" damage="3" amount="64"/>
+        <item slot="5" material="wood" damage="3" amount="64"/>
+        <item slot="6" material="vine" amount="24"/>
+        <item slot="7" material="iron ingot" amount="2"/>
+        <item slot="8" material="golden apple"/>
+        <item slot="28" material="arrow"/>
+        <item slot="29" material="shears" name="`4Red Topaz Machete" unbreakable="true">
+            <enchantment>damage all</enchantment>
+            <enchantment level="2">dig speed</enchantment>
+        </item>
+        <helmet material="leather helmet" team-color="true" unbreakable="true"/>
+        <chestplate material="leather chestplate" team-color="true" unbreakable="true">
+            <enchantment>protection projectile</enchantment>
+        </chestplate>
+        <boots material="iron boots" unbreakable="true">
+            <enchantment level="2">protection fall</enchantment>
+        </boots>
+        <potion duration="5" amplifier="25">heal</potion>
+        <potion duration="5" amplifier="25">damage resistance</potion>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red-team" kit="spawn-kit" region="red-spawn-point-1" yaw="45"/>
+    <spawn team="red-team" kit="spawn-kit" region="red-spawn-point-2" yaw="135"/>
+    <spawn team="orange-team" kit="spawn-kit" region="orange-spawn-point-1" yaw="-45"/>
+    <spawn team="orange-team" kit="spawn-kit" region="orange-spawn-point-2" yaw="-135"/>
+    <default region="obs-spawn-point"/>
+</spawns>
+<filters>
+    <deny id="deny-beacon">
+        <material>beacon</material>
+    </deny>
+</filters>
+<regions>
+    <cylinder id="red-spawn-point-1" base="66.5,8,573.5" radius="3" height="0"/>
+    <cylinder id="red-spawn-point-2" base="66.5,8,647.5" radius="3" height="0"/>
+    <cylinder id="orange-spawn-point-1" base="-65.5,8,573.5" radius="3" height="0"/>
+    <cylinder id="orange-spawn-point-2" base="-65.5,8,647.5" radius="3" height="0"/>
+    <cylinder id="obs-spawn-point" base="0.5,48,610.5" radius="1" height="0"/>
+    <cuboid id="red-back-monument" min="79,16,609" max="81,14,611"/>
+    <cuboid id="red-front-monument" min="24,16,608" max="28,13,612"/>
+    <cuboid id="orange-back-monument" min="-79,16,609" max="-81,14,611"/>
+    <cuboid id="orange-front-monument" min="-24,16,612" max="-28,13,608"/>
+    <union id="spawns">
+        <union id="orange-spawn">
+            <circle center="-65,573" radius="8"/>
+            <circle center="-65,647" radius="8"/>
+        </union>
+        <union id="red-spawn">
+            <circle center="66,647" radius="8"/>
+            <circle center="66,573" radius="8"/>
+        </union>
+    </union>
+    <negative id="not-build-region">
+        <union id="build-region">
+            <rectangle min="-40,646" max="40,575"/>
+            <rectangle min="62,591" max="88,630"/>
+            <rectangle min="-62,591" max="-88,630"/>
+        </union>
+    </negative>
+    <!-- applicators -->
+    <apply enter="red-team" region="red-spawn" message="You may not enter the enemy's spawn!"/>
+    <apply enter="orange-team" region="orange-spawn" message="You may not enter the enemy's spawn!"/>
+    <apply block="never" region="spawns" message="You may not edit spawn"/>
+    <apply block-place="deny(void)" region="not-build-region" message="You may not build in the void!"/>
+    <apply use="deny-beacon"/>
+</regions>
+<destroyables>
+    <destroyable owner="red-team" region="red-back-monument" name="Back Monument" materials="obsidian" show-progress="false" mode-changes="true"/>
+    <destroyable owner="red-team" region="red-front-monument" name="Front Monument" materials="beacon;emerald block" show-progress="true" mode-changes="false"/>
+    <destroyable owner="orange-team" region="orange-back-monument" name="Back Monument" materials="obsidian" show-progress="false" mode-changes="true"/>
+    <destroyable owner="orange-team" region="orange-front-monument" name="Front Monument" materials="beacon;emerald block" show-progress="true" mode-changes="false"/>
+</destroyables>
+<modes>
+    <mode after="30m" material="beacon" name="`bBEACON MONUMENT MODE"/>
+    <mode after="1h" material="gold block" name="`6GOLDEN MONUMENT MODE"/>
+    <mode after="90m" material="glass" name="`fGLASS MONUMENT MODE"/>
+</modes>
+<itemkeep>
+    <item>stone sword</item>
+    <item>bow</item>
+    <item>diamond pickaxe</item>
+    <item>iron axe</item>
+    <item>wood:3</item>
+    <item>vine</item>
+    <item>golden apple</item>
+    <item>arrow</item>
+    <item>shears</item>
+</itemkeep>
+<toolrepair>
+    <tool>stone sword</tool>
+    <tool>bow</tool>
+    <tool>diamond pickaxe</tool>
+    <tool>iron axe</tool>
+    <tool>shears</tool>
+</toolrepair>
+<itemremove>
+    <item>obsidian</item>
+    <item>emerald block</item>
+    <item>iron boots</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>item frame</item>
+    <item>trap door</item>
+    <item>beacon</item>
+    <item>red rose</item>
+    <item>yellow flower</item>
+</itemremove>
+<block-drops>
+    <rule>
+        <filter>
+            <any>
+                <material>wood:3</material>
+                <material>vine</material>
+            </any>
+        </filter>
+        <drops>
+            <item chance="0" material="wood"/>
+        </drops>
+    </rule>
+</block-drops>
+<item-mods>
+    <rule>
+        <match>
+            <material>iron helmet</material>
+            <material>iron chestplate</material>
+            <material>iron leggings</material>
+            <material>iron boots</material>
+            <material>iron sword</material>
+            <material>iron pickaxe</material>
+            <material>iron axe</material>
+            <material>iron spade</material>
+            <material>shears</material>
+        </match>
+        <modify unbreakable="true"/>
+    </rule>
+</item-mods>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<kill-rewards>
+    <kill-reward>
+        <item material="iron ingot" amount="2"/>
+    </kill-reward>
+</kill-rewards>
+<timelock>on</timelock>
+<maxbuildheight>29</maxbuildheight>
+</map>

@@ -1,0 +1,103 @@
+<map proto="1.5.0">
+<name>Cacti Terror</name>
+<version>1.0.5</version>
+<gamemode>blitz</gamemode>
+<objective>Be the last man standing!</objective>
+<authors>
+    <author uuid="f690a591-348b-482e-a18d-7779d0c0a28c"/> <!-- mitchiii_ -->
+</authors>
+<contributors>
+    <contributor uuid="3a3dab52-a356-4eed-a506-a9a7e53a3f68" contribution="Original map concept (Cacti Panic)"/> <!-- Pyrolith -->
+</contributors>
+<teams>
+   <team id="red" color="dark red" max="16">Red</team>
+   <team id="blue" color="blue" max="16">Blue</team>
+   <team id="green" color="dark green" max="16">Green</team>
+   <team id="yellow" color="yellow" max="16">Yellow</team>
+</teams>
+<kits>
+    <kit id="spawn" force="true">
+        <item slot="0" material="cactus" amount="16"/>
+        <item slot="1" material="fishing rod" unbreakable="true"/>
+        <effect amplifier="2">slow digging</effect>
+        <effect amplifier="20">weakness</effect>
+        <health>1</health>
+        <max-health>1</max-health>
+        <knockback-reduction>0.5</knockback-reduction>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red" kit="spawn" yaw="-90">
+        <region>
+            <point>-12.5,3.5,0.5</point>
+        </region>
+    </spawn>
+    <spawn team="blue" kit="spawn" yaw="90">
+        <region>
+            <point>13.5,3.5,0.5</point>
+        </region>
+    </spawn>
+    <spawn team="green" kit="spawn" yaw="-180">
+        <region>
+            <point>0.5,3.5,13.5</point>
+        </region>
+    </spawn>
+    <spawn team="yellow" kit="spawn" yaw="0">
+        <region>
+            <point>0.5,3.5,-12.5</point>
+        </region>
+    </spawn>
+    <default yaw="25">
+        <region>
+            <point>3.5,7.5,-16.5</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <any id="allowed-blocks">
+        <material>cactus</material>
+        <material>tnt</material>
+    </any>
+</filters>
+<regions>
+    <point id="spawner-spawn">0.5,3,0.5</point>
+    <sphere id="spawner-detect" origin="0.5,3,0.5" radius="24"/>
+    <apply block="allowed-blocks"/>
+</regions>
+<blitz/>
+<time>3m</time>
+<spawners>
+    <spawner spawn-region="spawner-spawn" player-region="spawner-detect" delay="12s">
+        <item material="snow ball"/>
+    </spawner>
+</spawners>
+<tnt>
+    <instantignite>true</instantignite>
+    <friendly-defuse>off</friendly-defuse>
+    <blockdamage>true</blockdamage>
+    <fuse>2s</fuse>
+</tnt>
+<damage>
+    <deny>
+        <cause>explosion</cause>
+    </deny>
+</damage>
+<itemkeep>
+    <item>cactus</item>
+    <item>fishing rod</item>
+</itemkeep>
+<kill-rewards>
+    <kill-reward>
+        <item amount="4" material="cactus"/>
+        <item material="tnt"/>
+    </kill-reward>
+</kill-rewards>
+<timelock>on</timelock>
+<gamerules>
+    <naturalRegeneration>false</naturalRegeneration>
+</gamerules>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<maxbuildheight>6</maxbuildheight>
+</map>

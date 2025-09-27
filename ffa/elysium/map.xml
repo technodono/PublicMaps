@@ -1,0 +1,123 @@
+<map proto="1.5.0">
+<name>Elysium</name>
+<version>1.4.4</version>
+<objective>Survive and get the most points.</objective>
+<created>2015-05-05</created>
+<include id="gapple-kill-reward"/>
+<phase>staging</phase>
+<authors>
+    <author uuid="2ca8072f-74be-4798-85b8-bbce03aa91af"/> <!-- Tywnis -->
+</authors>
+<players min="2" max="32" max-overfill="38" show-name-tags="false" colors="true"/>
+<kits>
+    <kit id="obs">
+        <effect>night vision</effect>
+    </kit>
+    <kit id="spawn">
+        <item slot="0" unbreakable="true" material="stone sword"/>
+        <item slot="1" unbreakable="true" material="bow"/>
+        <item slot="2" material="wood axe"/>
+        <item slot="3" amount="16" material="dirt"/>
+        <item slot="4" amount="4" material="torch"/>
+        <item slot="5" material="flint"/>
+        <item slot="6" amount="16" material="cooked beef"/>
+        <item slot="7" amount="2" material="golden apple"/>
+        <item slot="8" amount="32" material="arrow"/>
+        <helmet color="FFFFFF" unbreakable="true" material="leather helmet"/>
+        <chestplate color="FFFFFF" unbreakable="true" material="leather chestplate"/>
+        <leggings color="FFFFFF" unbreakable="true" material="leather leggings"/>
+        <boots color="FFFFFF" unbreakable="true" enchantment="protection fall:2" material="leather boots"/>
+        <effect duration="9" amplifier="2">heal</effect>
+        <effect duration="9" amplifier="100">damage resistance</effect>
+        <effect duration="7">invisibility</effect>
+        <effect duration="8" amplifier="3">fire resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn kit="spawn" spread="true">
+        <region>
+            <cylinder base="0.5,130,0.5" radius="135" height="2"/>
+        </region>
+    </spawn>
+    <default kit="obs" yaw="90">
+        <region>
+            <point>224.5,53,0.5</point>
+        </region>
+    </default>
+</spawns>
+<regions>
+    <negative id="reversed-map">
+        <cylinder base="0.5,0,0.5" radius="200" height="200"/>
+    </negative>
+    <union id="villages">
+        <sphere id="yellow-village" origin="1.5,36,123.5" radius="4"/>
+        <sphere id="black-village" origin="-112.5,25,-58.5" radius="7"/>
+        <sphere id="blue-village" origin="-19.5,6,-116.5" radius="4"/>
+        <sphere id="green-village" origin="106.5,33,31.5" radius="4"/>
+        <sphere id="blacksmith" origin="-11.5,107,28.5" radius="7"/>
+        <cylinder id="obs-spawn" base="224.5,0,0.5" radius="30" height="200"/>
+    </union>
+    <apply region="reversed-map" block="never" message="You may not build outside of the map"/>
+    <apply region="villages" block="never" message="You may not interact with this zone"/>
+</regions>
+<score>
+   <kills>1</kills>
+   <deaths>1</deaths>
+</score>
+<time>40m</time>
+<toolrepair>
+    <tool>bow</tool>
+    <tool>stone sword</tool>
+</toolrepair>
+<itemremove>
+    <item>wood axe</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>cooked beef</item>
+    <item>dirt</item>
+</itemremove>
+<armorkeep>
+    <item>iron helmet</item>
+    <item>iron chestplate</item>
+    <item>iron leggings</item>
+    <item>iron boots</item>
+    <item>gold helmet</item>
+    <item>gold chestplate</item>
+    <item>gold leggings</item>
+    <item>gold boots</item>
+    <item>chainmail helmet</item>
+    <item>chainmail chestplate</item>
+    <item>chainmail leggings</item>
+    <item>chainmail boots</item>
+    <item>diamond helmet</item>
+    <item>diamond chestplate</item>
+    <item>diamond leggings</item>
+    <item>diamond boots</item>
+</armorkeep>
+<itemkeep>
+    <item>diamond sword</item>
+    <item>iron sword</item>
+    <item>stone axe</item>
+    <item>stone pickaxe</item>
+    <item>iron axe</item>
+    <item>iron pickaxe</item>
+    <item>diamond axe</item>
+    <item>diamond pickaxe</item>
+    <item>tnt</item>
+    <item>flint</item>
+</itemkeep>
+<kill-rewards>
+    <kill-reward>
+        <item amount="4" material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+<timelock>off</timelock>
+<mobs>
+    <filter>
+        <spawn>spawner</spawn>
+    </filter>
+</mobs>
+<maxbuildheight>130</maxbuildheight>
+</map>

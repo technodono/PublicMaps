@@ -1,0 +1,82 @@
+<map proto="1.5.0">
+<name>Seaside Plaza</name>
+<version>1.4.4</version>
+<variant id="5v5">5v5</variant>
+<unless variant="5v5">
+    <include id="conquest"/>
+    <constant id="team-size">5</constant>
+    <constant id="max-overfill">5</constant>
+</unless>
+<if variant="5v5">
+    <include id="conquest-comp"/>
+    <constant id="team-size">7</constant>
+    <constant id="max-overfill" delete="true"/>
+</if>
+<constant id="damage-resistance">2s</constant>
+<constant id="respawn-timer">3s</constant>
+<objective>Reach 750 points before the opposing team!</objective>
+<authors>
+    <author uuid="0c44ca5a-6a42-49b7-81f2-58dc6d2ae3e9"/> <!-- Xerocoles -->
+    <author uuid="b8add1ba-8e13-4673-bc73-4e3ed524d40e"/> <!-- Blazy -->
+</authors>
+<teams>
+    <team id="blue" color="blue" max="${team-size}" max-overfill="${max-overfill}">Blue</team>
+    <team id="red" color="dark red" max="${team-size}" max-overfill="${max-overfill}">Red</team>
+</teams>
+<spawns>
+    <default>
+        <region yaw="0">
+            <cuboid min="-69,46,266" max="-70,46,267"/>
+        </region>
+    </default>
+    <spawn team="blue" kit="base-kit">
+        <region yaw="-90">
+            <point>-114.5,6,314.5</point>
+        </region>
+    </spawn>
+    <spawn team="red" kit="base-kit">
+        <region yaw="90">
+            <point>-24.5,6,314.5</point>
+        </region>
+    </spawn>
+</spawns>
+<filters>
+    <team id="only-blue">blue</team>
+    <team id="only-red">red</team>
+    <deny id="deny-trapdoors">
+        <material>trap door</material>
+    </deny>
+</filters>
+<regions>
+    <union id="spawn-exits">
+        <union id="blue-spawn">
+            <cuboid min="-99,5,289" max="-101,10,299"/>
+            <cuboid min="-99,5,340" max="-101,10,330"/>
+        </union>
+        <union id="red-spawn">
+            <cuboid min="-40,5,340" max="-38,10,330"/>
+            <cuboid min="-40,5,289" max="-38,10,299"/>
+        </union>
+    </union>
+    <union id="hill-regions">
+        <cuboid id="north-capture" min="-66,3,290" max="-73,6,297"/>
+        <cuboid id="north-signal" min="-65,27,279" max="-74,36,282"/>
+        <cuboid id="mid-capture" min="-66,11,311" max="-73,14,318"/>
+        <cuboid id="south-capture" min="-66,3,332" max="-73,6,339"/>
+        <cuboid id="south-signal" min="-74,36,350" max="-65,27,347"/>
+    </union>
+    <apply enter="only-blue" region="blue-spawn" message="You may not enter the opposing team's spawn!"/>
+    <apply enter="only-red" region="red-spawn" message="You may not enter the opposing team's spawn!"/>
+    <apply use="deny-trapdoors" block="never"/>
+</regions>
+<king>
+    <hills required="false" capture-time="5s" points="1" time-multiplier="0" show-progress="true" neutral-state="true" incremental="true" permanent="false">
+        <hill name="North" capture="north-capture" progress="north-capture" captured="north-signal"/>
+        <hill name="Mid" capture="mid-capture" progress="mid-capture"/>
+        <hill name="South" capture="south-capture" progress="south-capture" captured="south-signal"/>
+    </hills>
+</king>
+<score>
+    <limit>750</limit>
+</score>
+</map>

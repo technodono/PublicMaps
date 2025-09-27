@@ -1,0 +1,268 @@
+<map proto="1.5.0">
+<name>Antiquis</name>
+<version>1.2.11</version>
+<include id="gapple-kill-reward"/>
+<objective>Destroy the enemy's obsidian monument!</objective>
+<authors>
+    <author uuid="060baa18-2852-40d8-afcb-e61607c04be3"/> <!-- pepsidawg00 -->
+</authors>
+<teams>
+    <team id="blue-team" color="blue" max="16">Blue</team>
+    <team id="red-team" color="dark red" max="16">Red</team>
+</teams>
+<broadcasts>
+    <tip after="5s" every="10m">Combine `f4 `4Infused Shards`r in a crafting area to get one `4Infused Plate`r! This allows you to craft pickaxe upgrades in your `e2x2`r inventory crafting grid.</tip>
+</broadcasts>
+<kits>
+    <kit id="pickaxe" filter="upgraded-pickaxe">
+        <item slot="2" material="wood pickaxe" unbreakable="true"/>
+    </kit>
+    <kit id="remove-itemkeep">
+        <action>
+            <replace-item ignore-metadata="true">
+                <find material="wood"/>
+                <replace material="air"/>
+            </replace-item>
+            <replace-item ignore-metadata="true">
+                <find material="golden apple"/>
+                <replace material="air"/>
+            </replace-item>
+        </action>
+    </kit>
+    <kit id="spawn-kit" parents="pickaxe,remove-itemkeep">
+        <item slot="0" material="stone sword" unbreakable="true"/>
+        <item slot="1" material="bow" unbreakable="true">
+            <enchantment>arrow infinite</enchantment>
+        </item>
+        <item slot="28" material="arrow"/>
+        <item slot="3" material="iron axe" unbreakable="true"/>
+        <item slot="30" material="iron spade" unbreakable="true"/>
+        <item slot="4" material="wood" amount="64"/>
+        <item slot="8" material="golden apple"/>
+        <helmet material="leather helmet" team-color="true" unbreakable="true"/>
+        <chestplate material="leather chestplate" team-color="true" unbreakable="true"/>
+        <leggings material="chainmail leggings" unbreakable="true"/>
+        <boots material="leather boots" team-color="true" unbreakable="true"/>
+        <effect duration="6s" amplifier="255">damage resistance</effect>
+        <effect duration="6s" amplifier="255">heal</effect>
+    </kit>
+</kits>
+<spawns>
+    <default yaw="-90">
+        <region>
+            <cuboid min="-72,20,-2" max="-68,20,2"/>
+        </region>
+    </default>
+    <spawn team="blue-team" kit="spawn-kit">
+        <region>
+            <cuboid min="-2,11,-70" max="2,11,-66"/>
+        </region>
+    </spawn>
+    <spawn team="red-team" kit="spawn-kit" yaw="180">
+        <region>
+            <cuboid min="-2,11,70" max="2,11,66"/>
+        </region>
+    </spawn>
+</spawns>
+<destroyables name="Monument" materials="obsidian" mode-changes="true" repairable="false">
+    <destroyable owner="blue-team">
+        <region>
+            <cuboid min="0,8,-41" max="1,10,-40"/>
+        </region>
+    </destroyable>
+    <destroyable owner="red-team">
+        <region>
+            <cuboid min="0,8,41" max="1,10,42"/>
+        </region>
+    </destroyable>
+</destroyables>
+<modes>
+    <mode after="30m" material="emerald block" name="`2EMERALD MONUMENT MODE"/>
+    <mode after="45m" material="coal block" name="`8COAL MONUMENT MODE"/>
+</modes>
+<filters>
+    <not id="not-plate">
+        <material>iron plate</material>
+    </not>
+    <all id="upgraded-pickaxe">
+        <not>
+            <any>
+                <carrying>
+                    <item unbreakable="true" material="stone pickaxe"/>
+                </carrying>
+                <carrying>
+                    <item unbreakable="true" material="iron pickaxe"/>
+                </carrying>
+                <carrying>
+                    <item unbreakable="true" enchantment="efficiency" material="diamond pickaxe"/>
+                </carrying>
+            </any>
+        </not>
+    </all>
+</filters>
+<regions>
+    <negative id="void-region">
+        <circle id="playable" center="0.5,0.5" radius="51"/>
+    </negative>
+    <rectangle id="blue-spawn" min="-31,-84" max="32,-52"/>
+    <rectangle id="red-spawn" min="-31,52" max="32,84"/>
+    <!-- applicators -->
+    <apply enter="blue-team" region="blue-spawn" message="You may not enter the enemy's base!"/>
+    <apply enter="red-team" region="red-spawn" message="You may not enter the enemy's base!"/>
+    <apply block="never" region="void-region"/>
+    <apply block="not-plate"/>
+</regions>
+<renewables>
+    <renewable sound="false" rate="0.4"> <!-- sound is important to find hiding players -->
+        <region>
+            <cuboid min="-3,1,-3" max="4,5,4"/>
+        </region>
+        <renew-filter>
+            <material>gold ore</material>
+        </renew-filter>
+        <replace-filter>
+            <material>air</material>
+        </replace-filter>
+    </renewable>
+</renewables>
+<crafting>
+    <shapeless>
+        <result unbreakable="true" material="wood pickaxe"/>
+        <ingredient>nether star</ingredient>
+    </shapeless>
+    <shapeless>
+        <result unbreakable="true" material="stone pickaxe"/>
+        <ingredient amount="2">nether star</ingredient>
+        <ingredient>wood pickaxe</ingredient>
+    </shapeless>
+    <shapeless>
+        <result unbreakable="true" material="iron pickaxe"/>
+        <ingredient amount="4">nether star</ingredient>
+        <ingredient>stone pickaxe</ingredient>
+    </shapeless>
+    <shapeless>
+        <result unbreakable="true" material="diamond pickaxe">
+            <enchantment>efficiency</enchantment>
+        </result>
+        <ingredient amount="8">nether star</ingredient>
+        <ingredient>iron pickaxe</ingredient>
+    </shapeless>
+    <!-- Allow of 2X2 crafting as well -->
+    <!-- Infused Plate -->
+    <shaped>
+        <result name="`4Infused Plate" show-enchantments="false" material="iron plate">
+            <enchantment>unbreaking</enchantment>
+        </result>
+        <shape>
+            <row>NN</row>
+            <row>NN</row>
+        </shape>
+        <ingredient symbol="N">nether star</ingredient>
+    </shaped>
+    <shapeless>
+        <result name="`4Infused Shard" amount="4" material="nether star"/>
+        <ingredient>iron plate</ingredient>
+    </shapeless>
+    <shapeless>
+        <result unbreakable="true" material="iron pickaxe"/>
+        <ingredient>iron plate</ingredient>
+        <ingredient>stone pickaxe</ingredient>
+    </shapeless>
+    <shapeless>
+        <result unbreakable="true" material="diamond pickaxe">
+            <enchantment>efficiency</enchantment>
+        </result>
+        <ingredient amount="2">iron plate</ingredient>
+        <ingredient>iron pickaxe</ingredient>
+    </shapeless>
+</crafting>
+<item-mods> <!-- lessen confusion -->
+    <rule>
+        <match>
+            <material>wood pickaxe</material>
+        </match>
+        <modify lore="`rCombine with 2 `4Infused Shards `rto upgrade!"/>
+    </rule>
+    <rule>
+        <match>
+            <material>stone pickaxe</material>
+        </match>
+        <modify lore="`rCombine with 4 `4Infused Shards|`ror 1 `4Infused Plate `rto upgrade!"/>
+    </rule>
+    <rule>
+        <match>
+            <material>iron pickaxe</material>
+        </match>
+        <modify lore="`rCombine with 8 `4Infused Shards|`ror 2 `4Infused Plates `rto upgrade!"/>
+    </rule>
+    <rule>
+        <match>
+            <material>iron plate</material>
+        </match>
+        <modify lore="`rCan be crafted back|`rinto 4 `4Infused Shards`r!"/>
+    </rule>
+</item-mods>
+<toolrepair>
+    <tool>stone sword</tool>
+    <tool>bow</tool>
+    <tool>iron axe</tool>
+    <tool>iron spade</tool>
+</toolrepair>
+<itemremove>
+    <item>log</item>
+    <item>cobblestone</item>
+    <item>gravel</item>
+    <item>dirt</item>
+    <item>flint</item>
+    <item>arrow</item>
+    <item>apple</item>
+    <item>smooth brick</item>
+    <item>seeds</item>
+    <item>sapling</item>
+    <item>stained clay</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>chainmail leggings</item>
+    <item>leather boots</item>
+    <item>obsidian</item>
+    <item>beacon</item>
+    <item>coal block</item>
+    <item>packed ice</item>
+    <item>emerald block</item>
+</itemremove>
+<itemkeep>
+    <item>nether star</item>
+    <item>iron plate</item>
+    <item>wood pickaxe</item>
+    <item>stone pickaxe</item>
+    <item>iron pickaxe</item>
+    <item>iron axe</item>
+    <item>diamond pickaxe</item>
+    <item>gold helmet</item>
+    <item>gold chestplate</item>
+    <item>gold leggings</item>
+    <item>gold boots</item>
+    <item>wood</item>
+    <item>golden apple</item>
+</itemkeep>
+<kill-rewards>
+    <kill-reward>
+        <item material="wood" amount="16"/>
+        <item material="nether star" name="`4Infused Shard"/>
+    </kill-reward>
+</kill-rewards>
+<block-drops>
+    <rule>
+        <filter>
+            <material>wood</material>
+        </filter>
+        <drops>
+            <item chance="0" material="wood"/>
+        </drops>
+    </rule>
+</block-drops>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<maxbuildheight>35</maxbuildheight>
+</map>

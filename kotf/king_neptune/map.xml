@@ -1,0 +1,93 @@
+<map proto="1.5.0">
+<name>King Neptune</name>
+<variant id="3v3">3v3</variant>
+<version>1.1.2</version>
+<unless variant="3v3">
+    <include id="kotf"/>
+    <constant id="score">120</constant>
+    <constant id="max">6</constant>
+    <constant id="max-overfill" delete="true"/>
+    <constant id="flag-kit">flag-kit-no-slowness</constant>
+    <constant id="respawn-timer">3.5s</constant>
+</unless>
+<if variant="3v3">
+    <include id="kotf-comp"/>
+    <include id="arrow-cooldown"/>
+    <constant id="score">160</constant>
+    <constant id="max">3</constant>
+    <constant id="max-overfill">3</constant>
+    <constant id="flag-kit">flag-kit</constant>
+    <constant id="respawn-timer">5s</constant>
+</if>
+<constant id="damage-resistance">3s</constant>
+<constant id="flag-respawn-timer">15s</constant>
+<objective>Gain ${score} points to win!</objective>
+<created>2020-03-09</created>
+<authors>
+    <author uuid="621b2aa8-4e5f-4ed8-bd36-0ae2f8952a06"/> <!-- Strangey -->
+</authors>
+<teams>
+    <team id="blue" color="blue" max="${max}" max-overfill="${max-overfill}">Blue</team>
+    <team id="red" color="dark red" max="${max}" max-overfill="${max-overfill}">Red</team>
+</teams>
+<spawns>
+    <default>
+        <region yaw="0">
+            <point>40.5,15,40.5</point>
+        </region>
+    </default>
+    <spawn team="blue" kit="base-kit" filter="has-flag">
+        <region yaw="90">
+            <point>66.5,6,40.5</point>
+        </region>
+    </spawn>
+    <spawn team="red" kit="base-kit" filter="has-flag">
+        <region yaw="-90">
+            <point>14.5,6,40.5</point>
+        </region>
+    </spawn>
+</spawns>
+<filters>
+    <team id="only-blue">blue</team>
+    <team id="only-red">red</team>
+</filters>
+<regions>
+    <union id="spawns">
+        <rectangle id="blue-spawn" min="64,36" max="69,45"/>
+        <rectangle id="red-spawn" min="17,45" max="12,36"/>
+    </union>
+    <apply enter="only-blue" region="blue-spawn" message="You may not enter the enemy's spawn!"/>
+    <apply enter="only-red" region="red-spawn" message="You may not enter the enemy's spawn!"/>
+    <apply block="never" use="never"/>
+</regions>
+<spawners>
+    <spawner delay="8s" max-entities="1">
+        <spawn-region>
+            <point>40.5,9.2,40.5</point>
+        </spawn-region>
+        <player-region>
+            <cylinder base="40.5,8,40.5" height="4" radius="2"/>
+        </player-region>
+        <item material="golden apple"/>
+    </spawner>
+</spawners>
+<flags>
+    <flag id="flag"
+          name="Flag"
+          color="purple"
+          shared="true"
+          points-rate="1"
+          pickup-kit="${flag-kit}"
+          drop-kit="reset-health"
+          flag-proximity-metric="none"
+          show-respawn-on-pickup="${announce-post-pickup}">
+        <post return-time="0s" respawn-time="${flag-respawn-timer}">
+            <post name="North (Blue Right, Red Left)" yaw="0">40.5,8,28.5</post>
+            <post name="South (Blue Left, Red Right)" yaw="180">40.5,8,52.5</post>
+        </post>
+    </flag>
+</flags>
+<!-- <maptags>
+    <maptag>#mmc4</maptag>
+</maptags> -->
+</map>

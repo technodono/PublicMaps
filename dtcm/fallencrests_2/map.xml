@@ -1,0 +1,125 @@
+<map proto="1.5.0">
+<name>Fallencrests 2</name>
+<version>1.2.9</version>
+<objective>Leak the other team's obsidian core to win!</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="36dc036a-dfbc-4627-b66a-501223f08075"/> <!-- ieatboulders2 -->
+    <author uuid="15dc7f7a-40cd-4389-ad45-f8a33a09a394"/> <!-- moo88888888 -->
+    <author uuid="621b2aa8-4e5f-4ed8-bd36-0ae2f8952a06"/> <!-- thestrangeboy1 -->
+    <author uuid="105f6a09-f533-412b-93cb-501601763c11"/> <!-- JTerwiesch -->
+</authors>
+<contributors>
+    <contributor uuid="76cf5483-a7ea-4b5d-8830-385f768c4807"/> <!-- xannallax33 -->
+    <contributor uuid="dad8b95c-cf6a-44df-982e-8c8dd70201e0"/> <!-- ElectroidFilms -->
+</contributors>
+<teams>
+    <team id="yellow-team" color="yellow" max="35">Yellow</team>
+    <team id="red-team" color="dark red" max="35">Red</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" unbreakable="true" material="diamond sword"/>
+        <item slot="1" unbreakable="true" enchantment="arrow infinite" material="bow"/>
+        <item slot="2" unbreakable="true" enchantment="dig speed:2" material="iron pickaxe"/>
+        <item slot="3" unbreakable="true" material="iron axe"/>
+        <item slot="4" amount="64" material="golden carrot"/>
+        <item slot="5" amount="64" material="wood"/>
+        <item slot="6" amount="64" team-color="true" material="stained clay"/>
+        <item slot="7" amount="32" material="ladder"/>
+        <item slot="28" material="arrow"/>
+        <helmet unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" team-color="true" material="leather chestplate"/>
+        <leggings unbreakable="true" material="chainmail leggings"/>
+        <boots unbreakable="true" team-color="true" material="leather boots"/>
+        <effect duration="5" amplifier="4">heal</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red-team" kit="spawn-kit">
+        <regions>
+            <cuboid min="12.5,18.5,42.5" max="10.5,18.5,43.5"/>
+        </regions>
+    </spawn>
+    <spawn team="yellow-team" kit="spawn-kit" yaw="180">
+        <regions>
+            <cuboid min="12.5,18.5,254.5" max="14.5,18.5,253.5"/>
+        </regions>
+    </spawn>
+    <default>
+        <regions>
+            <cylinder base="12.5,82,148.5" radius="2" height="0"/>
+        </regions>
+    </default>
+</spawns>
+<regions>
+    <union id="spawns">
+        <cuboid id="r-spawn" min="16,16,47" max="7,oo,39"/>
+        <cuboid id="y-spawn" min="9,16,250" max="18,oo,258"/>
+    </union>
+    <negative id="void-area">
+        <rectangle min="50,138" max="-25,160"/>
+    </negative>
+    <apply region="r-spawn" enter="red-team" message="You may not enter the enemy's spawn!"/>
+    <apply region="y-spawn" enter="yellow-team" message="You may not enter the enemy's spawn!"/>
+    <apply block="never" message="You have reached the build limit over the void.">
+        <region>
+            <cuboid min="50,37,158" max="-25,oo,138"/>
+        </region>
+    </apply>
+    <apply block="never" message="You have reached the build limit over the team areas.">
+        <region>
+            <cuboid min="50,53,33" max="-25,oo,138"/>
+        </region>
+    </apply>
+    <apply block="never" message="You have reached the build limit over the team areas.">
+        <region>
+            <cuboid min="50,53,158" max="-25,oo,264"/>
+        </region>
+    </apply>
+    <apply region="spawns" block="never" message="You may not modify the spawn!"/>
+    <apply region="void-area" block="deny(void)"/>
+</regions>
+<cores material="obsidian" leak="4" mode-changes="true">
+    <core team="red-team">
+        <region>
+            <cuboid min="2,33,107" max="-3,38,102"/>
+        </region>
+    </core>
+    <core team="yellow-team">
+        <region>
+            <cuboid min="28,33,195" max="23,38,190"/>
+        </region>
+    </core>
+</cores>
+<modes>
+    <mode after="15m" material="gold block" name="`6GOLD CORE MODE"/>
+    <mode after="25m" material="packed ice" name="PACKED ICE CORE MODE"/>
+</modes>
+<itemremove>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>chainmail leggings</item>
+    <item>leather boots</item>
+    <item>obsidian</item>
+    <item>gold block</item>
+    <item>smooth brick</item>
+    <item>golden carrot</item>
+    <item>wood</item>
+    <item>ladder</item>
+    <item>stained clay</item>
+</itemremove>
+<toolrepair>
+    <tool>diamond sword</tool>
+    <tool>bow</tool>
+    <tool>iron pickaxe</tool>
+    <tool>iron axe</tool>
+    <tool>arrow</tool>
+</toolrepair>
+<kill-rewards>
+    <kill-reward>
+        <item amount="32" material="wood"/>
+    </kill-reward>
+</kill-rewards>
+<timelock>on</timelock>
+</map>

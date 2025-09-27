@@ -1,0 +1,185 @@
+<map proto="1.5.0">
+<name>Synergy</name>
+<version>1.1.9</version>
+<objective>Leak lava from the core and destroy both team's monuments.</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="df5fd9f4-4840-4293-9346-5c77bf7bc08f"/> <!-- kalikakitty -->
+</authors>
+<contributors>
+    <contributor uuid="22ba442b-cf26-4d09-b290-8d4e50a551b2" contribution="Build Slave and XML"/> <!-- dinner1111 -->
+    <contributor uuid="060baa18-2852-40d8-afcb-e61607c04be3" contribution="Server"/> <!-- pepsidawg00 -->
+    <contributor uuid="5f8aeb60-e337-42ca-90a9-4104cccb4d2a" contribution="General Derpiness"/> <!-- StaticFaultz -->
+    <contributor uuid="af209afd-77dc-4bdb-8cf1-f1513c77bb0b" contribution="Head Build Slave"/> <!-- TranquilSea -->
+    <contributor uuid="d8ba993b-77dc-443d-ab5f-690f30ec8dfb" contribution="Build Slave"/> <!-- vPixel -->
+    <contributor uuid="76cf5483-a7ea-4b5d-8830-385f768c4807" contribution="Feedback and OcD"/> <!-- xannallax33 -->
+    <contributor uuid="06078e7e-6a7b-4d31-8f74-853072b182bb" contribution="MCEdit wizard"/> <!-- xXFracXx -->
+    <contributor uuid="d556bcdf-57ad-4220-92f6-150a9b12380b" contribution="Feedback and Finding the missing pistons"/> <!-- three_two -->
+    <contributor uuid="2a289d2a-d970-49c5-9a6c-01fc0264e317" contribution="Forgot to update XML repeatedly"/> <!-- Stealth5061 -->
+</contributors>
+<teams>
+    <team id="purple" color="dark purple" max="35">Purple</team>
+    <team id="cyan" color="dark aqua" max="35">Cyan</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" enchantment="arrow infinite" material="bow"/>
+        <item slot="2" enchantment="durability:3" material="diamond pickaxe"/>
+        <item slot="3" enchantment="dig speed;durability:3" material="iron axe"/>
+        <item slot="4" amount="64" material="cooked fish"/>
+        <item slot="5" amount="64" material="glass"/>
+        <item slot="6" amount="64" damage="1" material="log"/>
+        <item slot="28" material="arrow"/>
+        <effect amplifier="5" duration="5">heal</effect>
+        <effect amplifier="3" duration="3">damage resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawns kit="spawn-kit">
+        <spawn team="purple" yaw="-90">
+            <region>
+                <cuboid min="-97,5,-112" max="-96,5,-111"/>
+            </region>
+        </spawn>
+        <spawn team="cyan" yaw="90">
+            <region>
+                <cuboid min="118,5,-111" max="117,5,-112"/>
+            </region>
+        </spawn>
+    </spawns>
+    <default>
+        <region>
+            <cuboid min="8,21,-185" max="12,21,-181"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <any id="only-iron">
+        <material>iron block</material>
+        <material>leaves</material>
+        <material>glowstone</material>
+        <material>trap door</material>
+        <material>glass</material>
+    </any>
+    <any id="gravel">
+        <material>gravel</material>
+        <material>stone plate</material>
+    </any>
+    <team id="only-cyan">cyan</team>
+    <team id="only-purple">purple</team>
+</filters>
+<regions>
+    <union id="bases">
+        <cuboid id="cyan-base" min="82,-oo,-123" max="135,25,-99"/>
+        <cuboid id="purple-base" min="-114,-oo,-123" max="-61,25,-99"/>
+    </union>
+    <union id="all-lanes">
+        <union id="cyan-lanes">
+            <union id="cyan-left-lanes">
+                <rectangle min="48,-63" max="34,-79"/>
+                <rectangle min="44,-106" max="33,-90"/>
+            </union>
+            <union id="cyan-right-lanes">
+                <rectangle min="48,-159" max="34,-143"/>
+                <rectangle min="44,-132" max="33,-116"/>
+            </union>
+        </union>
+        <union id="purple-lanes">
+            <union id="purple-left-lanes">
+                <rectangle min="-27,-159" max="-12,-143"/>
+                <rectangle min="-24,-90" max="-12,-106"/>
+            </union>
+            <union id="purple-right-lanes">
+                <rectangle min="-23,-116" max="-12,-132"/>
+                <rectangle min="-27,-79" max="-12,63"/>
+            </union>
+        </union>
+    </union>
+    <union id="extra-loot-chests">
+        <cuboid min="71,7,-100" max="67,3,-104"/>
+        <cuboid min="71,7,-118" max="67,3,-122"/>
+        <cuboid min="-50,7,-104" max="-46,3,-100"/>
+        <cuboid min="-50,7,-122" max="-46,3,-118"/>
+    </union>
+    <union id="cores">
+        <cuboid id="cyan-core" min="160,12,-106" max="169,21,-116"/>
+        <cuboid id="purple-core" min="-148,12,-106" max="-139,21,-116"/>
+    </union>
+    <!-- Applies -->
+    <apply region="cyan-base" enter="only-cyan" message="You may not enter the opposing team's spawn!"/>
+    <apply region="purple-base" enter="only-purple" message="You may not enter the opposing team's spawn!"/>
+    <apply region="extra-loot-chests" block="never" message="You may not break the extra loot chests!"/>
+    <apply region="bases" block-place="never" block-break="only-iron" message="You can only break iron blocks in the bases!"/>
+    <apply block="deny(void)" message="You may not modify in this area!">
+        <region>
+            <complement id="void-area">
+                <negative>
+                    <region id="all-lanes"/>
+                </negative>
+                <rectangle min="20,-108" max="1,-114"/>
+            </complement>
+        </region>
+    </apply>
+    <apply block="gravel" message="You may not modify this area!">
+        <region>
+            <rectangle min="20,-108" max="1,-114"/>
+        </region>
+    </apply>
+</regions>
+<cores material="obsidian" leak="5" mode-changes="true">
+    <core team="cyan" region="cyan-core"/>
+    <core team="purple" region="purple-core"/>
+</cores>
+<destroyables materials="obsidian">
+    <destroyable name="Monument A" owner="cyan">
+        <region>
+            <cuboid min="135,17,-209" max="134,20,-208"/>
+        </region>
+    </destroyable>
+    <destroyable name="Monument B" owner="cyan">
+        <region>
+            <cuboid min="134,17,-13" max="135,20,-14"/>
+        </region>
+    </destroyable>
+    <destroyable name="Monument A" owner="purple">
+        <region>
+            <cuboid min="-113,17,-13" max="-114,20,-14"/>
+        </region>
+    </destroyable>
+    <destroyable name="Monument B" owner="purple">
+        <region>
+            <cuboid min="-113,17,-209" max="-114,20,-208"/>
+        </region>
+    </destroyable>
+</destroyables>
+<modes>
+    <mode after="15m" material="gold block"/>
+    <mode after="20m" material="glass"/>
+</modes>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+    <tool>diamond pickaxe</tool>
+    <tool>iron axe</tool>
+    <tool>arrow</tool>
+</toolrepair>
+<itemremove>
+    <item>cooked fish</item>
+    <item>glass</item>
+    <item>wood</item>
+    <item>log</item>
+    <item>gold block</item>
+    <item>obsidian</item>
+    <item>gold sword</item>
+    <item>flint</item>
+    <item>gravel</item>
+    <item>beacon</item>
+    <item>glowstone dust</item>
+    <item>trap door</item>
+    <item>sapling</item>
+    <item>golden apple</item>
+</itemremove>
+<timelock>on</timelock>
+<maxbuildheight>26</maxbuildheight>
+</map>

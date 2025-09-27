@@ -1,0 +1,91 @@
+<map proto="1.5.0">
+<name>OutCast 2</name>
+<variant id="7v7">7v7</variant>
+<version>1.6</version>
+<unless variant="7v7">
+    <include id="kotf"/>
+    <constant id="max">24</constant>
+    <constant id="max-overfill" delete="true"/>
+</unless>
+<if variant="7v7">
+    <include id="kotf-comp"/>
+    <constant id="max">7</constant>
+    <constant id="max-overfill">7</constant>
+    <constant id="respawn-timer">5s</constant>
+</if>
+<constant id="damage-resistance">6s</constant>
+<objective>Control the flag for ${score} seconds to win!</objective>
+<authors>
+    <author uuid="621b2aa8-4e5f-4ed8-bd36-0ae2f8952a06"/> <!-- Strangey -->
+</authors>
+<contributors>
+    <contributor contribution="Aesthetic help" uuid="6bec5c3a-4934-4b19-9aa8-c7c569820f7d"/> <!-- Claf -->
+    <contributor contribution="Aesthetic help" uuid="2958ea4c-3501-404e-88cc-12e8632f68cc"/> <!-- Nixani -->
+</contributors>
+<teams>
+    <team id="blue" color="blue" max="${max}" max-overfill="${max-overfill}">Blue</team>
+    <team id="red" color="dark red" max="${max}" max-overfill="${max-overfill}">Red</team>
+</teams>
+<kits>
+    <kit id="spawn-kit" parent="base-kit">
+        <action>
+            <replace-item ignore-metadata="true">
+                <find material="iron boots"/>
+                <replace unbreakable="true" enchantment="feather_falling:2" material="iron boots"/>
+            </replace-item>
+        </action>
+    </kit>
+</kits>
+<spawns>
+    <default>
+        <region yaw="90">
+            <cylinder base="267,84,-155.5" radius="1" height="0"/>
+        </region>
+    </default>
+    <spawn team="blue" kit="spawn-kit" filter="has-flag">
+        <region yaw="-90">
+            <point>120.5,48,-155.5</point>
+        </region>
+    </spawn>
+    <spawn team="red" kit="spawn-kit" filter="has-flag">
+        <region yaw="90">
+            <point>296.5,48,-155.5</point>
+        </region>
+    </spawn>
+</spawns>
+<filters>
+    <deny id="deny-beacon">
+        <material>beacon</material>
+    </deny>
+</filters>
+<regions>
+    <apply block="never" use="deny-beacon"/>
+</regions>
+<flags>
+    <flag id="flag"
+          name="Flag"
+          color="purple"
+          shared="true"
+          points-rate="1"
+          pickup-kit="flag-kit"
+          drop-kit="reset-health"
+          flag-proximity-metric="none"
+          show-respawn-on-pickup="${announce-post-pickup}">
+        <post return-time="0s" respawn-time="${flag-respawn-timer}">
+            <post name="Centre Post">208.5,27,-155.5</post>
+            <post name="North Post">208.5,39,-182.5</post>
+            <post name="South Post">208.5,39,-128.5</post>
+        </post>
+    </flag>
+</flags>
+<portals sound="false" observers="never">
+    <portal x="@325" z="@-156" filter="flag-carrier">
+        <region>
+            <below y="17"/>
+        </region>
+    </portal>
+</portals>
+<itemremove>
+    <item>minecart</item>
+</itemremove>
+</map>

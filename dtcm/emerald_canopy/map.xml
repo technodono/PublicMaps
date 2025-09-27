@@ -1,0 +1,132 @@
+<map proto="1.5.0">
+<name>Emerald Canopy</name>
+<version>1.2.10</version>
+<objective>Be the first team to destroy all three of the other team's monuments!</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="ea866a67-8866-4c39-a32f-41c68f6a40c0"/> <!-- benny1263 -->
+    <author uuid="c695e477-9cd8-4381-a2b4-0f8b59c77b83"/> <!-- diamond22 -->
+    <author uuid="fb0d8b88-1917-41d8-a2ce-d16a3e1dde7c"/> <!-- nylatiki -->
+    <author uuid="2a289d2a-d970-49c5-9a6c-01fc0264e317"/> <!-- Stealth5061 -->
+</authors>
+<teams>
+    <team id="red" color="dark red" max="35">Red</team>
+    <team id="blue" color="blue" max="35">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="iron sword"/>
+        <item slot="2" material="diamond pickaxe"/>
+        <item slot="1" enchantment="arrow infinite" material="bow"/>
+        <item slot="3" enchantment="durability:3;dig speed:2" material="iron axe"/>
+        <item slot="32" amount="64" damage="3" material="leaves"/>
+        <item slot="29" material="arrow"/>
+        <item slot="5" amount="64" damage="3" material="log"/>
+        <item slot="4" amount="2" material="golden apple"/>
+        <effect duration="8" amplifier="4">regeneration</effect>
+        <helmet unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" team-color="true" material="leather chestplate" enchantment="protection projectile:2"/>
+        <leggings unbreakable="true" material="chainmail leggings"/>
+        <boots unbreakable="true" team-color="true" material="leather boots"/>
+    </kit>
+</kits>
+<spawns>
+    <default yaw="90">
+        <region>
+            <cylinder base="-92,137,-6" radius="3" height="0"/>
+        </region>
+    </default>
+    <spawn team="red" kit="spawn-kit" safe="true" yaw="45">
+        <regions>
+            <cylinder base="48,74,-139" radius="2" height="0"/>
+            <cylinder base="53,74,-129" radius="2" height="0"/>
+            <cylinder base="38,74,-144" radius="2" height="0"/>
+        </regions>
+    </spawn>
+    <spawn team="blue" kit="spawn-kit" safe="true" yaw="135">
+        <regions>
+            <cylinder base="-48,74,143" radius="2" height="0"/>
+            <cylinder base="-53,74,133" radius="2" height="0"/>
+            <cylinder base="-38,74,148" radius="2" height="0"/>
+        </regions>
+    </spawn>
+</spawns>
+<filters>
+    <deny id="deny-enchant">
+        <material>enchantment table</material>
+    </deny>
+</filters>
+<regions>
+    <negative id="playable-inverse">
+        <rectangle min="-75,-176" max="76,182"/>
+    </negative>
+    <apply block="deny-enchant">
+        <region>
+            <rectangle min="-2,0" max="3,5"/>
+        </region>
+    </apply>
+    <apply block="never">
+        <region>
+            <rectangle min="32,-150" max="60,-122"/>
+            <rectangle min="-59,127" max="-31,155"/>
+        </region>
+    </apply>
+    <apply region="playable-inverse" block="never"/>
+</regions>
+<destroyables materials="obsidian">
+    <destroyables owner="red">
+        <destroyable name="Front Monument">
+            <region>
+                <cuboid min="9,87,-59" max="7,92,-61"/>
+            </region>
+        </destroyable>
+        <destroyable name="Back Monument">
+            <region>
+                <cuboid min="-13,82,-106" max="-15,87,-108"/>
+            </region>
+        </destroyable>
+        <destroyable name="Left Monument">
+            <region>
+                <cuboid min="-46,83,-72" max="-48,88,-70"/>
+            </region>
+        </destroyable>
+    </destroyables>
+    <destroyables owner="blue">
+        <destroyable name="Front Monument">
+            <region>
+                <cuboid min="-7,87,63" max="-9,92,65"/>
+            </region>
+        </destroyable>
+        <destroyable name="Back Monument">
+            <region>
+                <cuboid min="13,82,112" max="15,86,110"/>
+            </region>
+        </destroyable>
+        <destroyable name="Left Monument">
+            <region>
+                <cuboid min="46,83,76" max="48,88,74"/>
+            </region>
+        </destroyable>
+    </destroyables>
+</destroyables>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+    <tool>diamond pickaxe</tool>
+    <tool>iron axe</tool>
+    <tool>arrow</tool>
+</toolrepair>
+<itemremove>
+    <item>leather helmet</item>
+    <item>obsidian</item>
+    <item>flint</item>
+    <item>leaves</item>
+    <item>log</item>
+    <item>wood</item>
+</itemremove>
+<timelock>on</timelock>
+<maxbuildheight>112</maxbuildheight>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+</map>

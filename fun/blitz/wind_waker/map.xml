@@ -1,0 +1,71 @@
+<map proto="1.5.0">
+<name>Wind Waker</name>
+<version>1.0.9</version>
+<objective>Eliminate the other team within 10 minutes.</objective>
+<gamemode>blitz</gamemode>
+<authors>
+    <author uuid="130be12a-f3b9-4b7d-ad39-7b45e84d3d0f"/> <!-- Veiyl -->
+</authors>
+<contributors>
+    <contributor uuid="2ca8072f-74be-4798-85b8-bbce03aa91af" contribution="XML"/> <!-- Tywnis -->
+    <contributor uuid="e5eea785-51c1-40fe-a2d0-f83d4c035cd9" contribution="XML Fixes"/> <!-- pikpikmerchant -->
+</contributors>
+<teams>
+    <team id="red" color="dark red" max="30">Red</team>
+    <team id="blue" color="blue" max="30">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="stone sword"/>
+        <item slot="1" material="bow"/>
+        <item slot="2" amount="16" material="arrow"/>
+        <item slot="3" material="golden apple"/>
+        <helmet unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" enchantment="protection projectile" team-color="true" material="leather chestplate"/>
+        <leggings unbreakable="true" material="iron leggings"/>
+        <boots unbreakable="true" team-color="true" material="leather boots"/>
+        <game-mode>adventure</game-mode>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red" kit="spawn-kit" yaw="-135">
+        <region>
+            <point>14.5,16,30.5</point>
+        </region>
+    </spawn>
+    <spawn team="blue" kit="spawn-kit" yaw="45">
+        <region>
+            <point>-13.5,16,-29.5</point>
+        </region>
+    </spawn>
+    <default yaw="180">
+        <region>
+            <point>0.5,6,0.5</point>
+        </region>
+    </default>
+</spawns>
+<regions>
+    <apply block="never"/>
+</regions>
+<time>10m</time>
+<blitz>
+    <lives>1</lives>
+</blitz>
+<itemremove>
+    <item>cooked beef</item>
+    <item>arrow</item>
+    <item>golden apple</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>iron leggings</item>
+    <item>leather boots</item>
+</itemremove>
+<toolrepair>
+    <tool>stone sword</tool>
+    <tool>bow</tool>
+</toolrepair>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<timelock>on</timelock>
+</map>

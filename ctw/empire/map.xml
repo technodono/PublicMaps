@@ -1,0 +1,185 @@
+<map proto="1.5.0">
+<name>Empire</name>
+<variant id="halloween" world="halloween" override="true">Empire in Ruins</variant>
+<version>2.3.12</version>
+<objective>Capture both wools and return them safely to your victory monument.</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="c65e66b3-e932-4b33-b907-fe4916806076"/> <!-- Draco_Rogue -->
+</authors>
+<teams>
+    <team id="red" color="dark red" max="16">Red</team>
+    <team id="blue" color="blue" max="16">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" unbreakable="true" material="stone sword"/>
+        <item slot="1" unbreakable="true" enchantment="arrow infinite" material="bow"/>
+        <item slot="2" unbreakable="true" material="iron pickaxe"/>
+        <item slot="3" unbreakable="true" enchantment="dig speed" material="iron axe"/>
+        <unless variant="halloween">
+            <item slot="30" unbreakable="true" material="iron spade"/>
+        </unless>
+        <item slot="4" amount="64" material="wood"/>
+        <item slot="5" amount="64" material="glass"/>
+        <item slot="6" amount="64" material="cooked beef"/>
+        <item slot="27" amount="64" material="apple"/>
+        <item slot="28" amount="1" material="arrow"/>
+        <effect duration="5" amplifier="4">damage resistance</effect>
+        <helmet unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" team-color="true" enchantment="protection projectile:1" material="leather chestplate"/>
+        <leggings unbreakable="true" team-color="true" material="leather leggings"/>
+        <boots unbreakable="true" team-color="true" material="leather boots"/>
+    </kit>
+</kits>
+<spawns>
+    <spawns kit="spawn-kit">
+        <spawn team="blue" pitch="90">
+            <region>
+                <point>-1.5,55,-60.5</point>
+            </region>
+        </spawn>
+        <spawn team="red" yaw="180" pitch="90">
+            <region>
+                <point>-1.5,55,85.5</point>
+            </region>
+        </spawn>
+    </spawns>
+    <default yaw="-90">
+        <region>
+            <cylinder base="-70.5,11,12.5" radius="2.5" height="0"/>
+        </region>
+    </default>
+</spawns>
+<wools>
+    <wools team="red">
+        <wool color="orange" location="26.5,9.5,-70.5">
+            <monument><block>-0.5,7,93.5</block></monument>
+        </wool>
+        <wool color="yellow" location="-29.5,9.5,-70.5">
+            <monument><block>-2.5,7,93.5</block></monument>
+        </wool>
+    </wools>
+    <wools team="blue">
+        <wool color="purple" location="26.5,9.5,95.5">
+            <monument><block>-0.5,7,-68.5</block></monument>
+        </wool>
+        <wool color="lime" location="-29.5,9.5,95.5">
+            <monument><block>-2.5,7,-68.5</block></monument>
+        </wool>
+    </wools>
+</wools>
+<filters>
+    <deny id="deny-spawner">
+        <material>mob spawner</material>
+    </deny>
+    <all id="anti-grief-blue">
+        <deny>
+            <any>
+                <material>mob spawner</material>
+                <material>chest</material>
+            </any>
+        </deny>
+        <team id="only-blue">blue</team>
+    </all>
+    <all id="anti-grief-red">
+        <deny>
+            <any>
+                <material>mob spawner</material>
+                <material>chest</material>
+            </any>
+        </deny>
+        <team id="only-red">red</team>
+    </all>
+    <not id="only-red-usage">
+        <all>
+            <any>
+                <material>chest</material>
+                <material>workbench</material>
+            </any>
+            <team>blue</team>
+        </all>
+    </not>
+    <not id="only-blue-usage">
+        <all>
+            <any>
+                <material>chest</material>
+                <material>workbench</material>
+            </any>
+            <team>red</team>
+        </all>
+    </not>
+</filters>
+<regions>
+    <apply block="deny-spawner"/>
+    <!--   Blue has to capture these   -->
+    <union id="blue-wool-rooms">
+        <rectangle id="lime-room" min="-22,103" max="-37,88"/>
+        <rectangle id="purple-room" min="34,88" max="19,103"/>
+    </union>
+    <!--   Red has to capture these   -->
+    <union id="red-wool-rooms">
+        <rectangle id="orange-room" min="19,-63" max="34,-78"/>
+        <rectangle id="yellow-room" min="-22,-63" max="-37,-78"/>
+    </union>
+    <apply enter="only-blue" block="only-blue" use="only-blue-usage" message="You may not access/modify your own wool room!" region="blue-wool-rooms"/>
+    <apply enter="only-red" block="only-red" use="only-red-usage" message="You may not access/modify your own wool room!" region="red-wool-rooms"/>
+    <apply block-break="anti-grief-blue" region="blue-wool-rooms"/>
+    <apply block-break="anti-grief-red" region="red-wool-rooms"/>
+    <apply block="deny(void)" message="You may not edit in the void area!">
+        <region>
+            <negative>
+                <rectangle min="-39,63" max="36,-38"/>
+            </negative>
+        </region>
+    </apply>
+    <apply block="never" enter="only-blue" use="only-blue">
+        <region>
+            <circle id="blue-spawn" center="-1.5,-60.5" radius="12"/>
+            <rectangle id="blue-bridge" min="-4,-44" max="1,-51"/>
+        </region>
+    </apply>
+    <apply block="never" enter="only-red" use="only-red">
+        <region>
+            <circle id="red-spawn" center="-1.5,85.5" radius="12"/>
+            <rectangle id="red-bridge" min="1,69" max="-4,76"/>
+        </region>
+    </apply>
+    <apply block="never">
+        <region>
+            <cuboid id="above-25" min="-oo,25,-oo" max="oo,oo,oo"/>
+        </region>
+    </apply>
+</regions>
+<toolrepair>
+    <tool>stone sword</tool>
+    <tool>bow</tool>
+    <tool>iron pickaxe</tool>
+    <tool>iron axe</tool>
+    <tool>iron spade</tool>
+    <tool>arrow</tool>
+</toolrepair>
+<itemremove>
+    <item>apple</item>
+    <item>cooked beef</item>
+    <item>string</item>
+    <item>glowstone dust</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather boots</item>
+    <item>leather leggings</item>
+    <item>redstone</item>
+    <item>golden apple</item>
+    <item>glass</item>
+    <item>wood</item>
+</itemremove>
+<itemkeep>
+    <item>gold ingot</item>
+</itemkeep>
+<kill-rewards>
+    <kill-reward>
+        <item amount="7" material="gold nugget"/>
+        <item amount="16" material="wood"/>
+    </kill-reward>
+</kill-rewards>
+</map>

@@ -1,0 +1,167 @@
+<map proto="1.5.0">
+<name>Fort Wars</name>
+<version>1.4.8</version>
+<objective>Destroy the enemy's flag!</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="5bd4f5c6-f60c-44b1-9c37-c27a7db35ec6"/> <!-- whiskers434 -->
+</authors>
+<contributors>
+    <contributor uuid="82c796a5-c033-43be-af30-fa06496995f9" contribution="Fixed some stuff"/> <!-- IM_A_H0B0 -->
+</contributors>
+<rules>
+    <rule>Players have resistance and reduced knockback in spawn!</rule>
+    <rule>Chests can not be placed or destroyed!</rule>
+</rules>
+<teams>
+    <team id="red" color="dark red" max="32">Red</team>
+    <team id="blue" color="blue" max="32">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-protection">
+        <effect amplifier="10">damage resistance</effect>
+        <knockback-reduction>1</knockback-reduction>
+    </kit>
+    <kit id="spawn-kit">
+        <item slot="0" material="diamond sword"/>
+        <item slot="1" material="bow"/>
+        <item slot="28" amount="64" material="arrow"/>
+        <item slot="2" material="diamond pickaxe"/>
+        <item slot="3" material="diamond axe"/>
+        <item slot="30" material="diamond spade"/>
+        <item slot="4" amount="64" material="wood"/>
+        <item slot="5" amount="64" material="ladder"/>
+        <item slot="6" material="water bucket"/>
+        <item slot="8" amount="64" material="apple"/>
+        <helmet team-color="true" material="leather helmet"/>
+        <chestplate enchantment="protection explosions:4" material="chainmail chestplate"/>
+        <leggings team-color="true" material="leather leggings"/>
+        <boots team-color="true" material="leather boots"/>
+        <effect duration="30" amplifier="2">regeneration</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red" kit="spawn-kit" safe="true">
+        <region>
+            <point>-151.5,38,-141.5</point>
+        </region>
+    </spawn>
+    <spawn team="blue" kit="spawn-kit" safe="true" yaw="180">
+        <region>
+            <point>-151.5,38,-165.5</point>
+        </region>
+    </spawn>
+    <default yaw="90">
+        <region>
+            <cylinder base="-152,38,-154" radius="4" height="0"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <!-- Recent changes to implement spawn and chest protection -->
+    <deny id="deny-chest-break">
+        <material>chest</material>
+    </deny>
+    <!-- Line where recent changes end -->
+    <any id="blue-base-tnt">
+        <not>
+            <all>
+                <team id="only-blue">blue</team>
+                <material>tnt</material>
+            </all>
+        </not>
+        <filter id="only-red"/>
+    </any>
+    <any id="red-base-tnt">
+        <not>
+            <all>
+                <team id="only-red">red</team>
+                <material>tnt</material>
+            </all>
+        </not>
+        <filter id="only-blue"/>
+    </any>
+</filters>
+<regions>
+    <union id="bases">
+        <rectangle id="red-base" min="-88,-96" max="-45,-53"/>
+        <rectangle id="blue-base" min="-88,-254" max="-45,-211"/>
+    </union>
+    <negative id="playable-inverse">
+        <rectangle min="-16,-254" max="-117,-53"/>
+    </negative>
+    <!-- Recent changes to implement spawn and chest protection -->
+    <cuboid id="red-spawn-protect" min="-70,6,-59" max="-62,12,-41"/>
+    <cuboid id="blue-spawn-protect" min="-63,11,-265" max="-69,7,-247"/>
+    <apply region="blue-spawn-protect" lend-kit="spawn-protection" filter="only-blue"/>
+    <apply region="red-spawn-protect" lend-kit="spawn-protection" filter="only-red"/>
+    <!-- <apply block="deny-chest-break" message="This block can not be placed or broken on this map!"/> -->
+    <!-- Line where recent changes end -->
+    <apply enter="only-blue">
+        <region>
+            <cuboid min="-62,8,-254" max="-70,14,-252"/>
+        </region>
+    </apply>
+    <apply enter="only-red">
+        <region>
+            <cuboid min="-71,8,-54" max="-61,14,-52"/>
+        </region>
+    </apply>
+    <apply enter="never" message="You may not enter the observers spawn!">
+        <region>
+            <rectangle min="-162,-164" max="-141,-143"/>
+        </region>
+    </apply>
+    <apply block="never">
+        <region>
+            <cuboid min="-117,1,-254" max="-15,3,-197"/>
+            <cuboid min="-117,1,-109" max="-15,3,-52"/>
+        </region>
+    </apply>
+    <apply region="red-base" block-place="red-base-tnt" message="You may not place TNT in your own base!"/>
+    <apply region="blue-base" block-place="blue-base-tnt" message="You may not place TNT in your own base!"/>
+    <apply region="playable-inverse" block="never" message="You may not build outside the playable region!"/>
+</regions>
+<destroyables name="Flag" materials="wool:14;wool:11;wool:15">
+    <destroyable owner="blue">
+        <region>
+            <cuboid min="-73,36,-234" max="-62,23,-232"/>
+        </region>
+    </destroyable>
+    <destroyable owner="red">
+        <region>
+            <cuboid min="-61,36,-74" max="-72,23,-76"/>
+        </region>
+    </destroyable>
+</destroyables>
+<crafting>
+    <disable>chest</disable>
+</crafting>
+<toolrepair>
+    <tool>diamond sword</tool>
+    <tool>bow</tool>
+    <tool>diamond pickaxe</tool>
+    <tool>diamond axe</tool>
+    <tool>diamond spade</tool>
+</toolrepair>
+<itemremove>
+    <item>leather helmet</item>
+    <item>chainmail chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>obsidian</item>
+    <item>arrow</item>
+    <item>wood</item>
+    <item>apple</item>
+    <item>coal</item>
+    <item>ladder</item>
+    <item>bucket</item>
+    <item>water bucket</item>
+    <item>golden apple</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+        <item amount="16" material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+</map>

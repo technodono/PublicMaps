@@ -1,0 +1,135 @@
+<map proto="1.5.0">
+<name>Grenouille de l'armée</name>
+<version>1.1.3</version>
+<objective>Capture and return the other teams' wool</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="96f9aa16-9c93-4b1d-9bce-18b8c212074b"/> <!-- _ArmyFrog -->
+</authors>
+<teams>
+    <team id="cyan-team" max="12" max-overfill="16" color="dark aqua">Cyan</team>
+    <team id="red-team" max="12" max-overfill="16" color="dark red">Red</team>
+</teams>
+<kits>
+    <kit id="spawn">
+        <item slot="0" unbreakable="true" material="stone sword"/>
+        <item slot="1" enchantment="arrow infinite" unbreakable="true" material="bow"/>
+        <item slot="2" enchantment="dig speed" unbreakable="true" material="iron pickaxe"/>
+        <item slot="3" enchantment="dig speed" unbreakable="true" material="stone axe"/>
+        <item slot="4" amount="16" damage="1" material="wood"/>
+        <item slot="7" material="golden apple"/>
+        <item slot="8" amount="64" material="cooked beef"/>
+        <item slot="28" amount="64" material="arrow"/>
+        <helmet team-color="true" unbreakable="true" material="leather helmet"/>
+        <boots team-color="true" unbreakable="true" material="leather boots"/>
+        <chestplate enchantment="protection_environmental" unbreakable="true" material="chainmail chestplate"/>
+        <leggings unbreakable="true" material="chainmail leggings"/>
+        <effect duration="5">heal</effect>
+        <effect duration="5">damage resistance</effect>
+    </kit>
+    <kit id="cyan-kit" parents="spawn">
+        <item slot="5" amount="64" material="smooth brick"/>
+        <item slot="6" damage="15" amount="64" material="stained clay"/>
+    </kit>
+    <kit id="red-kit" parents="spawn">
+        <item slot="5" amount="64" material="nether brick"/>
+        <item slot="6" amount="48" material="stained clay"/>
+    </kit>
+</kits>
+<spawns>
+    <default>
+        <region>
+            <cylinder base="0,47,0" radius="4" height="1"/>
+        </region>
+    </default>
+    <spawn yaw="90" kit="cyan-kit" team="cyan-team">
+        <region>
+            <cuboid max="94,13,-12" min="91,13,-9"/>
+        </region>
+    </spawn>
+    <spawn yaw="-90" kit="red-kit" team="red-team">
+        <region>
+            <cuboid max="-93,13,13" min="-90,13,10"/>
+        </region>
+    </spawn>
+</spawns>
+<filters>
+    <deny id="deny-world">
+        <cause>world</cause>
+    </deny>
+</filters>
+<regions>
+    <apply block="always">
+        <region>
+            <rectangle min="37,16" max="-36,-15"/>
+        </region>
+    </apply>
+    <apply block="never" message="`eYou may not modify the spawns or wool rooms!">
+        <region>
+            <cuboid min="68,0,-16" max="80,21,4"/>
+            <cuboid min="80,0,-20" max="103,21,19"/>
+            <cuboid min="-68,0,16" max="-80,21,-4"/>
+            <cuboid min="-80,0,20" max="-103,21,-19"/>
+        </region>
+    </apply>
+    <apply enter="deny(cyan-team)" message="`eYou may not enter your own wool room!">
+        <region>
+            <cuboid min="80,9,17" max="105,21,7"/>
+        </region>
+    </apply>
+    <apply enter="deny(red-team)" message="`eYou may not enter your own wool room!">
+        <region>
+            <cuboid min="-80,9,-17" max="-105,21,-7"/>
+        </region>
+    </apply>
+    <apply enter="cyan-team" message="`eYou may not enter Cyan's spawn area!">
+        <region>
+            <cuboid id="cyan-spawn" min="55,0,3" max="105,21,-20"/>
+        </region>
+    </apply>
+    <apply enter="red-team" message="`eYou may not enter Red's spawn area!">
+        <region>
+            <cuboid id="red-spawn" min="-55,0,-3" max="-105,21,20"/>
+        </region>
+    </apply>
+    <apply block-place="deny(void)" message="`eYou may not build outside the map!"/>
+</regions>
+<wools>
+    <wool team="cyan-team" color="red" location="-98,16,-11" craftable="false">
+        <monument>
+            <block>77,8,-2</block>
+        </monument>
+    </wool>
+    <wool team="red-team" color="cyan" location="99,16,12" craftable="false">
+        <monument>
+            <block>-77,8,2</block>
+        </monument>
+    </wool>
+</wools>
+<itemremove>
+    <item>stone sword</item>
+    <item>bow</item>
+    <item>iron pickaxe</item>
+    <item>stone axe</item>
+    <item>leather helmet</item>
+    <item>chainmail chestplate</item>
+    <item>chainmail leggings</item>
+    <item>leather boots</item>
+    <item>cooked beef</item>
+    <item>wood</item>
+    <item>smooth brick</item>
+    <item>nether brick</item>
+    <item>stained clay</item>
+    <item>arrow</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+        <item amount="6" material="arrow"/>
+        <item amount="2" material="iron ingot"/>
+    </kill-reward>
+</kill-rewards>
+<itemkeep>
+    <item>golden apple</item>
+</itemkeep>
+<maxbuildheight>17</maxbuildheight>
+</map>

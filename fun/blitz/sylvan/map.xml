@@ -1,0 +1,73 @@
+<map proto="1.5.0">
+<name>Sylvan</name>
+<version>1.0.7</version>
+<objective>Eliminate the enemy team in less than 8 minutes.</objective>
+<gamemode>br</gamemode>
+<authors>
+    <author uuid="130be12a-f3b9-4b7d-ad39-7b45e84d3d0f"/> <!-- Veiyl -->
+</authors>
+<teams>
+    <team id="cyan" color="dark aqua" max="20">Cyan</team>
+    <team id="purple" color="dark purple" max="20">Purple</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" unbreakable="true" enchantment="damage all:5" lore="`91-Hit Kill!" material="iron sword"/>
+        <item slot="1" unbreakable="true" enchantment="arrow damage:5" lore="`91-Shot Kill!" material="bow"/>
+        <item slot="2" material="arrow"/>
+        <helmet unbreakable="true" locked="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" locked="true" team-color="true" material="leather chestplate"/>
+        <leggings unbreakable="true" locked="true" team-color="true" material="leather leggings"/>
+        <boots unbreakable="true" locked="true" team-color="true" material="leather boots"/>
+        <effect duration="5">heal</effect>
+        <effect duration="5" amplifier="4">damage resistance</effect>
+        <game-mode>adventure</game-mode>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="cyan" kit="spawn-kit" yaw="180">
+        <region>
+            <cylinder base="11.5,4.0,29.5" radius="1.5" height="0"/>
+        </region>
+    </spawn>
+    <spawn team="purple" kit="spawn-kit">
+        <region>
+            <cylinder base="-22.5,4.0,-31.5" radius="1.5" height="0"/>
+        </region>
+    </spawn>
+    <default>
+        <region>
+            <cylinder base="-5.5,72.5,-1.5" radius="1" height="0"/>
+        </region>
+    </default>
+</spawns>
+<regions>
+    <apply block="never"/>
+</regions>
+<time>8m</time>
+<blitz>
+    <lives>1</lives>
+</blitz>
+<rage/>
+<itemremove>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>arrow</item>
+</itemremove>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+</toolrepair>
+<kill-rewards>
+    <kill-reward>
+        <item material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<timelock>on</timelock>
+<respawn auto="true"/>
+</map>

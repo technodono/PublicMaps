@@ -1,0 +1,50 @@
+<map proto="1.5.0">
+<name>Race: Circuit</name>
+<version>1.1.8</version>
+<objective>Score points by completing laps around the track.</objective>
+<include id="race"/>
+<constants>
+    <constant id="checkpoints">2</constant>
+    <constant id="checkpoint-1-center">-15.5,63</constant>
+    <constant id="checkpoint-1-radius">9</constant>
+    <constant id="checkpoint-2-center">-15.5,-63</constant>
+    <constant id="checkpoint-2-radius">20</constant>
+</constants>
+<authors>
+    <author uuid="459fd919-0d58-401a-9601-6cab1eb721ab"/> <!-- Reshif -->
+</authors>
+<spawns>
+    <spawn region="spawn"/>
+    <default region="spawn"/>
+</spawns>
+<regions>
+    <cuboid id="spawn" min="6.5,7,4.5" max="-6.5,7,1.5"/>
+    <cuboid id="finish-line" min="-7,14,-2" max="7,18,-1"/>
+    <apply velocity="0,2.45,13.75">
+        <region>
+            <cuboid min="-7,6,-44" max="7,9,-41"/>
+        </region>
+    </apply>
+    <apply enter="never" message="Wrong way!">
+        <region>
+            <union>
+                <rectangle min="-15,1" max="oo,-1"/>
+                <rectangle min="-15,48" max="-16,-42"/>
+            </union>
+        </region>
+    </apply>
+    <apply enter="never">
+        <region>
+            <cuboid min="-8,19,-3" max="8,oo,-1"/>
+        </region>
+    </apply>
+</regions>
+<portals>
+    <portal x="0" y="-6.5" z="3.5" region="finish-line"/>
+    <portal x="@0" y="@7.5" z="@-47" yaw="@0" filter="all-checkpoints">
+        <region>
+            <cuboid min="7,0,-1" max="-8,6,-40"/>
+        </region>
+    </portal>
+</portals>
+</map>

@@ -1,0 +1,149 @@
+<map proto="1.5.0">
+<name>Royal</name>
+<version>1.1.1</version>
+<include id="kotf"/>
+<constant id="damage-resistance">0s</constant>
+<objective>Hold the flag for ${score} seconds to win!</objective>
+<created>2019-02-10</created>
+<authors>
+    <author uuid="0c44ca5a-6a42-49b7-81f2-58dc6d2ae3e9"/> <!-- Xerocoles -->
+</authors>
+<contributors>
+    <contributor uuid="04415962-13e2-4010-b5f1-6d5ed7e537d4" contribution="XML"/> <!-- Poseidons -->
+</contributors>
+<teams>
+    <team id="blue" color="blue" max="5">Blue</team>
+    <team id="green" color="green" max="5">Green</team>
+    <team id="red" color="dark red" max="5">Red</team>
+    <team id="yellow" color="yellow" max="5">Yellow</team>
+</teams>
+<rules>
+    <rule>Aiding member of other teams is not allowed.</rule>
+</rules>
+<kits>
+    <kit id="spawn-kit" parents="base-kit">
+        <action>
+            <replace-item>
+                <find unbreakable="true" material="iron boots"/>
+                <replace unbreakable="true" enchantment="feather_falling:2" material="iron boots"/>
+            </replace-item>
+        </action>
+    </kit>
+</kits>
+<spawns>
+    <default>
+        <region yaw="-90">
+            <cylinder base="-24.5,45,129.5" radius="1" height="0"/>
+        </region>
+    </default>
+    <spawn team="blue" kit="spawn-kit" filter="has-either-flag">
+        <region yaw="90">
+            <point>57.5,13.1,129.5</point>
+        </region>
+    </spawn>
+    <spawn team="green" kit="spawn-kit" filter="has-either-flag">
+        <region yaw="-90">
+            <point>-56.4,13.1,129.5</point>
+        </region>
+    </spawn>
+    <spawn team="red" kit="spawn-kit" filter="has-either-flag">
+        <region yaw="0">
+            <point>0.5,13.1,72.5</point>
+        </region>
+    </spawn>
+    <spawn team="yellow" kit="spawn-kit" filter="has-either-flag">
+        <region yaw="180">
+            <point>0.5,13.1,185.5</point>
+        </region>
+    </spawn>
+</spawns>
+<filters>
+    <any id="has-either-flag">
+        <carrying-flag>flag</carrying-flag>
+        <carrying-flag>other-flag</carrying-flag>
+        <not>
+            <same-team>
+                <any>
+                    <carrying-flag>flag</carrying-flag>
+                    <carrying-flag>other-flag</carrying-flag>
+                </any>
+            </same-team>
+        </not>
+    </any>
+    <all id="reset-antifall">
+        <not>
+            <region id="jump-pads"/>
+        </not>
+        <variable var="fall_variable">1</variable>
+        <grounded/>
+    </all>
+</filters>
+<regions>
+    <union id="jump-pads">
+        <cuboid id="green-yellow" min="-19,13,147" max="-17,15,149"/>
+        <cuboid id="blue-yellow" min="18,13,147" max="20,15,149"/>
+        <cuboid id="blue-red" min="18,13,110" max="20,15,112"/>
+        <cuboid id="green-red" min="-19,13,110" max="-17,15,112"/>
+        <block id="blue-to-mid">10.5,27,129.5</block>
+        <block id="green-to-mid">-9.5,27,129.5</block>
+        <block id="red-to-mid">0.5,27,119.5</block>
+        <block id="yellow-to-mid">0.5,27,139.5</block>
+        <block id="blue-from-mid">4.5,31,129.5</block>
+        <block id="green-from-mid">-3.5,31,129.5</block>
+        <block id="red-from-mid">0.5,31,125.5</block>
+        <block id="yellow-from-mid">0.5,31,133.5</block>
+    </union>
+    <!-- Corners -->
+    <apply region="green-yellow" velocity="-0.5,1.7,0.5"/>
+    <apply region="blue-yellow" velocity="0.5,1.7,0.5"/>
+    <apply region="blue-red" velocity="0.5,1.7,-0.5"/>
+    <apply region="green-red" velocity="-0.5,1.7,-0.5"/>
+    <!-- To Mid -->
+    <apply region="blue-to-mid" velocity="-1.1,1.2,0"/>
+    <apply region="green-to-mid" velocity="1.1,1.2,0"/>
+    <apply region="red-to-mid" velocity="0,1.2,1.1"/>
+    <apply region="yellow-to-mid" velocity="0,1.2,-1.1"/>
+    <!-- From Mid -->
+    <apply region="blue-from-mid" velocity="1.5,0.7,0"/>
+    <apply region="green-from-mid" velocity="-1.5,0.7,0"/>
+    <apply region="red-from-mid" velocity="0,0.7,-1.5"/>
+    <apply region="yellow-from-mid" velocity="0,0.7,1.5"/>
+    <apply block="never" use="never"/>
+</regions>
+<flags>
+    <flag id="flag"
+          name="Top Flag"
+          shared="true"
+          points-rate="1"
+          pickup-kit="flag-kit"
+          drop-kit="reset-health">
+        <post return-time="0s" respawn-time="10s">0.5,32,129.5</post>
+    </flag>
+    <flag id="other-flag"
+          name="Bottom Flag"
+          shared="true"
+          points-rate="1"
+          pickup-kit="flag-kit"
+          drop-kit="reset-health">
+        <post return-time="0s" respawn-time="10s">0.5,17,129.5</post>
+    </flag>
+</flags>
+<!-- Disables fall damage when using jump pads, reenables it after landing -->
+<actions>
+    <set id="fall-var-0" var="fall_variable" value="0" scope="player"/>
+    <set id="fall-var-1" var="fall_variable" value="1" scope="player"/>
+    <trigger filter="jump-pads" trigger="fall-var-1" scope="player"/>
+    <trigger filter="reset-antifall" trigger="fall-var-0" scope="player"/>
+</actions>
+<variables>
+    <variable id="fall_variable" scope="player"/>
+</variables>
+<damage>
+    <deny>
+        <all>
+            <cause>fall</cause>
+            <variable var="fall_variable">1</variable>
+        </all>
+    </deny>
+</damage>
+</map>

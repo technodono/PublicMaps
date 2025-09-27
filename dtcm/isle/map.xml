@@ -1,0 +1,91 @@
+<map proto="1.5.0">
+<name>Isle</name>
+<version>1.3.6</version>
+<objective>Leak the enemy team's core.</objective>
+<authors>
+    <author uuid="e931b4b3-479f-4761-8808-4c4b2ed69b0f"/> <!-- Theta_ -->
+</authors>
+<contributors>
+    <contributor uuid="8f9344cf-7367-4e28-9f24-5c66422f28c9" contribution="XML"/> <!-- Timothee38 -->
+</contributors>
+<teams>
+    <team id="magenta" color="light purple" max="10" max-overfill="12">Magenta</team>
+    <team id="blue" color="blue" max="10" max-overfill="12">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" unbreakable="true" material="iron sword"/>
+        <item slot="1" unbreakable="true" material="bow"/>
+        <item slot="2" enchantment="dig speed:2;durability:3" material="iron pickaxe"/>
+        <item slot="3" enchantment="dig speed:2;durability:3" material="iron axe"/>
+        <item slot="8" amount="64" material="pumpkin pie"/>
+        <item slot="7" material="golden apple"/>
+        <item slot="4" amount="32" material="vine"/>
+        <item slot="5" amount="24" material="log"/>
+        <item slot="6" amount="16" damage="0" material="stained glass"/>
+        <item slot="25" material="boat"/>
+        <item slot="34" amount="64" material="arrow"/>
+        <effect duration="5">heal</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="magenta" kit="spawn-kit" yaw="-135">
+        <region>
+            <point>223.0,39,785.0</point>
+        </region>
+    </spawn>
+    <spawn team="blue" kit="spawn-kit" yaw="45">
+        <region>
+            <point>207.0,39,603.0</point>
+        </region>
+    </spawn>
+    <default yaw="-90">
+        <region>
+            <cuboid min="285,87,692" max="281,87,695"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <not id="deny-spawner-break">
+        <material>mob spawner</material>
+    </not>
+</filters>
+<regions>
+    <union id="spawns">
+        <circle id="spawn1" center="205,605" radius="4"/>
+        <circle id="spawn2" center="225,783" radius="4"/>
+    </union>
+    <apply region="spawns" block="never"/>
+    <apply block="deny-spawner-break"/>
+</regions>
+<cores material="obsidian" leak="3">
+    <core team="blue">
+        <region>
+            <cuboid min="208,49,645" max="216,57,653"/>
+        </region>
+    </core>
+    <core team="magenta">
+        <region>
+            <cuboid min="221,49,742" max="214,58,735"/>
+        </region>
+    </core>
+</cores>
+<itemremove>
+    <item>log</item>
+    <item>wood</item>
+    <item>stained glass</item>
+    <item>obsidian</item>
+    <item>sapling:1</item>
+    <item>pumpkin pie</item>
+    <item>vine</item>
+    <item>boat</item>
+</itemremove>
+<toolrepair>
+    <tool>bow</tool>
+    <tool>iron sword</tool>
+    <tool>iron axe</tool>
+    <tool>iron pickaxe</tool>
+    <tool>diamond pickaxe</tool>
+</toolrepair>
+<maxbuildheight>64</maxbuildheight>
+</map>

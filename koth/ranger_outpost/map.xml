@@ -1,0 +1,112 @@
+<map proto="1.5.0">
+<name>Ranger Outpost</name>
+<version>1.1.2</version>
+<objective>Be the first team to reach 750 points!</objective>
+<authors>
+    <author uuid="c65e66b3-e932-4b33-b907-fe4916806076"/> <!-- Draco_Rogue -->
+</authors>
+<contributors>
+    <contributor uuid="36dc036a-dfbc-4627-b66a-501223f08075" contribution="Map motivation, feedback and support"/> <!-- ieatboulders2 -->
+    <contributor uuid="3a3dab52-a356-4eed-a506-a9a7e53a3f68" contribution="Map feedback"/> <!-- Akorlith -->
+</contributors>
+<teams>
+    <team id="cyan-team" color="dark aqua" max="20">Cyan</team>
+    <team id="green-team" color="green" max="20">Green</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <clear/>
+        <item slot="0" unbreakable="true" material="iron sword"/>
+        <item slot="1" unbreakable="true" enchantment="arrow infinite" material="bow"/>
+        <item slot="28" amount="1" material="arrow"/>
+        <item slot="2" material="golden apple"/>
+        <item slot="3" damage="16373" material="potion"/>
+        <helmet unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" enchantment="protection projectile:1" material="iron chestplate"/>
+        <leggings unbreakable="true" team-color="true" material="leather leggings"/>
+        <boots unbreakable="true" enchantment="protection fall:2" material="iron boots"/>
+        <effect duration="8" amplifier="5">damage resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="cyan-team" kit="spawn-kit">
+        <region yaw="-45">
+            <cylinder base="-42,12,-39" radius="2" height="0"/>
+        </region>
+    </spawn>
+    <spawn team="green-team" kit="spawn-kit">
+        <region yaw="135">
+            <cylinder base="42,12,39" radius="2" height="0"/>
+        </region>
+    </spawn>
+    <default>
+        <region>
+            <cylinder base="0,41,-80" radius="3" height="0"/>
+        </region>
+    </default>
+</spawns>
+<control-points incremental="true" neutral-state="true" show-progress="true" required="false">
+    <control-point name="Green Point" capture-time="10s" points="1" captured="green-hill">
+        <capture>
+            <cylinder id="green-hill" base="43.5,13,-35.5" radius="5" height="5"/>
+        </capture>
+        <progress>
+            <cuboid min="39.5,13,-32.5" max="47.5,14,-40.5"/>
+        </progress>
+    </control-point>
+    <control-point name="Forest" capture-time="15s" points="1">
+        <capture>
+            <cylinder base="0.5,14,0.5" radius="5" height="5"/>
+        </capture>
+        <progress>
+            <cuboid min="4.5,13,4.5" max="-4.5,14,-4.5"/>
+        </progress>
+        <captured>
+            <cuboid min="-5.5,22,-5.5" max="5,22,5.5"/>
+        </captured>
+    </control-point>
+    <control-point name="Cyan Point" capture-time="15s" points="1" captured="cyan-hill">
+        <capture>
+            <cylinder id="cyan-hill" base="-42.5,13,36.5" radius="5" height="5"/>
+        </capture>
+        <progress>
+            <cuboid min="-47,13,40" max="-39,14,32"/>
+        </progress>
+    </control-point>
+</control-points>
+<score>
+    <limit>750</limit>
+</score>
+<filters>
+    <material id="beacon">beacon</material>
+</filters>
+<regions>
+    <cylinder id="cyan-base" base="-42,12,-39" radius="7" height="20"/>
+    <cylinder id="green-base" base="42,12,39" radius="7" height="20"/>
+    <apply region="cyan-base" enter="cyan-team" message="You may not enter the enemy's spawn!"/>
+    <apply region="green-base" enter="green-team" message="You may not enter the enemy's spawn!"/>
+    <apply block="never" use="deny(beacon)"/>
+</regions>
+<toolrepair>
+    <tool>iron sword</tool>
+</toolrepair>
+<itemkeep>
+    <item>potion</item>
+</itemkeep>
+<itemremove>
+   <item>leather helmet</item>
+   <item>iron chestplate</item>
+   <item>leather leggings</item>
+   <item>iron boots</item>
+   <item>glass bottle</item>
+   <item>arrow</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+        <item damage="16373" material="potion"/>
+    </kill-reward>
+</kill-rewards>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+</map>

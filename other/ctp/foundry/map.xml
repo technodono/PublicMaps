@@ -1,0 +1,100 @@
+<map proto="1.5.0">
+<name>Foundry</name>
+<version>2.2.8</version>
+<variant id="5v5">5v5</variant>
+<objective>Capture all five control points.</objective>
+<constants>
+    <constant id="team-1-name">Blue</constant>
+    <constant id="team-2-name">Red</constant>
+    <constant id="damage-resistance">0s</constant>
+    <constant id="team-1-at-t1-2nd-yaw">@90</constant>
+    <constant id="team-1-at-mid-yaw">@90</constant>
+    <constant id="team-1-at-t2-2nd-yaw">@90</constant>
+    <constant id="team-2-at-t2-2nd-yaw">@-90</constant>
+    <constant id="team-2-at-mid-yaw">@-90</constant>
+    <constant id="team-2-at-t1-2nd-yaw">@-90</constant>
+    <constant id="5cp-2021">false</constant>
+</constants>
+<unless variant="5v5">
+    <constant id="team-size">13</constant>
+    <constant id="max-overfill" delete="true"/>
+    <constant id="respawn-timer">3s</constant>
+    <include id="conquest"/>
+</unless>
+<if variant="5v5">
+    <constant id="team-size">5</constant>
+    <constant id="max-overfill">5</constant>
+    <constant id="respawn-timer">5s</constant>
+    <include id="conquest-comp"/>
+</if>
+<include id="5cp"/>
+<authors>
+    <author uuid="2958ea4c-3501-404e-88cc-12e8632f68cc"/> <!-- NixaniaXi -->
+</authors>
+<teams>
+    <team id="team-1" color="blue" max="${team-size}" max-overfill="${max-overfill}">${team-1-name}</team>
+    <team id="team-2" color="dark red" max="${team-size}" max-overfill="${max-overfill}">${team-2-name}</team>
+</teams>
+<spawns>
+    <default>
+        <regions angle="0,30,0">
+            <point>1.5,26,24.5</point>
+            <point>-0.5,26,-23.5</point>
+        </regions>
+    </default>
+    <spawns team="team-1" kit="base-kit">
+        <spawn filter="before-2m" region="team-1-spawn-1"/>
+        <spawn filter="after-2m" region="team-1-spawn-2"/>
+        <spawn filter="after-4m" region="team-1-spawn-3"/>
+        <spawn filter="after-6m" region="team-1-spawn-4"/>
+        <spawn filter="after-8m" region="team-1-spawn-5"/>
+        <spawn filter="after-10m" region="team-1-spawn-6"/>
+    </spawns>
+    <spawns team="team-2" kit="base-kit" yaw="180">
+        <spawn filter="before-2m" region="team-2-spawn-1"/>
+        <spawn filter="after-2m" region="team-2-spawn-2"/>
+        <spawn filter="after-4m" region="team-2-spawn-3"/>
+        <spawn filter="after-6m" region="team-2-spawn-4"/>
+        <spawn filter="after-8m" region="team-2-spawn-5"/>
+        <spawn filter="after-10m" region="team-2-spawn-6"/>
+    </spawns>
+</spawns>
+<regions>
+    <union id="spawns">
+        <point id="team-1-spawn-1">65.5,56,1.5</point>
+        <point id="team-1-spawn-2">65.5,95,1.5</point>
+        <point id="team-1-spawn-3">65.5,134,1.5</point>
+        <point id="team-1-spawn-4">65.5,173,1.5</point>
+        <point id="team-1-spawn-5">65.5,212,1.5</point>
+        <point id="team-1-spawn-6">65.5,251,1.5</point>
+        <point id="team-2-spawn-1">-64.5,56,-0.5</point>
+        <point id="team-2-spawn-2">-64.5,95,-0.5</point>
+        <point id="team-2-spawn-3">-64.5,134,-0.5</point>
+        <point id="team-2-spawn-4">-64.5,173,-0.5</point>
+        <point id="team-2-spawn-5">-64.5,212,-0.5</point>
+        <point id="team-2-spawn-6">-64.5,251,-0.5</point>
+        <cuboid id="team-1-spawn" min="69,12,19" max="67,15,16"/>
+        <cuboid id="team-2-spawn" min="-68,12,-18" max="-66,15,-15"/>
+    </union>
+    <union id="control-points">
+        <cuboid id="cp-team-1-last" min="61,15,22" max="70,20,31"/>
+        <cuboid id="cp-team-1-2nd" min="23,10,8" max="32,18,17"/>
+        <cuboid id="cp-mid" min="-4,7,-4" max="5,12,5"/>
+        <cuboid id="cp-team-2-2nd" min="-22,10,-7" max="-31,18,-16"/>
+        <cuboid id="cp-team-2-last" min="-60,15,-21" max="-69,20,-30"/>
+    </union>
+    <union id="portals">
+        <cuboid id="team-1-portal" min="67,12,5" max="64,15,6"/>
+        <point id="team-1-at-t1-2nd">57,13,18</point>
+        <point id="team-1-at-mid">33.5,13,12.5</point>
+        <point id="team-1-at-t2-2nd">-7.5,9,-12.5</point>
+        <cuboid id="team-2-portal" min="-66,12,-4" max="-63,15,-5"/>
+        <point id="team-2-at-t2-2nd">-55.5,13,-17.5</point>
+        <point id="team-2-at-mid">-32.5,13,-11.5</point>
+        <point id="team-2-at-t1-2nd">8.5,9,13.5</point>
+    </union>
+    <apply enter="only-team-1" region="team-1-spawn"/>
+    <apply enter="only-team-2" region="team-2-spawn"/>
+    <apply block="never" use="never"/>
+</regions>
+</map>

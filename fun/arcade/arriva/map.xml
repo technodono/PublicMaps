@@ -1,0 +1,63 @@
+<map proto="1.5.0">
+<name>Arriva</name>
+<version>1.0.3</version>
+<objective>Escape the Minotaur!</objective>
+<gamemode>arcade</gamemode>
+<authors>
+    <author uuid="06e0e173-4a93-4654-9769-fa7c216e353f"/> <!-- Howsie -->
+    <author uuid="81401938-25d1-437e-bb70-d2828a7a6aac"/> <!-- Shirokamii -->
+</authors>
+<broadcasts>
+    <tip filter="players-team" every="1m" after="1s">Get to the center of the maze to win!</tip>
+</broadcasts>
+<teams>
+    <team id="minotaur-team" color="red" max="2" max-overfill="2">Minotaur</team>
+    <team id="players-team" color="dark aqua" max="50">Players</team>
+</teams>
+<kits>
+    <kit id="min-kit">
+        <helmet team-color="true" material="leather helmet" unbreakable="true"/>
+        <chestplate team-color="true" material="leather chestplate" unbreakable="true"/>
+        <leggings team-color="true" material="leather leggings" unbreakable="true"/>
+        <boots team-color="true" material="leather boots" unbreakable="true"/>
+        <item slot="0" material="iron axe" unbreakable="true">
+            <enchantment level="100">damage all</enchantment>
+        </item>
+    </kit>
+    <kit id="players-kit">
+        <helmet team-color="true" material="leather helmet" unbreakable="true"/>
+        <game-mode>adventure</game-mode>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="minotaur-team" kit="min-kit" yaw="90">
+        <region>
+            <point>-6,103,-797</point>
+        </region>
+    </spawn>
+    <spawn team="players-team" kit="players-kit" yaw="135">
+        <region>
+            <point>42,103,-779</point>
+        </region>
+    </spawn>
+    <default yaw="180">
+        <region>
+            <point>17,103,-815</point>
+        </region>
+    </default>
+</spawns>
+<regions>
+    <cuboid id="endgoal" min="20,102,-819" max="14,105,-813"/>
+    <apply enter="players-team" use="players-team" region="endgoal" message="You may not enter this area!"/>
+    <apply block="never"/>
+</regions>
+<score>
+    <limit>1</limit>
+    <box region="endgoal" filter="players-team" points="1"/>
+</score>
+<time>8m</time>
+<blitz/>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+</map>

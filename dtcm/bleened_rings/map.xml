@@ -1,0 +1,100 @@
+<map proto="1.5.0">
+<name>Bleened Rings</name>
+<version>1.1.6</version>
+<phase>staging</phase>
+<objective>Break the monuments to win!</objective>
+<authors>
+    <author uuid="3e255b03-8a69-4dbb-818c-061514dc3c82"/> <!-- schmenni -->
+</authors>
+<teams>
+    <team id="green" color="dark green" max="32">Green</team>
+    <team id="blue" color="blue" max="32">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" enchantment="arrow infinite" material="bow"/>
+        <item slot="2" enchantment="dig speed" material="diamond pickaxe"/>
+        <item slot="3" amount="2" material="golden apple"/>
+        <item slot="4" amount="32" material="cooked beef"/>
+        <item slot="5" amount="32" material="glass"/>
+        <item slot="6" amount="64" material="log"/>
+        <item slot="28" amount="64" material="arrow"/>
+        <helmet team-color="true" material="leather helmet"/>
+        <chestplate team-color="true" material="leather chestplate"/>
+        <effect duration="5" amplifier="5">damage resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="green" kit="spawn-kit">
+        <region>
+            <cylinder base="0.5,5,-98.5" height="0" radius="1"/>
+        </region>
+    </spawn>
+    <spawn team="blue" kit="spawn-kit" yaw="180">
+        <region>
+            <cylinder base="0.5,5,25.5" height="0" radius="1"/>
+        </region>
+    </spawn>
+    <default yaw="-90">
+        <region>
+            <cylinder base="-100.5,55,-37.5" height="0" radius="1"/>
+        </region>
+    </default>
+</spawns>
+<regions>
+    <union id="spawns">
+        <cuboid id="green-spawn" min="5,15,-83" max="-3,1,-113"/>
+        <cuboid id="blue-spawn" min="-4,15,8" max="6,1,40"/>
+    </union>
+    <apply region="spawns" block="never" message="You may not modify the spawn area."/>
+</regions>
+<destroyables materials="obsidian">
+    <destroyables owner="green">
+        <destroyable name="Left Monument">
+            <region>
+                <block>-69,12,-75</block>
+            </region>
+        </destroyable>
+        <destroyable name="Right Monument">
+            <region>
+                <block>69,12,-75</block>
+            </region>
+        </destroyable>
+        <destroyable name="Back Monument">
+            <region>
+                <block>0,12,-168</block>
+            </region>
+        </destroyable>
+    </destroyables>
+    <destroyables owner="blue">
+        <destroyable name="Left Monument">
+            <region>
+                <block>69,12,0</block>
+            </region>
+        </destroyable>
+        <destroyable name="Right Monument">
+            <region>
+                <block>-69,12,0</block>
+            </region>
+        </destroyable>
+        <destroyable name="Back Monument">
+            <region>
+                <block>0,12,93</block>
+            </region>
+        </destroyable>
+    </destroyables>
+</destroyables>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>diamond pickaxe</tool>
+    <tool>bow</tool>
+</toolrepair>
+<itemremove>
+    <item>arrow</item>
+    <item>leather chestplate</item>
+    <item>leather helmet</item>
+    <item>cooked beef</item>
+</itemremove>
+<timelock>on</timelock>
+</map>

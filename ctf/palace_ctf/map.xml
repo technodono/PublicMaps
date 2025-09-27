@@ -1,0 +1,75 @@
+<map proto="1.5.0">
+<name>Palace CTF</name>
+<version>1.2.5</version>
+<objective>Have the most flag captures in 12 minutes!</objective>
+<constant id="damage-resistance">4s</constant>
+<constant id="respawn-timer">4s</constant>
+<include id="conquest"/>
+<time result="score" overtime="1m" max-overtime="2m">12m</time>
+<authors>
+    <author uuid="07fa10c6-f564-4630-861e-fe134ae27527"/> <!-- Yoyo_ -->
+    <author uuid="f70b7a8f-93b2-480f-9d54-88e21485a042" /> <!-- Diamyx -->
+</authors>
+<contributors>
+    <contributor uuid="337ae91f-960b-4562-906d-f52f9e56d392" /> <!-- Aalhond -->
+</contributors>
+<teams>
+    <team id="red-team" color="dark red" max="24">Red</team>
+    <team id="yellow-team" color="yellow" max="24">Yellow</team>
+</teams>
+<kits>
+    <kit id="spawn-kit" parent="base-kit">
+        <action>
+            <enchant-item ignore-metadata="true" enchantment="feather_falling" level="2">
+                <find material="iron boots"/>
+            </enchant-item>
+        </action>
+    </kit>
+    <kit id="flag-pickup" force="true">
+        <max-health>16</max-health>
+        <effect ambient="true">slowness</effect>
+        <effect duration="2s" amplifier="3" ambient="true">regeneration</effect>
+    </kit>
+    <kit id="flag-drop" force="true">
+        <max-health>20</max-health>
+        <effect duration="0s" ambient="true">slowness</effect>
+        <effect duration="1s" amplifier="10" ambient="true">regeneration</effect>
+    </kit>
+</kits>
+<spawns>
+    <default region="default-spawn" yaw="-90"/>
+    <spawn team="red-team" kit="base-kit" region="red-spawn" yaw="-90"/>
+    <spawn team="yellow-team" kit="base-kit" region="yellow-spawn" yaw="-90"/>
+</spawns>
+<filters>
+    <deny id="deny-access">
+        <material>anvil</material>
+    </deny>
+</filters>
+<regions>
+    <union id="spawns">
+        <cuboid id="default-spawn" min="706,26,-1166" max="705,26,-1164"/>
+        <cuboid id="red-spawn" min="725,4,-1082" max="726,4,-1084"/>
+        <cuboid id="yellow-spawn" min="725,4,-1246" max="726,4,-1248"/>
+    </union>
+    <cuboid id="red-net" min="759,8,-1079" max="764,5,-1084"/>
+    <cuboid id="yellow-net" min="764,8,-1251" max="759,5,-1246"/>
+    <apply block="never" use="deny-access"/>
+</regions>
+<flags flag-proximity-metric="none" net-proximity-metric="none" required="false">
+    <flag id="red-flag" name="Red Flag" color="red" pickup-kit="flag-pickup" drop-kit="flag-drop">
+        <post respawn-time="10s" pickup-filter="yellow-team">762.5,6,-1082.5</post>
+        <net points="1" region="yellow-net"/>
+    </flag>
+    <flag id="yellow-flag" name="Yellow Flag" color="yellow" pickup-kit="flag-pickup" drop-kit="flag-drop">
+        <post respawn-time="10s" pickup-filter="red-team">762.5,6,-1248.5</post>
+        <net points="1" region="red-net"/>
+    </flag>
+</flags>
+<score>
+    <mercy>3</mercy>
+</score>
+<itemremove>
+    <item>potion</item>
+</itemremove>
+</map>

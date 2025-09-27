@@ -1,0 +1,380 @@
+<map proto="1.5.0">
+<name>Molcein</name>
+<version>1.0.5</version>
+<objective>Capture the wools needed for your team.</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="a23a1d91-7e97-40b4-8f5e-1ab82d8f5ade" contribution="Map design, build, and XML" /> <!-- chle_ -->
+</authors>
+<contributors>
+    <contributor uuid="b03360db-b8cd-49de-8ba1-b7920c2238a9" contribution="Feedback" /> <!-- Obelistics -->
+    <contributor uuid="fe3608b7-d105-4029-8800-34b3147065b6" contribution="Feedback and name giver" /> <!-- rockymine -->
+    <contributor uuid="ed528509-020d-496f-8dd5-5f57715fc0de" contribution="Begging me on making a 4-team CTW map" /> <!-- drefvelin -->
+    <contributor uuid="2f02ad33-dffa-4507-82b8-d66fe01053bf" contribution="Feedback irl" /> <!-- teitepassord -->
+</contributors>
+<rules>
+    <rule>Do not hoard wools from the woolrooms!</rule>
+    <rule>Creating alliances with another team(s) is allowed.</rule>
+</rules>
+<broadcasts>
+    <tip after="10s">`7The woolroom is just an entrance to the `csupply room`7! When you have the `lwool `7in the `csupply room`7, you can teleport to the sides of the base or just teleport back to the entrance to the woolroom!</tip>
+    <tip after="4s" every="5m">`7The `5Victory Monument `7is located behind your woolroom!</tip>
+    <tip after="1s">`7There is a `bdiamond block `7in the center of the map that drops 12 `bdiamonds`7!</tip>
+</broadcasts>
+<teams>
+    <team id="lime-team" color="green" max="20" max-overfill="22">Lime</team>
+    <team id="magenta-team" color="light purple" max="20" max-overfill="22">Magenta</team>
+    <team id="yellow-team" color="yellow" max="20" max-overfill="22">Yellow</team>
+    <team id="orange-team" color="gold" max="20" max-overfill="22">Orange</team>
+</teams>
+<kits>
+    <kit id="wool-gear" force="true">
+        <chestplate unbreakable="true" locked="true" enchantment="protection environmental" material="diamond chestplate"/>
+        <effect>speed</effect>
+    </kit>
+    <kit id="spawn-kit">
+        <clear/>
+        <item slot="0" material="iron sword"/>
+        <item slot="1" enchantment="arrow infinite" material="bow"/>
+        <item slot="28" material="arrow"/>
+        <item slot="2" enchantment="durability:3;dig speed:2" material="iron pickaxe"/>
+        <item slot="3" enchantment="durability:2;dig speed:2" material="iron axe"/>
+        <item slot="4" damage="1" amount="16" material="log"/>
+        <item slot="5" amount="48" team-color="true" material="stained glass"/>
+        <item slot="6" amount="16" team-color="true" material="stained clay"/>
+        <item slot="7" amount="32" material="baked potato"/>
+        <item slot="8" material="golden apple"/>
+        <helmet locked="true" unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate enchantment="protection projectile:2" unbreakable="true" material="chainmail chestplate"/>
+        <leggings unbreakable="true" team-color="true" material="leather leggings"/>
+        <boots unbreakable="true" team-color="true" material="leather boots"/>
+    </kit>
+</kits>
+<spawns>
+    <default>
+        <regions yaw="135">
+            <cylinder base="95,54,255" radius="2" height="0"/>
+        </regions>
+    </default>
+    <spawns team="lime-team" kit="spawn-kit">
+        <spawn yaw="90">
+            <region>
+                <cuboid min="56.5,11.5,247.5" max="55.5,12,246.5"/>
+            </region>
+        </spawn>
+        <spawn yaw="-90">
+            <region>
+                <cuboid min="-87.5,11.5,246.5" max="-86.5,12,247.5"/>
+            </region>
+        </spawn>
+    </spawns>
+    <spawns team="yellow-team" kit="spawn-kit">
+        <spawn yaw="180">
+            <region>
+                <cuboid min="-118.5,11.5,216.5" max="-117.5,12,215.5"/>
+            </region>
+        </spawn>
+        <spawn>
+            <region>
+                <cuboid min="-117.5,11.5,72.5" max="-118.5,12,73.5"/>
+            </region>
+        </spawn>
+    </spawns>
+    <spawns team="magenta-team" kit="spawn-kit">
+        <spawn yaw="-90">
+            <region>
+                <cuboid min="-87.5,11.5,41.5" max="-86.5,12,42.5"/>
+            </region>
+        </spawn>
+        <spawn yaw="90">
+            <region>
+                <cuboid min="55.5,11.5,42.5" max="56.5,12,41.5"/>
+            </region>
+        </spawn>
+    </spawns>
+    <spawns team="orange-team" kit="spawn-kit">
+        <spawn>
+            <region>
+                <cuboid min="87.5,11.5,73.5" max="86.5,12,72.5"/>
+            </region>
+        </spawn>
+        <spawn yaw="180">
+            <region>
+                <cuboid min="87.5,11.5,215.5" max="86.5,12,216.5"/>
+            </region>
+        </spawn>
+    </spawns>
+</spawns>
+<filters>
+    <!-- Block drops filter for diamond -->
+    <material id="only-diamond">diamond block</material>
+    <!-- Renewables filter for replacing blocks -->
+    <material id="only-air">air</material>
+    <!-- Lapis block filter -->
+    <deny id="deny-lapis">
+        <material>lapis block</material>
+    </deny>
+    <!-- Prevent "safties" to be placed on the map -->
+    <deny id="no-safties">
+        <material>wool</material>
+    </deny>
+    <!-- Allows players to only destroy quartz pillars and signs in the woolrooms -->
+    <any id="allow-some">
+        <material>quartz block:2</material>
+        <material>sign</material>
+    </any>
+</filters>
+<!-- Prevent carpets from being crafted -->
+<crafting>
+    <disable>carpet</disable>
+</crafting>
+<regions>
+    <!-- Victory Monuments -->
+    <union id="victory-monuments">
+        <rectangle id="lime-victory" min="-13,278" max="-17,287"/>
+        <rectangle id="yellow-victory" min="-149,146" max="-158,142"/>
+        <rectangle id="magenta-victory" min="-13,10" max="-17,1"/>
+        <rectangle id="orange-victory" min="118,142" max="127,146"/>
+    </union>
+    <!-- Spawns -->
+    <union id="spawns">
+        <union id="lime-team-spawns">
+            <rectangle id="lime-spawn1" min="53,243" max="59,250"/>
+            <rectangle id="lime-spawn2" min="-84,250" max="-90,243"/>
+        </union>
+        <union id="yellow-team-spawns">
+            <rectangle id="yellow-spawn1" min="-114,219" max="-121,213"/>
+            <rectangle id="yellow-spawn2" min="-121,75" max="-114,69"/>
+        </union>
+        <union id="magenta-team-spawns">
+            <rectangle id="magenta-spawn1" min="-90,45" max="-84,38"/>
+            <rectangle id="magenta-spawn2" min="53,38" max="59,45"/>
+        </union>
+        <union id="orange-team-spawns">
+            <rectangle id="orange-spawn1" min="83,69" max="90,75"/>
+            <rectangle id="orange-spawn2" min="90,213" max="83,219"/>
+        </union>
+    </union>
+    <!-- Portal destination room from supplyroom -->
+    <union id="portal-desinations">
+        <circle id="lime-destination1" center="32,209" radius="7"/>
+        <circle id="lime-destination2" center="-63,209" radius="7"/>
+        <circle id="yellow-destination1" center="-80,192" radius="7"/>
+        <circle id="yellow-destination2" center="-80,96" radius="7"/>
+        <circle id="magenta-destination1" center="-63,79" radius="7"/>
+        <circle id="magenta-destination2" center="32,79" radius="7"/>
+        <circle id="orange-destination1" center="49,96" radius="7"/>
+        <circle id="orange-destination2" center="49,192" radius="7"/>
+    </union>
+    <!-- No void -->
+    <negative id="playable-void">
+        <complement id="center-outer">
+            <circle id="radius-64" center="-15.5,144.5" radius="64"/>
+            <circle id="radius-45" center="-15.5,144.5" radius="45"/>
+        </complement>
+        <complement id="center-inner">
+            <circle id="radius-32" center="-15.5,144.5" radius="32"/>
+            <circle id="radius-8" center="-15.5,144.5" radius="8"/>
+        </complement>
+        <rectangle id="lime-ironblocks1" min="24,221" max="51,243"/>
+        <rectangle id="lime-ironblocks2" min="-55,243" max="-82,221"/>
+        <rectangle id="yellow-ironblocks1" min="-114,211" max="-92,184"/>
+        <rectangle id="yellow-ironblocks2" min="-114,104" max="-92,77"/>
+        <rectangle id="magenta-ironblocks1" min="-82,45" max="-55,67"/>
+        <rectangle id="magenta-ironblocks2" min="-24,45" max="51,67"/>
+        <rectangle id="orange-ironblocks1" min="83,77" max="61,104"/>
+        <rectangle id="orange-ironblocks2" min="83,184" max="61,211"/>
+    </negative>
+    <above y="20" id="supply-room"/>
+    <!-- woolrooms -->
+    <union id="supplyrooms">
+        <cuboid id="lime-supply-room" min="0,39,200" max="-31,26,221"/>
+        <cuboid id="yellow-supply-room" min="-71,39,160" max="-92,26,128"/>
+        <cuboid id="magenta-supply-room" min="-31,39,88" max="0,26,67"/>
+        <cuboid id="orange-supply-room" min="61,26,160" max="40,39,128"/>
+    </union>
+    <union id="wool-rooms">
+        <rectangle id="lime-wool-room" min="-7,250" max="-23,238"/>
+        <rectangle id="yellow-wool-room" min="-109,152" max="-121,136"/>
+        <rectangle id="magenta-wool-room" min="-23,50" max="-7,38"/>
+        <rectangle id="orange-wool-room" min="78,136" max="90,152"/>
+    </union>
+    <union id="portal-zones">
+        <cuboid id="lpts" min="-16.5,12,241.5" max="-14.5,10,241.5"/>
+        <cuboid id="ypts" min="-112.5,12,143.5" max="-112.5,10,145.5"/>
+        <cuboid id="mpts" min="-14.5,12,47.5" max="-16.5,10,47.5"/>
+        <cuboid id="opts" min="81.5,12,145.5" max="81.5,10,143.5"/>
+        <cuboid id="lpbteos" min="-14.5,35,218.5" max="-16.5,33,218.5"/>
+        <cuboid id="ypbteos" min="-89.5,35,145.5" max="-89.5,33,143.5"/>
+        <cuboid id="mpbteos" min="-14.5,35,70.5" max="-16.5,33,70.5"/>
+        <cuboid id="opbteos" min="58.5,35,145.5" max="58.5,33,143.5"/>
+        <cuboid id="lw" min="-22.5,35,202.5" max="-21.5,33,202.5"/>
+        <cuboid id="yw" min="-73.5,35,137.5" max="-73.5,33,138.5"/>
+        <cuboid id="mw" min="-8.5,35,86.5" max="-9.5,33,86.5"/>
+        <cuboid id="ow" min="42.5,35,151.5" max="42.5,33,150.5"/>
+        <cuboid id="le" min="-9.5,35,202.5" max="-8.5,33,202.5"/>
+        <cuboid id="ye" min="-73.5,35,150.5" max="-73.5,33,151.5"/>
+        <cuboid id="me" min="-21.5,35,86.5" max="-22.5,33,86.5"/>
+        <cuboid id="oe" min="42.5,35,138.5" max="42.5,33,137.5"/>
+    </union>
+    <!-- Applied -->
+    <apply kit="wool-gear" region="supplyrooms"/>
+    <apply enter="deny(lime-team)" region="lime-wool-room" message="You may not enter your own wool room!"/>
+    <apply enter="deny(yellow-team)" region="yellow-wool-room" message="You may not enter your own wool room!"/>
+    <apply enter="deny(magenta-team)" region="magenta-wool-room" message="You may not enter your own wool room!"/>
+    <apply enter="deny(orange-team)" region="orange-wool-room" message="You may not enter your own wool room!"/>
+    <apply enter="lime-team" region="lime-team-spawns" message="You may not enter the enemy's spawn!"/>
+    <apply enter="yellow-team" region="yellow-team-spawns" message="You may not enter the enemy's spawn!"/>
+    <apply enter="magenta-team" region="magenta-team-spawns" message="You may not enter the enemy's spawn!"/>
+    <apply enter="orange-team" region="orange-team-spawns" message="You may not enter the enemy's spawn!"/>
+    <apply block-break="allow-some" block-place="never" region="supplyrooms" message="You may only modify quartz pillars and signs in the woolroom!"/>
+    <apply block-place="no-safties" region="everywhere" message="You may only place the wool at the victory monument!"/>
+    <apply block="never" region="wool-rooms" message="You may not edit the portalroom!"/>
+    <apply block="never" region="portal-desinations" message="You may not edit the portal destinations houses!"/>
+    <apply block="never" region="victory-monuments" message="You may not edit the victory monuments!"/>
+    <apply block="never" region="spawns" message="You may not edit the spawn area!"/>
+    <apply block="deny(void)" region="playable-void" message="You may not modify the void area!"/>
+</regions>
+<portals>
+    <portal region="lpts" x="@-15.5" y="@33" z="@218.5" yaw="@180"/>
+    <portal region="ypts" x="@-89.5" y="@33" z="@144.5" yaw="@-90"/>
+    <portal region="mpts" x="@-15.5" y="@33" z="@70.5" yaw="@0"/>
+    <portal region="opts" x="@58.5" y="@33" z="@144.5" yaw="@90"/>
+    <portal region="lpbteos" x="@-15.5" y="@10" z="@241.5" yaw="@0"/>
+    <portal region="ypbteos" x="@-112.5" y="@10" z="@144.5" yaw="@90"/>
+    <portal region="mpbteos" x="@-15.5" y="@10" z="@47.5" yaw="@180"/>
+    <portal region="opbteos" x="@81.5" y="@10" z="@144.5" yaw="@-90"/>
+    <portal region="lw" x="@-63.5" y="@7" z="@209.5" yaw="@-75"/>
+    <portal region="yw" x="@-80.5" y="@7" z="@96.5" yaw="@14"/>
+    <portal region="mw" x="@32.5" y="@7" z="@79.5" yaw="@105"/>
+    <portal region="ow" x="@49.5" y="@7" z="@192.5" yaw="@-165"/>
+    <portal region="le" x="@32.5" y="@7" z="@209.5" yaw="@75"/>
+    <portal region="ye" x="@-80.5" y="@7" z="@192.5" yaw="@165"/>
+    <portal region="me" x="@-63.5" y="@7" z="@79.5" yaw="@-105"/>
+    <portal region="oe" x="@49.5" y="@7" z="@96.5" yaw="@-14"/>
+</portals>
+<wools craftable="false">
+    <wool team="lime-team" color="yellow" location="-81,37,144">
+        <monument>
+            <block>-15,8,282</block>
+        </monument>
+    </wool>
+    <wool team="lime-team" color="orange" location="50,37,144">
+        <monument>
+            <block>-16,8,282</block>
+        </monument>
+    </wool>
+    <wool team="lime-team" color="magenta" location="-15,37,78">
+        <monument>
+            <block>-17,8,282</block>
+        </monument>
+    </wool>
+    <wool team="orange-team" color="lime" location="-15,37,210">
+        <monument>
+            <block>122,8,143</block>
+        </monument>
+    </wool>
+    <wool team="orange-team" color="yellow" location="-81,37,144">
+        <monument>
+            <block>122,8,144</block>
+        </monument>
+    </wool>
+    <wool team="orange-team" color="magenta" location="-15,37,78">
+        <monument>
+            <block>122,8,145</block>
+        </monument>
+    </wool>
+    <wool team="magenta-team" color="yellow" location="-81,37,144">
+        <monument>
+            <block>-17,8,6</block>
+        </monument>
+    </wool>
+    <wool team="magenta-team" color="orange" location="50,37,144">
+        <monument>
+            <block>-16,8,6</block>
+        </monument>
+    </wool>
+    <wool team="magenta-team" color="lime" location="-15,37,210">
+        <monument>
+            <block>-15,8,6</block>
+        </monument>
+    </wool>
+    <wool team="yellow-team" color="lime" location="-15,37,210">
+        <monument>
+            <block>-154,8,145</block>
+        </monument>
+    </wool>
+    <wool team="yellow-team" color="orange" location="50,37,144">
+        <monument>
+            <block>-154,8,144</block>
+        </monument>
+    </wool>
+    <wool team="yellow-team" color="magenta" location="-15,37,78">
+        <monument>
+            <block>-154,8,143</block>
+        </monument>
+    </wool>
+</wools>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+    <tool>iron pickaxe</tool>
+    <tool>iron axe</tool>
+</toolrepair>
+<itemkeep>
+    <item>golden apple</item>
+</itemkeep>
+<itemremove>
+    <item>leather helmet</item>
+    <item>chainmail chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>log</item>
+    <item>stained glass</item>
+    <item>stained clay</item>
+    <item>baked potato</item>
+    <item>potion</item>
+    <item>quartz block:2</item>
+    <item>emerald block</item>
+    <item>glowstone dust</item>
+    <item>seeds</item>
+    <item>gravel</item>
+    <item>string</item>
+    <item>sapling</item>
+    <item>long grass:1</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+        <item amount="10" team-color="true" material="stained clay"/>
+        <item amount="6" team-color="true" material="stained glass"/>
+    </kill-reward>
+</kill-rewards>
+<!-- Drops 12 diamonds when broken -->
+<blockdrops>
+    <rule>
+        <filter>
+            <filter id="only-diamond"/>
+        </filter>
+        <drops>
+            <item amount="12">diamond</item>
+        </drops>
+    </rule>
+</blockdrops>
+<renewables>
+    <renewable rate="10" grow="true" particles="true" sound="true" avoid-entities="true">
+        <region>
+            <everywhere/>
+        </region>
+        <renew-filter>
+            <any>
+                <material>iron block</material>
+            </any>
+        </renew-filter>
+    </renewable>
+</renewables>
+<maxbuildheight>18</maxbuildheight>
+<gamerules>
+    <doFireTick>false</doFireTick>
+</gamerules>
+<timelock>on</timelock>
+</map>

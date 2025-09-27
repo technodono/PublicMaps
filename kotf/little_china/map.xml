@@ -1,0 +1,75 @@
+<map proto="1.5.0">
+<name>Little China</name>
+<variant id="7v7">7v7</variant>
+<version>1.4.7</version>
+<unless variant="7v7">
+    <include id="kotf"/>
+    <constant id="max">18</constant>
+    <constant id="max-overfill" delete="true"/>
+</unless>
+<if variant="7v7">
+    <include id="kotf-comp"/>
+    <constant id="max">7</constant>
+    <constant id="max-overfill">7</constant>
+    <constant id="respawn-timer">5s</constant>
+</if>
+<constant id="damage-resistance">3s</constant>
+<objective>Control the flag for ${score} seconds to win!</objective>
+<created>2018-06-04</created>
+<authors>
+    <author uuid="5198dc37-537f-4ea5-8ee8-1e0952d4a36b"/> <!-- _3Each -->
+</authors>
+<contributors>
+    <contributor uuid="c0f05391-054c-4cd4-9968-588fecbd4e16"/> <!-- Razrivon -->
+</contributors>
+<teams>
+    <team id="purple" color="dark purple" max="${max}" max-overfill="${max-overfill}">Purple</team>
+    <team id="yellow" color="yellow" max="${max}" max-overfill="${max-overfill}">Yellow</team>
+</teams>
+<kits>
+    <kit id="spawn-kit" parent="base-kit">
+        <action>
+            <replace-item ignore-metadata="true">
+                <find material="iron boots"/>
+                <replace unbreakable="true" enchantment="feather_falling:2" material="iron boots"/>
+            </replace-item>
+        </action>
+    </kit>
+</kits>
+<spawns>
+    <default>
+        <region yaw="-90">
+            <block>-167,31,-42</block>
+        </region>
+    </default>
+    <spawn team="purple" kit="spawn-kit" filter="has-flag">
+        <region yaw="0">
+            <point>-106.5,10,-109.5</point>
+        </region>
+    </spawn>
+    <spawn team="yellow" kit="spawn-kit" filter="has-flag">
+        <region yaw="180">
+            <point>-106.5,10,26.5</point>
+        </region>
+    </spawn>
+</spawns>
+<regions>
+    <apply block="never" use="never"/>
+</regions>
+<flags>
+    <flag id="flag"
+          name="Flag"
+          color="white"
+          shared="true"
+          points-rate="1"
+          pickup-kit="flag-kit"
+          drop-kit="reset-health"
+          flag-proximity-metric="none"
+          show-respawn-on-pickup="${announce-post-pickup}">
+        <post return-time="0s" respawn-time="${flag-respawn-timer}">
+            <post name="Post A" yaw="-90">-100.5,19,-41.5</post>
+            <post name="Post B" yaw="90">-137.5,21,-41.5</post>
+        </post>
+    </flag>
+</flags>
+</map>

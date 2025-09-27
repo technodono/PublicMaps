@@ -1,0 +1,295 @@
+<map proto="1.5.0">
+<name>Medieval Warfare</name>
+<variant id="dte" world="dte">DTE</variant>
+<version>1.8.11</version>
+<unless variant="dte">
+    <objective>Leak lava from the enemy's obsidian core.</objective>
+</unless>
+<if variant="dte">
+    <objective>Demolish the enemy's castle</objective>
+</if>
+<created>2012-05-27</created>
+<authors>
+    <author uuid="c1ea235d-4224-46e4-ba4a-638838f6d039"/> <!-- Daffy_Duck01 -->
+</authors>
+<if variant="dte">
+    <contributors>
+        <contributor uuid="3fbec7dd-0a5f-40bf-9d11-885a54507112" contribution="DTE Mode"/> <!-- last_username -->
+    </contributors>
+    <broadcasts>
+        <alert after="10s" filter="wall-exists">The wall comes down in 3 minutes</alert>
+        <alert after="70s" filter="wall-exists">The wall comes down in 2 minutes</alert>
+        <alert after="130s" filter="wall-exists">The wall comes down in 1 minute</alert>
+        <alert after="160s" filter="wall-exists">The wall comes down in 30 seconds</alert>
+        <alert after="180s" filter="wall-exists">The wall comes down in 10 seconds</alert>
+        <alert after="190s" filter="wall-exists">THE WALL IS GONE!! BOOM BOOM TIEM!!!111</alert> <!-- Original monument mode message -->
+    </broadcasts>
+</if>
+<rules>
+    <rule>Dispensers cannot be placed on this map</rule>
+    <rule>Players have resistance and reduced knockback in spawn!</rule>
+</rules>
+<include id="gapple-kill-reward"/>
+<if variant="dte">
+    <teams>
+        <team id="blue" color="blue" max="24">Blue</team>
+        <team id="red" color="dark red" max="24">Red</team>
+    </teams>
+</if>
+<unless variant="dte">
+    <teams>
+        <team id="blue" color="blue" max="32">Blue</team>
+        <team id="red" color="dark red" max="32">Red</team>
+    </teams>
+</unless>
+<spawns>
+    <unless variant="dte">
+        <spawn team="blue" kit="spawn-kit" yaw="90">
+            <region><cuboid min="66.5,157,75.5" max="69.5,157,78.5"/></region>
+        </spawn>
+        <spawn team="red" kit="spawn-kit" yaw="270">
+            <region><cuboid min="-90.5,157,75.5" max="-87.5,157,78.5"/></region>
+        </spawn>
+        <default yaw="180">
+            <region><cylinder base="-11.5,90,-32.5" radius="3" height="0"/></region>
+        </default>
+    </unless>
+    <if variant="dte">
+        <spawn team="blue" kit="spawn-kit" yaw="90">
+            <region><cuboid min="90.5,157,75.5" max="87.5,157,78.5"/></region>
+        </spawn>
+        <spawn team="red" kit="spawn-kit" yaw="270">
+            <region><cuboid min="-90.5,157,75.5" max="-87.5,157,78.5"/></region>
+        </spawn>
+        <default yaw="180">
+            <region><cylinder base="-0.5,90,-32.5" radius="3" height="0"/></region>
+        </default>
+    </if>
+</spawns>
+<kits>
+    <kit id="spawn-protection">
+        <effect amplifier="10">damage resistance</effect>
+        <knockback-reduction>1</knockback-reduction>
+    </kit>
+    <kit id="spawn-kit">
+        <item slot="0" material="diamond sword"/>
+        <item slot="1" material="bow"/>
+        <item slot="28" amount="64" material="arrow"/>
+        <item slot="2" material="diamond pickaxe"/>
+        <item slot="3" material="diamond axe"/>
+        <item slot="30" material="diamond spade"/>
+        <item slot="4" amount="64" material="wood"/>
+        <item slot="5" amount="64" material="ladder"/>
+        <item slot="6" material="water bucket"/>
+        <item slot="8" amount="64" material="bread"/>
+        <helmet team-color="true" material="leather helmet"/>
+        <chestplate enchantment="protection explosions:4" material="chainmail chestplate"/>
+        <leggings team-color="true" material="leather leggings"/>
+        <boots team-color="true" material="leather boots"/>
+        <effect duration="10" amplifier="2">regeneration</effect>
+        <effect duration="5" amplifier="10">heal</effect>
+    </kit>
+</kits>
+<filters>
+    <!-- Recent changes to implement spawn and chest protection -->
+    <deny id="deny-dispenser">
+        <material>dispenser</material>
+    </deny>
+    <not id="anti-tnt-red">
+        <all>
+            <material>tnt</material>
+            <team id="only-red">red</team>
+        </all>
+    </not>
+    <not id="anti-tnt-blue">
+        <all>
+            <material>tnt</material>
+            <team id="only-blue">blue</team>
+        </all>
+    </not>
+    <deny id="deny-chest">
+        <material>chest</material>
+    </deny>
+    <deny id="deny-glass">
+        <material>glass</material>
+    </deny>
+    <if variant="dte">
+        <!-- TODO: turn wall into a mode that can be controlled by commands -->
+        <any id="destroy-wall">
+            <after duration="190s" message="The wall comes down in {0}">
+                <all>
+                    <match-started/>
+                    <variable id="wall-exists" var="wall_down">0</variable>
+                </all>
+            </after>
+            <variable var="wall_down">1</variable>
+        </any>
+    </if>
+</filters>
+<regions>
+    <!-- Recent changes to implement spawn and chest protection -->
+    <apply lend-kit="spawn-protection" filter="only-blue" region="blue-spawn-protect"/>
+    <apply lend-kit="spawn-protection" filter="only-red" region="red-spawn-protect"/>
+    <!-- <apply region="map" block="deny-chest" message="This block can not be placed or broken on this map!"/> -->
+    <unless variant="dte">
+        <union id="spawn">
+            <cuboid id="blue-spawn-protect" min="57,93,74" max="63,oo,80"/>
+            <cuboid id="red-spawn-protect" min="-84,93,74" max="-78,oo,80"/>
+        </union>
+        <complement id="blue-base-nodrop">
+            <cuboid id="blue-base" min="49,83,66" max="72,103,88"/>
+            <region id="blue-spawn-protect"/>
+        </complement>
+        <complement id="red-base-nodrop">
+            <cuboid id="red-base" min="-70,83,88" max="-93,103,66"/>
+            <region id="red-spawn-protect"/>
+        </complement>
+        <union id="blue-supplies">
+            <cuboid id="blue-diamond" min="18,82,107" max="30,92,80"/>
+            <cuboid id="blue-iron" min="18,82,47" max="30,92,74"/>
+        </union>
+        <union id="red-supplies">
+            <cuboid id="red-diamond" min="-39,82,107" max="-51,92,80"/>
+            <cuboid id="red-iron" min="-39,82,47" max="-51,92,74"/>
+        </union>
+        <!-- Applied -->
+        <apply block="never" region="spawn"/>
+        <apply block-place="deny-dispenser" message="Dispensers are disabled on this map!">
+            <region>
+                <negative>
+                    <region id="spawn"/>
+                </negative>
+            </region>
+        </apply>
+        <apply block-place="anti-tnt-blue" message="Sorry, you may not place TNT inside your own castle">
+            <region>
+                <region id="blue-base-nodrop"/>
+                <region id="blue-supplies"/>
+            </region>
+        </apply>
+        <apply block-place="anti-tnt-red" message="Sorry, you may not place TNT inside your own castle">
+            <region>
+                <region id="red-base-nodrop"/>
+                <region id="red-supplies"/>
+            </region>
+        </apply>
+    </unless>
+    <apply block="never" message="You may not build outside the map's boundaries!">
+        <region>
+            <negative>
+                <cuboid min="-155,-oo,3" max="134,127,172"/>
+            </negative>
+        </region>
+    </apply>
+    <if variant="dte">
+        <union id="spawn">
+            <cuboid id="blue-spawn-protect" min="84,93,74" max="78,oo,80"/>
+            <cuboid id="red-spawn-protect" min="-84,93,74" max="-78,oo,80"/>
+        </union>
+        <complement id="blue-base-nodrop">
+            <cuboid id="blue-base" min="70,83,66" max="93,103,88"/>
+            <region id="blue-spawn-protect"/>
+        </complement>
+        <complement id="red-base-nodrop">
+            <cuboid id="red-base" min="-70,83,88" max="-93,103,66"/>
+            <region id="red-spawn-protect"/>
+        </complement>
+        <!-- -->
+        <cuboid id="blue-chests" min="92,86,67" max="71,93,87"/>
+        <cuboid id="red-chests" min="-92,86,67" max="-71,93,87"/>
+        <union id="wall">
+            <cuboid id="blue-wall" min="0,0,16" max="1,136,144"/>
+            <cuboid id="red-wall" min="-1,0,16" max="0,136,144"/>
+        </union>
+        <apply block="deny-chest">
+            <region>
+                <union>
+                    <region id="blue-chests"/>
+                    <region id="red-chests"/>
+                </union>
+            </region>
+        </apply>
+        <apply block-break="deny-glass">
+            <region>
+                <union>
+                    <region id="blue-wall"/>
+                    <region id="red-wall"/>
+                </union>
+            </region>
+        </apply>
+        <apply leave="destroy-wall" message="You may not go to the enemy's island yet!">
+            <region>
+                <union>
+                    <above x="1"/>
+                    <below x="-1"/>
+                </union>
+            </region>
+        </apply>
+    </if>
+</regions>
+<unless variant="dte">
+    <cores material="obsidian" leak="3" mode-changes="true">
+        <core team="blue">
+            <region><cuboid min="30,97,75" max="34,101,79"/></region>
+        </core>
+        <core team="red">
+            <region><cuboid min="-55,97,75" max="-51,101,79"/></region>
+        </core>
+    </cores>
+    <modes>
+        <mode after="15m" material="gold block"/>
+        <mode after="20m" material="glass"/>
+    </modes>
+</unless>
+<if variant="dte">
+    <variables>
+        <variable id="wall_down" scope="match" default="0"/>
+    </variables>
+    <destroyables>
+        <destroyables name="Castle" show-progress="true" completion="50%" materials="smooth brick;step:0;step:5;double step:0;double step:5;smooth stairs;thin glass;wool">
+            <destroyable owner="blue">
+                <region><cuboid min="33,86,40" max="95,112,114"/></region>
+            </destroyable>
+            <destroyable owner="red">
+                <region><cuboid min="-95,86,40" max="-33,112,114"/></region>
+            </destroyable>
+        </destroyables>
+    </destroyables>
+    <actions>
+        <action id="tear-down-wall" scope="match" expose="true">
+            <fill material="air" region="wall"/>
+            <set var="wall_down" value="1"/>
+        </action>
+        <trigger filter="destroy-wall" action="tear-down-wall" scope="match"/>
+    </actions>
+</if>
+<kill-rewards>
+    <kill-reward>
+        <item amount="16" material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+<crafting>
+    <disable>chest</disable>
+</crafting>
+<toolrepair>
+    <tool>diamond sword</tool>
+    <tool>bow</tool>
+    <tool>diamond pickaxe</tool>
+    <tool>diamond axe</tool>
+    <tool>diamond spade</tool>
+</toolrepair>
+<itemremove>
+    <item>leather helmet</item>
+    <item>chainmail chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>obsidian</item>
+    <item>arrow</item>
+    <item>wood</item>
+    <item>bread</item>
+    <item>ladder</item>
+    <item>bucket</item>
+    <item>water bucket</item>
+    <item>golden apple</item>
+</itemremove>
+</map>

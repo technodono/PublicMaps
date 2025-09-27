@@ -1,0 +1,115 @@
+<map proto="1.5.0">
+<name>Black Gold</name>
+<version>1.0.9</version>
+<created>2012-10-20</created>
+<objective>Leak lava from the enemy core!</objective>
+<authors>
+    <author uuid="ed1fe2bd-0431-4a56-8c5c-d4657389dd1f"/> <!-- artur1197 -->
+    <author uuid="06c2f980-d6b1-4908-b578-a9cf42a1418a"/> <!-- hanchulonXD1 -->
+    <author uuid="8eb34538-a6e0-4bc0-b695-b993f3f14aaa"/> <!-- Puyi2912 -->
+    <author uuid="f845d896-45f4-4a96-93ca-faf22f675993"/> <!-- GGranchelli16 -->
+    <author uuid="c14862ba-058a-44a2-a1c3-bfb0b462e198"/> <!-- roro28gutier -->
+    <author uuid="5df77c0e-1bc5-4fff-b41b-6763f29d4125"/> <!-- G_Marturet --> 
+</authors>
+<contributors>
+    <contributor uuid="ef259cb1-4d48-4196-8923-669ead918a93" contribution="XML Coding"/> <!-- Calvinator1717 -->
+</contributors>
+<teams>
+    <team id="red" color="dark red" max="35">Red</team>
+    <team id="blue" color="blue" max="35">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" material="bow"/>
+        <item slot="2" material="diamond pickaxe"/>
+        <item slot="3" enchantment="efficiency:2;unbreaking:2" material="iron axe"/>
+        <item slot="4" amount="16" damage="1" material="log"/>
+        <item slot="5" amount="64" material="glass"/>
+        <item slot="6" amount="32" material="grilled pork"/>
+        <item slot="7" amount="64" material="arrow"/>
+        <item slot="8" amount="64" material="arrow"/>
+        <helmet material="gold helmet"/>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="blue" kit="spawn-kit" yaw="90">
+        <region>
+            <point>-199,11,274</point>
+        </region>
+    </spawn>
+    <spawn team="red" kit="spawn-kit" yaw="-90">
+        <region>
+            <point>-466,11,274</point>
+        </region>
+    </spawn>
+    <default>
+        <region>
+            <point>-188,49,207</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-red">red</team>
+    <team id="only-blue">blue</team>
+</filters>
+<regions>
+    <union id="spawn-rooms">
+        <cuboid id="blue-spawn-room" min="-215,9,267" max="-195,16,283"/>
+        <cuboid id="red-spawn-room" min="-449,9,282" max="-468,19,267"/>
+    </union>
+    <union id="spawn-roof">
+        <cuboid min="-228,18,292" max="-195,10,257"/>
+        <cuboid min="-228,22,293" max="-219,10,281"/>
+        <cuboid min="-228,22,255" max="-219,10,269"/>
+        <cuboid min="-445,18,292" max="-468,10,257"/>
+        <cuboid min="-445,22,293" max="-436,10,281"/>
+        <cuboid min="-445,22,255" max="-436,10,269"/>
+    </union>
+    <complement id="outside-playable">
+        <rectangle min="-481,236" max="-188,321"/>
+        <rectangle min="-351,241" max="-314,307"/>
+    </complement>
+    <apply region="blue-spawn-room" enter="only-blue" message="You may not enter Blue's spawn!"/>
+    <apply region="red-spawn-room" enter="only-red" message="You may not enter Red's spawn!"/>
+    <apply region="spawn-roof" block="never" message="You may not modify the spawn room/roof!"/>
+    <apply region="outside-playable" block="deny(void)" message="You may not build outside of the map."/>
+</regions>
+<cores leak="6" mode-changes="true">
+    <core team="blue">
+        <region>
+            <cuboid min="-210,42,271" max="-203,49,278"/>
+        </region>
+    </core>
+    <core team="red">
+        <region>
+            <cuboid min="-461,42,271" max="-454,49,278"/>
+        </region>
+    </core>
+</cores>
+<modes>
+    <mode after="15m" material="gold block"/>
+    <mode after="20m" material="glass"/>
+</modes>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+    <tool>diamond pickaxe</tool>
+    <tool>iron axe</tool>
+</toolrepair>
+<itemremove>
+    <item>sand</item>
+    <item>arrow</item>
+    <item>glass</item>
+    <item>log</item>
+    <item>grilled pork</item>
+    <item>gold helmet</item>
+    <item>gold block</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+        <item amount="16" material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+<maxbuildheight>65</maxbuildheight>
+</map>

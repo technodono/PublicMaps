@@ -1,0 +1,44 @@
+<map proto="1.5.0">
+<name>Race: Ender</name>
+<version>1.1.5</version>
+<objective>Score points by completing laps around the track.</objective>
+<include id="race"/>
+<authors>
+    <author uuid="060baa18-2852-40d8-afcb-e61607c04be3"/> <!-- PepsiDog -->
+</authors>
+<spawns>
+    <spawn region="spawn"/>
+    <default region="spawn"/>
+</spawns>
+<regions>
+    <cuboid id="spawn" min="-77,63,-175" max="-70,63,-171"/>
+    <apply enter="never">
+        <region>
+            <rectangle min="-166,-176" max="12,-189"/>
+        </region>
+    </apply>
+    <apply velocity="0,2.5,0">
+        <region>
+            <cuboid max="-147,7,-200" min="-149,9,-202"/>
+        </region>
+    </apply>
+    <cuboid id="finish-line" min="-88,69,-198" max="-85,73,-204"/>
+</regions>
+<portals>
+    <portal x="@-73.5" y="@63.5" z="@-172.5" yaw="@0">
+        <region>
+            <cuboid min="-88,69,-198" max="-85,73,-204"/>
+        </region>
+    </portal>
+    <portal x="@-73.5" y="@63.5" z="@-172.5" yaw="@0">
+        <region>
+            <cuboid min="-oo,0,-oo" max="oo,6.75,oo"/>
+        </region>
+    </portal>
+   <portal x="0" y="53.5" z="0" yaw="@-90">
+        <region>
+            <cuboid min="-150,16,-203" max="-145,24,-199"/>
+        </region>
+    </portal>
+</portals>
+</map>

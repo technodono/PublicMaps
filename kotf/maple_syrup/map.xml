@@ -1,0 +1,92 @@
+<map proto="1.5.0">
+<name>Maple Syrup</name>
+<variant id="comp" world="comp">TE</variant>
+<version>2.1</version>
+<unless variant="comp">
+    <include id="kotf"/>
+</unless>
+<if variant="comp">
+    <include id="kotf-comp"/>
+</if>
+<constant id="damage-resistance">0s</constant>
+<objective>Control the flag for ${score} seconds to win!</objective>
+<authors>
+    <author uuid="0c44ca5a-6a42-49b7-81f2-58dc6d2ae3e9"/> <!-- Xerocoles -->
+    <author uuid="3a64dcf4-5d71-4664-80bf-4e5c54e41b86"/> <!-- Zaquez -->
+</authors>
+<contributors>
+    <contributor uuid="621b2aa8-4e5f-4ed8-bd36-0ae2f8952a06"/> <!-- Strangey -->
+</contributors>
+<teams>
+    <unless variant="comp">
+        <team id="blue" color="blue" max="24">Blue</team>
+        <team id="red" color="dark red" max="24">Red</team>
+    </unless>
+    <if variant="comp">
+        <team id="blue" color="blue" max="7" max-overfill="7">Blue</team>
+        <team id="red" color="dark red" max="7" max-overfill="7">Red</team>
+    </if>
+</teams>
+<kits>
+    <kit id="spawn-kit" parent="base-kit">
+        <if variant="default">
+            <action>
+                <replace-item>
+                    <find unbreakable="true" material="iron boots"/>
+                    <replace unbreakable="true" enchantment="feather_falling" material="iron boots"/>
+                </replace-item>
+            </action>
+        </if>
+    </kit>
+</kits>
+<spawns>
+    <default region="obs-spawn" yaw="180"/>
+    <spawn team="blue" kit="spawn-kit" region="blue-spawn" yaw="-90" filter="has-flag"/>
+    <spawn team="red" kit="spawn-kit" region="red-spawn" yaw="90" filter="has-flag"/>
+</spawns>
+<regions>
+    <cuboid id="obs-spawn" min="276,35,-29" max="279,35,-32"/>
+    <unless variant="comp">
+        <point id="blue-spawn">189.5,47,-85.5</point>
+        <point id="red-spawn">365.5,47,-85.5</point>
+    </unless>
+    <if variant="comp">
+        <point id="blue-spawn">189.5,49,-85.5</point>
+        <point id="red-spawn">365.5,49,-85.5</point>
+    </if>
+    <union id="dam-area">
+        <unless variant="comp">
+            <cuboid min="351,16,-56" max="356,40,-115"/>
+            <cuboid min="204,16,-56" max="199,40,-115"/>
+        </unless>
+        <if variant="comp">
+            <cuboid min="351,18,-56" max="356,40,-115"/>
+            <cuboid min="204,18,-56" max="199,40,-115"/>
+        </if>
+    </union>
+    <apply enter="deny-flag-carrier" message="You may not climb the dam while carrying the flag!" region="dam-area"/>
+    <apply block="never"/>
+</regions>
+<flags>
+    <flag id="flag"
+          name="Flag"
+          color="white"
+          shared="true"
+          points-rate="1"
+          pickup-kit="flag-kit"
+          drop-kit="reset-health"
+          flag-proximity-metric="none"
+          show-respawn-on-pickup="${announce-post-pickup}">
+        <post return-time="0s" respawn-time="${flag-respawn-timer}">
+            <unless variant="comp">
+                <post name="Centre Post">277.5,21,-85.5</post>
+            </unless>
+            <if variant="comp">
+                <post name="Centre Post">277.5,19,-85.5</post>
+            </if>
+            <post name="North Post" yaw="180">277.5,27,-119.5</post>
+            <post name="South Post" yaw="0">277.5,27,-51.5</post>
+        </post>
+    </flag>
+</flags>
+</map>

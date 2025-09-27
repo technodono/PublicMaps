@@ -1,0 +1,83 @@
+<map proto="1.5.0">
+<name>Mesa</name>
+<version>1.0.6</version>
+<objective>Kill as many other players as you can in 7 minutes!</objective>
+<created>2016-05-01</created>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="38ab65dd-95f9-406f-917c-6accc995421f"/> <!-- GoldenOre -->
+</authors>
+<contributors>
+    <contributor uuid="d3814d5a-3d37-42f2-9db8-916846bb70ad" contribution="Feedback and minor building help."/>
+    <contributor uuid="5198dc37-537f-4ea5-8ee8-1e0952d4a36b" contribution="Cactus and houses"/>
+</contributors>
+<players min="2" max="20" colors="true"/>
+<kits>
+    <kit id="spawn-kit">
+        <clear/>
+        <item slot="0" unbreakable="true" material="stone sword"/>
+        <item slot="1" unbreakable="true" material="bow"/>
+        <item slot="2" material="golden apple"/>
+        <item slot="8" amount="16" material="arrow"/>
+        <helmet unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" team-color="true" material="leather chestplate"/>
+        <leggings unbreakable="true" material="chainmail leggings"/>
+        <boots unbreakable="true" team-color="true" enchantment="protection fall:2" material="leather boots"/>
+        <effect duration="2.5" amplifier="10">resistance</effect>
+        <game-mode>adventure</game-mode>
+    </kit>
+</kits>
+<spawns>
+    <spawn kit="spawn-kit" spread="true" safe="true">
+        <regions>
+            <point yaw="-175">-69.5,38,2.5</point>
+            <point yaw="-86">-71.5,36.5,-108.5</point>
+            <point yaw="-48">-72.5,17,-109.5</point>
+            <point yaw="106">44.5,16,-20.5</point>
+            <point yaw="-90">-66,22,-36</point>
+            <point yaw="90">5.5,17.5,-1.5</point>
+            <point>17.5,16.5,-91.5</point>
+            <point yaw="-80">-66,37,-66</point>
+            <point yaw="135">34,35,0</point>
+            <point>-15,36,-109</point>
+            <point yaw="80">41,37,-66</point>
+            <point yaw="-160">-33,33,5</point>
+        </regions>
+    </spawn>
+    <default yaw="-90">
+        <region>
+            <point>-15.5,42,-108.5</point>
+        </region>
+    </default>
+</spawns>
+<regions>
+    <apply block="never"/>
+</regions>
+<score>
+    <kills>1</kills>
+</score>
+<time>7m</time>
+<toolrepair>
+    <tool>stone sword</tool>
+    <tool>bow</tool>
+</toolrepair>
+<itemremove>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>arrow</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+        <item amount="8" material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+<disabledamage>
+    <damage>suffocation</damage>
+</disabledamage>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<timelock>on</timelock>
+</map>

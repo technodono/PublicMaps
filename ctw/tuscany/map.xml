@@ -1,0 +1,290 @@
+<map proto="1.5.0">
+<name>Tuscany</name>
+<version>2.4.5</version>
+<variant id="comp" world="comp">TE</variant>
+<include id="gapple-kill-reward"/>
+<constant id="max">30</constant>
+<constant id="max-overfill" delete="true"/>
+<if variant="comp">
+    <constant id="max">8</constant>
+    <constant id="max-overfill">8</constant>
+    <phase>staging</phase>
+    <time overtime="5m" max-overtime="15m" end-overtime="1m">45m</time>
+</if>
+<objective>Capture the enemy's two wools!</objective>
+<authors>
+    <author uuid="a970545c-45e4-4745-a952-d4b8343f149d"/> <!-- Magnace -->
+</authors>
+<contributors>
+    <contributor uuid="0c44ca5a-6a42-49b7-81f2-58dc6d2ae3e9" contribution="feedback, assistance, original xml"/> <!-- Xerocoles -->
+    <contributor uuid="b8add1ba-8e13-4673-bc73-4e3ed524d40e" contribution="original xml"/> <!-- Blazy -->
+    <contributor uuid="e82603df-417d-4a95-bd1f-1720648be0b4"/> <!-- Pablete1234 -->
+</contributors>
+<teams>
+    <team id="blue-team" color="blue" max="${max}" max-overfill="${max-overfill}">Blue</team>
+    <team id="red-team" color="dark red" max="${max}" max-overfill="${max-overfill}">Red</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <clear/>
+        <item slot="0" unbreakable="true" material="iron sword"/>
+        <item slot="1" unbreakable="true" material="bow">
+            <enchantment>infinity</enchantment>
+        </item>
+        <item slot="28" material="arrow"/>
+        <item slot="2" unbreakable="true" material="diamond pickaxe"/>
+        <item slot="3" unbreakable="true" material="diamond axe"/>
+        <item slot="30" unbreakable="true" material="stone spade">
+            <enchantment>efficiency</enchantment>
+        </item>
+        <item slot="4" amount="64" damage="1" material="wood"/>
+        <item slot="31" amount="64" damage="1" material="wood"/>
+        <item slot="5" amount="64" material="glass"/>
+        <unless variant="comp">
+            <item slot="29" unbreakable="true" material="shears"/>
+            <item slot="6" material="bucket"/>
+            <item slot="8" material="golden apple"/>
+        </unless>
+        <if variant="comp">
+            <item slot="32" amount="64" damage="1" material="wood"/>
+            <item slot="6" material="water bucket"/>
+            <item slot="7" material="golden apple"/>
+            <item slot="8" amount="64" material="golden carrot"/>
+        </if>
+        <chestplate team-color="true" unbreakable="true" material="leather chestplate"/>
+        <leggings unbreakable="true" material="chainmail leggings"/>
+        <boots team-color="true" unbreakable="true" material="leather boots"/>
+        <effect duration="6s" amplifier="255">resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <default>
+        <region yaw="180">
+            <cuboid min="-129.5,44,87.5" max="-125.5,44,85.5"/>
+        </region>
+    </default>
+    <spawn team="blue-team" kit="spawn-kit">
+        <region yaw="-90">
+            <point>-251.5,6,10.5</point>
+        </region>
+    </spawn>
+    <spawn team="red-team" kit="spawn-kit">
+        <region yaw="90">
+            <point>-3.5,6,10.5</point>
+        </region>
+    </spawn>
+</spawns>
+<filters>
+    <deny id="deny-redstone">
+        <all>
+            <void/>
+            <material>redstone wire</material>
+        </all>
+    </deny>
+    <material id="chest">chest</material>
+    <material id="trap-door">trap door</material>
+    <material id="dead-bush">dead bush</material>
+    <all id="only-iron-renew">
+        <material id="only-iron">iron block</material>
+        <cause>world</cause>
+    </all>
+</filters>
+<regions>
+    <union id="spawns">
+        <unless variant="comp">
+            <below id="blue-spawn-build" x="-215"/>
+            <above id="red-spawn-build" x="-40"/>
+            <below id="blue-spawn" x="-233"/>
+            <above id="red-spawn" x="-22"/>
+        </unless>
+        <if variant="comp">
+            <below id="blue-spawn" x="-222"/>
+            <above id="red-spawn" x="-33"/>
+        </if>
+    </union>
+    <union id="wool-rooms">
+        <union id="blue-wool-rooms"> <!-- blue defends from red -->
+            <unless variant="comp">
+                <rectangle id="light-blue-wr" min="-215,79" max="-201,92"/>
+                <rectangle id="yellow-wr" min="-215,-71" max="-201,-58"/>
+            </unless>
+            <if variant="comp">
+                <rectangle id="light-blue-wr" min="-222,81" max="-208,94"/>
+                <rectangle id="yellow-wr" min="-222,-60" max="-208,-73"/>
+            </if>
+        </union>
+        <union id="red-wool-rooms"> <!-- red defends from blue -->
+            <unless variant="comp">
+                <rectangle id="pink-wr" min="-54,-71" max="-40,-58"/>
+                <rectangle id="lime-wr" min="-54,79" max="-40,92"/>
+            </unless>
+            <if variant="comp">
+                <rectangle id="pink-wr" min="-47,-72" max="-33,-60"/>
+                <rectangle id="lime-wr" min="-47,81" max="-33,94"/>
+            </if>
+        </union>
+    </union>
+    <complement id="void-area">
+        <everywhere/>
+        <unless variant="comp">
+            <rectangle min="-189,-37" max="-66,58"/> <!-- main playable area -->
+        </unless>
+        <if variant="comp">
+            <complement>
+                <rectangle min="-222,-37" max="-33,58"/> <!-- main playable area -->
+                <rectangle min="-138,-17" max="-117,38"/> <!-- mid void gap -->
+                <complement> <!-- blue spawn void gap -->
+                    <rectangle min="-222,5" max="-183,16"/>
+                    <rectangle min="-212,5" max="-205,16"/>
+                </complement>
+                <complement> <!-- red spawn void gap -->
+                    <rectangle min="-72,5" max="-33,16"/>
+                    <rectangle min="-50,5" max="-43,16"/>
+                </complement>
+            </complement>
+        </if>
+    </complement>
+    <unless variant="comp">
+        <union id="spawners">
+            <region id="north-spawner"/>
+            <region id="south-spawner"/>
+        </union>
+        <apply block="dead-bush" region="spawners" message="You may not interefere with the spawners!"/>
+    </unless>
+    <apply use="deny(trap-door)" region="spawns"/>
+    <apply use="deny(red-team)" region="red-wool-rooms"/>
+    <apply use="deny(blue-team)" region="blue-wool-rooms"/>
+    <apply enter="deny(red-team)" region="blue-spawn" message="You may not enter the enemy team's spawn!"/>
+    <apply enter="deny(blue-team)" region="red-spawn" message="You may not enter the enemy team's spawn!"/>
+    <apply enter="deny(red-team)" region="red-wool-rooms" message="You may not enter your team's own wool rooms!"/>
+    <apply enter="deny(blue-team)" region="blue-wool-rooms" message="You may not enter your team's own wool rooms!"/>
+    <apply block-place="only-iron-renew" block-break="only-iron" region="spawns" message="You may only break iron blocks in spawn!"/>
+    <apply block="deny(chest)" region="wool-rooms" message="You may not break or place chests in the wool rooms!"/>
+    <apply block="deny(blue-team)" region="blue-wool-rooms" message="You may not interfere with your team's own wool rooms!"/>
+    <apply block="deny(red-team)" region="red-wool-rooms" message="You may not interfere with your team's own wool rooms!"/>
+    <apply block-place="deny(void)" region="void-area" message="You may not build in the void!"/>
+    <apply block-break="deny-redstone" region="void-area"/>
+</regions>
+<renewables>
+    <renewable region="spawns" renew-filter="only-iron" rate="3"/>
+</renewables>
+<constants>
+    <unless variant="comp">
+        <constant id="lime-location">-50,10,88</constant>
+        <constant id="pink-location">-50,10,-67</constant>
+        <constant id="light-blue-location">-205,10,88</constant>
+        <constant id="yellow-location">-205,10,-67</constant>
+        <constant id="build-height">22</constant>
+    </unless>
+    <if variant="comp">
+        <constant id="lime-location">-43,10,90</constant>
+        <constant id="pink-location">-43,10,-69</constant>
+        <constant id="light-blue-location">-212,10,90</constant>
+        <constant id="yellow-location">-212,10,-69</constant>
+        <constant id="build-height">20</constant>
+    </if>
+</constants>
+<wools wool-proximity-metric="none" monument-proximity-metric="closest block">
+    <wool team="blue-team" color="lime" location="${lime-location}">
+        <monument>
+            <block>-224,7,11</block>
+        </monument>
+    </wool>
+    <wool team="blue-team" color="pink" location="${pink-location}">
+        <monument>
+            <block>-224,7,9</block>
+        </monument>
+    </wool>
+    <wool team="red-team" color="light blue" location="${light-blue-location}">
+        <monument>
+            <block>-32,7,11</block>
+        </monument>
+    </wool>
+    <wool team="red-team" color="yellow" location="${yellow-location}">
+        <monument>
+            <block>-32,7,9</block>
+        </monument>
+    </wool>
+</wools>
+<unless variant="comp">
+    <spawners>
+        <spawner delay="8s">
+            <spawn-region>
+                <point>-127.5,11,-24.5</point>
+            </spawn-region>
+            <player-region>
+                <cylinder id="north-spawner" base="-127.5,9,-24.5" height="5" radius="3"/>
+            </player-region>
+            <item material="golden apple"/>
+        </spawner>
+        <spawner delay="8s">
+            <spawn-region>
+                <point>-127.5,11,45.5</point>
+            </spawn-region>
+            <player-region>
+                <cylinder id="south-spawner" base="-127.5,9,45.5" height="5" radius="3"/>
+            </player-region>
+            <item material="golden apple"/>
+        </spawner>
+    </spawners>
+</unless>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+    <tool>diamond pickaxe</tool>
+    <tool>diamond axe</tool>
+    <tool>stone spade</tool>
+    <tool>arrow</tool>
+    <unless variant="comp">
+        <tool>shears</tool>
+    </unless>
+</toolrepair>
+<itemremove>
+    <item>leather chestplate</item>
+    <item>chainmail leggings</item>
+    <item>leather boots</item>
+    <item>string</item>
+    <item>redstone</item>
+    <item>sapling</item>
+    <item>apple</item>
+    <item>flint</item>
+    <item>seeds</item>
+    <item>long grass</item>
+    <item>yellow flower</item>
+    <item>red rose</item>
+    <item>double plant</item>
+    <item>sugar cane</item>
+</itemremove>
+<itemkeep>
+    <item>wood</item>
+    <item>glass</item>
+    <item>bucket</item>
+    <item>water bucket</item>
+    <unless variant="comp">
+        <item>shears</item>
+        <item>golden apple</item>
+    </unless>
+    <if variant="comp">
+        <item>golden carrot</item>
+    </if>
+</itemkeep>
+<kill-rewards>
+    <kill-reward>
+        <item amount="32" damage="1" material="wood"/>
+        <item amount="16" material="glass"/>
+    </kill-reward>
+</kill-rewards>
+<maxbuildheight>${build-height}</maxbuildheight>
+<unless variant="comp">
+    <hunger>
+        <depletion>off</depletion>
+    </hunger>
+</unless>
+<if variant="comp">
+    <crafting>
+        <disable>iron trapdoor</disable>
+        <disable>minecart</disable>
+        <disable>boat</disable>
+    </crafting>
+</if>
+</map>

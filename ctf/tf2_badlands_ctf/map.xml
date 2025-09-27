@@ -1,0 +1,311 @@
+<map proto="1.5.0">
+<name>TF2: Badlands CTF</name>
+<version>2.0.5</version>
+<objective>Capture the flag from the enemy base 5 times!</objective>
+<gamemode>ctf</gamemode>
+<authors>
+    <author uuid="15dc7f7a-40cd-4389-ad45-f8a33a09a394"/> <!-- moo88888888 -->
+</authors>
+<teams>
+    <team id="red" color="dark red" max="10" max-overfill="12" show-name-tags="false">Red</team>
+    <team id="blu" color="blue" max="10" max-overfill="12" show-name-tags="false">Blu</team>
+</teams>
+<spawns>
+    <spawn team="blu" kit="all">
+        <regions>
+            <point yaw="30">11.5,11,-85.5</point> <!-- spawn-right-blu -->
+            <point yaw="-30">20.5,11,-85.5</point> <!-- spawn-left-blu -->
+        </regions>
+    </spawn>
+    <spawn team="red" kit="all">
+        <regions>
+            <point yaw="-150">-21.5,11,87.5</point> <!-- spawn-right-red -->
+            <point yaw="150">-30.5,11,87.5</point> <!-- spawn-left-red -->
+        </regions>
+    </spawn>
+    <default kit="all" yaw="90">
+        <region>
+            <cuboid min="-7,42,2" max="-3,43,-2"/>
+        </region>
+    </default>
+</spawns>
+<kits>
+    <kit id="all">
+        <effect>night vision</effect>
+        <effect duration="2.5s" amplifier="5">heal</effect>
+    </kit>
+    <kit id="ammo-kit-pre">
+        <item slot="0" amount="16" material="arrow"/>
+    </kit>
+    <kit id="ammo-kit-post" parents="ammo-kit-pre"/>
+    <kit id="health-kit">
+        <effect duration="2" amplifier="4">regeneration</effect>
+    </kit>
+    <!-- Inversed armor is intentional -->
+    <!-- <kit id="spy-red" parents="spy-kit" filter="only-red">
+        <helmet color="334CB2" unbreakable="true" material="leather helmet"/>
+        <chestplate color="334CB2" unbreakable="true" material="leather chestplate"/>
+        <leggings color="334CB2" unbreakable="true" material="leather leggings"/>
+        <boots color="334CB2" enchantment="protection fall:3" unbreakable="true" material="leather boots"/>
+    </kit>
+    <kit id="spy-blu" parents="spy-kit" filter="only-blu">
+        <helmet color="993333" unbreakable="true" material="leather helmet"/>
+        <chestplate color="993333" unbreakable="true" material="leather chestplate"/>
+        <leggings color="993333" unbreakable="true" material="leather leggings"/>
+        <boots color="993333" enchantment="protection fall:3" unbreakable="true" material="leather boots"/>
+    </kit> -->
+    <kit id="flag-pickup" force="true">
+        <double-jump enabled="false"/>
+        <effect duration="0">speed</effect>
+    </kit>
+</kits>
+<classes family="tf2">
+    <class name="Scout" icon="feather">
+        <kit id="scout-kit" parents="all">
+            <item slot="0" name="`lBaseball Bat" unbreakable="true" material="stone sword"/>
+            <item slot="1" name="`lScattergun Shots" amount="6" damage="16460" material="potion"/>
+            <effect amplifier="-1">health boost</effect>
+            <effect amplifier="2">speed</effect>
+            <effect amplifier="2">jump</effect>
+            <helmet team-color="true" unbreakable="true" material="leather helmet"/>
+            <chestplate team-color="true" unbreakable="true" material="leather chestplate"/>
+            <leggings team-color="true" unbreakable="true" material="leather leggings"/>
+            <boots team-color="true" enchantment="protection fall:3" unbreakable="true" material="leather boots"/>
+        </kit>
+    </class>
+    <class name="Sniper" icon="bow">
+        <kit id="sniper-kit" parents="all">
+            <item slot="0" name="`lThe Huntsman" enchantment="arrow damage:2" unbreakable="true" material="bow"/>
+            <item slot="1" name="`lJarate" potions="confusion:100:0:true;weakness:600:3:true" amount="2" damage="16419" material="potion"/>
+            <item slot="2" name="`lKukri" enchantment="knockback:1" attributes="generic.attackDamage:add:2" material="stick"/>
+            <item slot="3" amount="32" material="arrow"/>
+            <chestplate unbreakable="true" material="chainmail chestplate"/>
+            <effect amplifier="-1">health boost</effect>
+            <effect>speed</effect>
+            <helmet team-color="true" unbreakable="true" material="leather helmet"/>
+            <leggings team-color="true" unbreakable="true" material="leather leggings"/>
+            <boots team-color="true" enchantment="protection fall:3;protection projectile:2" unbreakable="true" material="leather boots"/>
+        </kit>
+    </class>
+    <class name="Heavy" icon="diamond chestplate">
+        <kit id="heavy-kit" parents="all">
+            <item slot="0" name="`lBoxing Gloves" unbreakable="true" attributes="generic.attackDamage:add:5.5" material="stone sword"/>
+            <item slot="1" name="`lMinigun" amount="48" grenade="true" material="snow ball"/>
+            <effect amplifier="3">health boost</effect>
+            <effect amplifier="3">slow</effect>
+            <helmet team-color="true" unbreakable="true" material="leather helmet"/>
+            <chestplate unbreakable="true" material="diamond chestplate"/>
+            <leggings team-color="true" unbreakable="true" material="leather leggings"/>
+            <boots team-color="true" enchantment="protection fall:3" unbreakable="true" material="leather boots"/>
+        </kit>
+    </class>
+    <class name="Demo" icon="fireball">
+        <kit id="demo-kit" parents="all">
+            <item slot="0" name="`lEyelander" unbreakable="true" material="stone sword"/>
+            <item slot="1" name="`lGrenades" amount="32" grenade="true" grenade-power="0.75" material="snow ball"/>
+            <item slot="2" name="`lStickybomb" amount="12" material="tnt"/>
+            <effect amplifier="-1">health boost</effect>
+            <helmet team-color="true" unbreakable="true" material="leather helmet"/>
+            <chestplate unbreakable="true" enchantment="protection explosions:10" material="chainmail chestplate"/>
+            <leggings team-color="true" unbreakable="true" material="leather leggings"/>
+            <boots team-color="true" enchantment="protection fall:3;protection explosions:10" unbreakable="true" material="leather boots"/>
+        </kit>
+    </class>
+    <!-- <class name="Spy" icon="iron sword">
+        <kit id="spy-kit" parents="all">
+            <item slot="0" name="`lKnife" unbreakable="true" material="iron sword"/>
+            <item slot="1" name="`lRevolver" unbreakable="true" material="bow"/>
+            <item slot="2" amount="16" material="arrow"/>
+            <effect amplifier="-3">health boost</effect>
+            <effect>speed</effect>
+            <double-jump/>
+        </kit>
+    </class> -->
+    <class name="Pyro" icon="flint and steel">
+        <kit id="pyro-kit" parents="all">
+            <item slot="0" name="`lFlamethrower" enchantment="fire aspect:1" attributes="generic.attackDamage:add:2" unbreakable="true" material="flint and steel"/>
+            <item slot="1" name="`lFire Axe" unbreakable="true" material="stone axe"/>
+            <effect>health boost</effect>
+            <effect>fire resistance</effect>
+            <helmet team-color="true" unbreakable="true" material="leather helmet"/>
+            <chestplate unbreakable="true" material="chainmail chestplate"/>
+            <leggings team-color="true" unbreakable="true" material="leather leggings"/>
+            <boots team-color="true" enchantment="protection fall:3" unbreakable="true" material="leather boots"/>
+        </kit>
+    </class>
+    <class name="Medic" icon="potion">
+        <kit id="medic-kit" parents="all">
+            <item slot="0" name="`lBonesaw" unbreakable="true" material="gold axe"/>
+            <item slot="1" name="`lMedigun `7(Infinite)" potions="regeneration:160:2:true" damage="16385" amount="10000" material="potion"/>
+            <effect amplifier="-2">health boost</effect>
+            <helmet team-color="true" unbreakable="true" material="leather helmet"/>
+            <chestplate unbreakable="true" material="gold chestplate"/>
+            <leggings team-color="true" unbreakable="true" material="leather leggings"/>
+            <boots team-color="true" enchantment="protection fall:3" unbreakable="true" material="leather boots"/>
+        </kit>
+    </class>
+    <class name="Soldier" icon="tnt" default="true">
+        <kit id="soldier-kit" parents="all">
+            <item slot="0" name="`lBlade" unbreakable="true" material="iron sword"/>
+            <item slot="1" name="`lRocket Booster `7(Right Click on Ground)" amount="5" grenade="true" grenade-power="2" material="snow ball"/>
+            <effect amplifier="-1">health boost</effect>
+            <helmet team-color="true" unbreakable="true" material="leather helmet"/>
+            <chestplate unbreakable="true" enchantment="protection explosions:10" material="chainmail chestplate"/>
+            <leggings team-color="true" unbreakable="true" material="leather leggings"/>
+            <boots team-color="true" enchantment="protection fall:3" unbreakable="true" material="leather boots"/>
+        </kit>
+    </class>
+    <class name="Engineer" icon="dispenser">
+        <kit id="engineer-kit" parents="all">
+            <item slot="0" name="`lWrench" unbreakable="true" material="stone sword"/>
+            <item slot="1" name="`lArcher Sentry" amount="2" damage="51" material="monster egg"/>
+            <item slot="2" name="`lGround Sentry" amount="2" damage="54" material="monster egg"/>
+            <effect amplifier="-1">health boost</effect>
+            <effect amplifier="1">slow</effect>
+            <helmet team-color="true" unbreakable="true" material="leather helmet"/>
+            <chestplate team-color="true" unbreakable="true" material="chainmail chestplate"/>
+            <leggings team-color="true" unbreakable="true" material="leather leggings"/>
+            <boots team-color="true" enchantment="protection fall:3;protection projectile" unbreakable="true" material="leather boots"/>
+        </kit>
+    </class>
+</classes>
+<filters>
+    <deny id="no-beacon">
+        <material>beacon</material>
+    </deny>
+    <any id="only-place">
+        <all>
+            <material>tnt</material>
+            <cause>player</cause>
+        </all>
+        <all>
+            <material>fire</material>
+            <not>
+                <team id="only-red">red</team>
+            </not>
+            <not>
+                <team id="only-blu">blu</team>
+            </not>
+        </all>
+    </any>
+    <material id="only-break">fire</material>
+</filters>
+<regions>
+    <!-- Definitions -->
+    <cuboid id="map" min="-52,0,94" max="42,30,-92"/>
+    <union id="spawn-protections">
+        <rectangle id="blu-spawn" min="-2,-79" max="42,-92"/>
+        <rectangle id="red-spawn" min="-8,81" max="-52,94"/>
+    </union>
+    <union id="flag-returns">
+        <cylinder id="red-return" base="-26,7,77" radius="3" height="3"/>
+        <cylinder id="blu-return" base="16,7,-75" radius="3" height="3"/>
+    </union>
+    <union id="health-stations">
+        <block>-17,11,86</block>
+        <block>-26,11,91</block>
+        <block>-36,11,87</block>
+        <block>-27,11,82</block>
+        <block>6,11,-85</block>
+        <block>15,11,-90</block>
+        <block>25,11,-86</block>
+        <block>16,11,-81</block>
+    </union>
+    <union id="ammo-stations">
+        <block>-17,11,87</block>
+        <block>-27,11,91</block>
+        <block>-36,11,86</block>
+        <block>-26,11,82</block>
+        <block>6,11,-86</block>
+        <block>16,11,-90</block>
+        <block>25,11,-85</block>
+        <block>15,11,-81</block>
+    </union>
+    <!-- Applied Regions -->
+    <apply region="spawn-protections" block="never" message="You may not edit the spawn area!"/>
+    <apply block-break="only-break" block-place="only-place">
+        <region>
+            <complement>
+                <region id="map"/>
+                <region id="spawn-protections"/>
+            </complement>
+        </region>
+    </apply>
+    <apply use="no-beacon"/>
+    <apply region="blu-spawn" enter="only-blu" message="You may not enter the enemy's spawn!"/>
+    <apply region="red-spawn" enter="only-red" message="You may not enter the enemy's spawn!"/>
+    <!-- Applied Kits -->
+    <apply region="ammo-stations" kit="ammo-kit-post"/>
+    <apply region="health-stations" kit="health-kit"/>
+</regions>
+<flags pickup-kit="flag-pickup">
+    <flag id="blu-flag" name="Blu Flag" owner="blu" color="blue" pickup-filter="only-red">
+        <post yaw="0">15.5,7,-74.5</post>
+        <net points="1" region="red-return"/>
+    </flag>
+    <flag id="red-flag" name="Red Flag" owner="red" color="red" pickup-filter="only-blu">
+        <post yaw="-180">-25.5,7,76.5</post>
+        <net points="1" region="blu-return"/>
+    </flag>
+</flags>
+<score>
+    <limit>5</limit>
+</score>
+<itemremove>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>chainmail chestplate</item>
+    <item>gold chestplate</item>
+    <item>iron chestplate</item>
+    <item>diamond chestplate</item>
+    <item>wood sword</item>
+    <item>tnt</item>
+    <item>wood plate</item>
+    <item>stone sword</item>
+    <item>iron sword</item>
+    <item>potion</item>
+    <item>arrow</item>
+    <item>bow</item>
+    <item>stick</item>
+    <item>flint and steel</item>
+    <item>stone axe</item>
+    <item>feather</item>
+    <item>item frame</item>
+    <item>painting</item>
+    <item>gold axe</item>
+    <item>snow ball</item>
+    <item>monster egg</item>
+    <item>golden apple</item>
+</itemremove>
+<timelock>on</timelock>
+<disabledamage>
+    <damage ally="true" self="false" enemy="false" other="false">block explosion</damage>
+</disabledamage>
+<tnt>
+    <instantignite>on</instantignite>
+    <licensing>off</licensing>
+    <friendly-defuse>off</friendly-defuse>
+    <blockdamage>on</blockdamage>
+    <fuse>1.5s</fuse>
+    <power>2</power>
+</tnt>
+<mobs>
+    <filter>
+        <spawn>spawner egg</spawn>
+    </filter>
+</mobs>
+<kill-rewards>
+    <kill-reward>
+        <item material="golden apple"/>
+    </kill-reward>
+</kill-rewards>
+<gamerules>
+    <doMobLoot>false</doMobLoot>
+    <doFireTick>false</doFireTick>
+</gamerules>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+</map>

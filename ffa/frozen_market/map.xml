@@ -1,0 +1,78 @@
+<map proto="1.5.0">
+<name>Frozen Market</name>
+<version>1.0.2</version>
+<objective>Get the most kills in 5 minutes!</objective>
+<created>2016-04-05</created>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="5198dc37-537f-4ea5-8ee8-1e0952d4a36b"/> <!-- _3Each -->
+</authors>
+<rules>
+    <rule>Fall damage is off.</rule>
+</rules>
+<players max="5" max-overfill="5" show-name-tags="false"/>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" name="Sword" material="stone sword"/>
+        <item slot="1" name="Bow" material="bow"/>
+        <item slot="2" amount="16" material="arrow"/>
+        <helmet color="E5E533" unbreakable="true" locked="true" material="leather helmet"/>
+        <chestplate unbreakable="true" color="E5E533" locked="true" material="leather chestplate"/>
+        <leggings color="E5E533" unbreakable="true" locked="true" material="leather leggings"/>
+        <boots color="E5E533" unbreakable="true" locked="true" material="leather boots"/>
+        <game-mode>adventure</game-mode>
+    </kit>
+</kits>
+<spawns>
+    <spawn kit="spawn-kit" spread="true">
+        <regions>
+            <point yaw="-101">-74,13,29</point>
+            <point yaw="-44">-74,12,-2</point>
+            <point yaw="-116">-77,13,-13</point>
+            <point yaw="10">-49,12,-13</point>
+            <point yaw="16">-19,13,-21</point>
+            <point yaw="175">-24,13,-18</point>
+            <point yaw="-90">-52,13,6</point>
+            <point yaw="-156">-41,21,-27</point>
+            <point yaw="-30">-58,17,-31</point>
+            <point yaw="-25">-83,13,-27</point>
+        </regions>
+    </spawn>
+    <default>
+        <region>
+            <cuboid min="-39,22,-14" max="-39,22,-14"/>
+        </region>
+    </default>
+</spawns>
+<regions>
+    <apply block="never"/>
+</regions>
+<score>
+    <kills>1</kills>
+</score>
+<time>5m</time>
+<itemremove>
+    <item>iron sword</item>
+    <item>bow</item>
+    <item>arrow</item>
+    <item>stone sword</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>golden apple</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+        <item amount="3" material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<disabledamage>
+    <damage>fall</damage>
+    <damage>suffocation</damage>
+</disabledamage>
+<timelock>on</timelock>
+</map>

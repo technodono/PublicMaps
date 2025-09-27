@@ -1,0 +1,129 @@
+<map proto="1.5.0">
+<name>AMONG US</name>
+<phase>staging</phase>
+<version>1.0.3</version>
+<objective>Find the impostors, complete all the tasks, or kill all the crew members.</objective>
+<authors>
+    <author uuid="5c79d2c9-a4f0-4343-a84b-e1720f13009b"/> <!-- CoWinkKeyDinkInc -->
+</authors>
+<rules>
+    <rule>Don't be sus.</rule>
+</rules>
+<broadcasts>
+    <alert after="1s">FRIENDLY FIRE IS ENABLED!!</alert>
+    <alert after="2s">Everyone has a 15 second cooldown to start the match.</alert>
+    <tip after="30s" every="2m">Find the white control points to complete tasks!</tip>
+    <tip after="1m" every="2m">The white control points take ten seconds to capture, imposters can uncapture them.</tip>
+    <tip after="3m">Where is the imposter?? ඞඞඞ</tip>
+</broadcasts>
+<teams>
+    <!-- everyone is the same color -->
+    <team id="imposter-team" show-name-tags="allies" color="gold" max="4">IMPOSTOR ඞ</team>
+    <team id="crew-team" show-name-tags="false" color="red" max="40">Crew ඞ</team>
+</teams>
+<kits>
+    <kit id="spawn-kit" force="true">
+        <item projectile="lazer" name="`asus killer" material="iron barding"/> <!-- horse armor -->
+        <chestplate locked="true" color="fc1500" material="leather chestplate"/>
+        <leggings locked="true" color="fc1500" material="leather leggings"/>
+        <boots locked="true" color="fc1500" material="leather boots"/>
+        <effect>invisibility</effect>
+        <effect duration="10" amplifier="10">damage_resistance</effect>
+        <!-- uuid must be spaced format -->
+        <head slot="slot.armor.head" locked="true" name="AmoungUsDrip" uuid="7bc6c19a-03c7-46c5-8fb4-340cd76405de">
+            <skin>ewogICJ0aW1lc3RhbXAiIDogMTYxNzI0MzQ3MDA2NiwKICAicHJvZmlsZUlkIiA6ICI3YmM2YzE5YTAzYzc0NmM1OGZiNDM0MGNkNzY0MDVkZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJBbW91bmdVc0RyaXAiLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWY4ZDViMTY3NWZhNWMxY2RiOTM0M2E2NWYxY2UxZWRhZjQxMzlhN2VkMjIyNTc2MDJiMTg2N2Q2YzI0NjEwYyIKICAgIH0KICB9Cn0=</skin>
+        </head>
+    </kit>
+</kits>
+<spawns>
+    <default yaw="90" region="spawn"/>
+    <spawn team="imposter-team" kit="spawn-kit" region="spawn" yaw="90"/>
+    <spawn team="crew-team" kit="spawn-kit" region="spawn" yaw="90"/>
+</spawns>
+<regions>
+    <cylinder id="spawn" base="19.5,7,19.5" radius="10" height="2"/>
+    <cuboid id="cafeteria" min="34,6,33" max="32,8,35"/>
+    <cuboid id="admin" min="-7,6,26" max="-9,8,28"/>
+    <cuboid id="admin-2" min="-7,6,47" max="-9,8,49"/>
+    <cuboid id="admin-3" min="-17,6,44" max="-15,8,46"/>
+    <cuboid id="weapons" min="21,6,59" max="19,8,61"/>
+    <cuboid id="oxygen" min="5,6,40" max="3,8,42"/>
+    <cuboid id="navigation" min="4,6,81" max="2,8,83"/>
+    <cuboid id="navigation-seat" min="2,6,92" max="0,8,94"/>
+    <cuboid id="shields" min="-37,6,51" max="-35,8,49"/>
+    <cuboid id="communications" min="-37,6,43" max="-39,8,45"/>
+    <cuboid id="communications-desk" min="-38,6,35" max="-40,8,37"/>
+    <cuboid id="storage" min="-45,6,21" max="-43,8,23"/>
+    <cuboid id="storage-fuel" min="-33,6,12" max="-35,8,14"/>
+    <cuboid id="storage-north" min="-17,6,13" max="-19,8,15"/>
+    <cuboid id="electrical" min="-23,6,-14" max="-25,8,-12"/>
+    <cuboid id="electrical-2" min="-14,6,-6" max="-16,8,-4"/>
+    <cuboid id="electrical-3" min="-12,6,-11" max="-14,8,-9"/>
+    <cuboid id="lower-engine" min="-18,6,-50" max="-20,8,-48"/>
+    <cuboid id="lower-engine-2" min="-30,6,-51" max="-32,8,-49"/>
+    <cuboid id="reactor" min="7,6,-57" max="5,8,-54"/>
+    <cuboid id="reactor-switch" min="8,6,-66" max="10,8,-64"/>
+    <cuboid id="security" min="7,6,-27" max="5,8,-29"/>
+    <cuboid id="upper-engine" min="17,6,-53" max="15,8,-51"/>
+    <cuboid id="upper-engine-2" min="29,6,-47" max="27,8,-45"/>
+    <cuboid id="hospital" min="-2,7,-5" max="-4,9,-7"/>
+    <apply block="never"/>
+</regions>
+<!-- I hope this ends well xd -->
+<!-- I realized that they would be able to find the imposter easily by punching everyone so this works -->
+<!-- March 31 2022 Update: Friendly fire does not work -->
+<friendlyfire>on</friendlyfire>
+<blitz>
+    <lives>1</lives>
+    <broadcastLives>false</broadcastLives>
+</blitz>
+<time>15m</time>
+<rage/>
+<score>
+    <kills>0</kills>
+    <deaths>0</deaths>
+    <limit>1000</limit>
+</score>
+<projectiles>
+    <projectile id="lazer" name="lazer" projectile="Arrow" velocity="4.0" damage="50" throwable="false" cooldown="20s"/>
+</projectiles>
+<!-- set sound to be specifically disabled when this is added to PGM -->
+<!-- because otherwise the scoreboard would be nice -->
+<control-points capture-time="10s" neutral-state="true" capture-rule="lead" incremental="true" show-progress="true" show="false" required="false">
+    <control-point name="Cafeteria" capture-filter="crew-team" capture="cafeteria" progress="cafeteria" captured="cafeteria"/>
+    <control-point name="Admin" capture-filter="crew-team" capture="admin" progress="admin" captured="admin"/>
+    <control-point name="Admin 2" capture-filter="crew-team" capture="admin-2" progress="admin-2" captured="admin-2"/>
+    <control-point name="Admin 3" capture-filter="crew-team" capture="admin-3" progress="admin-3" captured="admin-3"/>
+    <control-point name="Weapons" capture-filter="crew-team" capture="weapons" progress="weapons" captured="weapons"/>
+    <control-point name="Oxygen" capture-filter="crew-team" capture="oxygen" progress="oxygen" captured="oxygen"/>
+    <control-point name="Navigation" capture-filter="crew-team" capture="navigation" progress="navigation" captured="navigation"/>
+    <control-point name="Navigation 2" capture-filter="crew-team" capture="navigation-seat" progress="navigation-seat" captured="navigation-seat"/>
+    <control-point name="Shields" capture-filter="crew-team" capture="shields" progress="shields" captured="shields"/>
+    <control-point name="Communications" capture-filter="crew-team" capture="communications" progress="communications" captured="communications"/>
+    <control-point name="Communications 2" capture-filter="crew-team" capture="communications-desk" progress="communications-desk" captured="communications-desk"/>
+    <control-point name="Storage" capture-filter="crew-team" capture="storage" progress="storage" captured="storage"/>
+    <control-point name="Storage 2" capture-filter="crew-team" capture="storage-fuel" progress="storage-fuel" captured="storage-fuel"/>
+    <control-point name="Storage 3" capture-filter="crew-team" capture="storage-north" progress="storage-north" captured="storage-north"/>
+    <control-point name="Electrical" capture-filter="crew-team" capture="electrical" progress="electrical" captured="electrical"/>
+    <control-point name="Electrical 2" capture-filter="crew-team" capture="electrical-2" progress="electrical-2" captured="electrical-2"/>
+    <control-point name="Electrical 3" capture-filter="crew-team" capture="electrical-3" progress="electrical-3" captured="electrical-3"/>
+    <control-point name="Lower Engine" capture-filter="crew-team" capture="lower-engine" progress="lower-engine" captured="lower-engine"/>
+    <control-point name="Lower Engine 2" capture-filter="crew-team" capture="lower-engine-2" progress="lower-engine-2" captured="lower-engine-2"/>
+    <control-point name="Reactor" capture-filter="crew-team" capture="reactor" progress="reactor" captured="reactor"/>
+    <control-point name="Reactor 2" capture-filter="crew-team" capture="reactor-switch" progress="reactor-switch" captured="reactor-switch"/>
+    <control-point name="Security" capture-filter="crew-team" capture="security" progress="security" captured="security"/>
+    <control-point name="Upper Engine" capture-filter="crew-team" capture="upper-engine" progress="upper-engine" captured="upper-engine"/>
+    <control-point name="Upper Engine 2" capture-filter="crew-team" capture="upper-engine-2" progress="upper-engine-2" captured="upper-engine-2"/>
+    <control-point name="Hospital" capture-filter="crew-team" capture="hospital" progress="hospital" captured="hospital"/>
+</control-points>
+<itemremove>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>iron barding</item>
+</itemremove>
+<timelock>on</timelock>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+</map> 

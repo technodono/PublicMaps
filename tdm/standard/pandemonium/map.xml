@@ -1,0 +1,93 @@
+<map proto="1.5.0">
+<name>Pandemonium</name>
+<version>1.1</version>
+<objective>Get the most kills in 10 minutes!</objective>
+<constant id="respawn-timer">2s</constant>
+<constant id="damage-resistance">0s</constant>
+<include id="conquest"/>
+<rules>
+    <rule>Fall damage is disabled!</rule>
+</rules>
+<authors>
+    <author uuid="2ca8072f-74be-4798-85b8-bbce03aa91af"/> <!-- Tywnis -->
+</authors>
+<teams>
+    <team id="blue-team" color="blue" max="16">Blue</team>
+    <team id="green-team" color="green" max="16">Green</team>
+    <team id="red-team" color="dark red" max="16">Red</team>
+    <team id="yellow-team" color="yellow" max="16">Yellow</team>
+</teams>
+<kits>
+    <kit id="spawn-kit" parent="base-kit">
+        <item slot="3" material="ender pearl"/>
+        <effect duration="6s" amplifier="2">speed</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red-team" kit="spawn-kit" region="red-spawn" yaw="180"/>
+    <spawn team="blue-team" kit="spawn-kit" region="blue-spawn"/>
+    <spawn team="green-team" kit="spawn-kit" region="green-spawn" yaw="90"/>
+    <spawn team="yellow-team" kit="spawn-kit" region="yellow-spawn" yaw="-90"/>
+    <default>
+        <regions>
+            <region id="red-spawn" yaw="180"/>
+            <region id="blue-spawn"/>
+            <region id="green-spawn" yaw="90"/>
+            <region id="yellow-spawn" yaw="-90"/>
+        </regions>
+    </default>
+</spawns>
+<filters>
+    <deny id="deny-player">
+        <cause>player</cause>
+    </deny>
+    <deny id="deny-dispenser">
+        <material>dispenser</material>
+    </deny>
+</filters>
+<regions>
+    <!-- Jump pads -->
+    <union id="jump-pads">
+        <cuboid id="blue-jump-pad" min="2,40,-105" max="-1,42,-107"/>
+        <cuboid id="green-jump-pad" min="105,40,2" max="107,42,-1"/>
+        <cuboid id="red-jump-pad" min="-1,40,105" max="2,42,107"/>
+        <cuboid id="yellow-jump-pad" min="-105,40,-1" max="-107,42,2"/>
+    </union>
+    <apply region="green-jump-pad" velocity="@-2.9,0.0,0.0"/>
+    <apply region="red-jump-pad" velocity="@0.0,0.0,-2.9"/>
+    <apply region="yellow-jump-pad" velocity="@2.9,0.0,0.0"/>
+    <apply region="blue-jump-pad" velocity="@0.0,0.0,2.9"/>
+    <!-- Team Spawns -->
+    <cylinder id="red-spawn" base="0.5,41,115" radius="1" height="0"/>
+    <circle id="red-spawn-prot" center="0.5,115" radius="20"/>
+    <cylinder id="blue-spawn" base="0.5,41,-115" radius="1" height="0"/>
+    <circle id="blue-spawn-prot" center="0.5,-115" radius="20"/>
+    <cylinder id="green-spawn" base="115,41,0.5" radius="1" height="0"/>
+    <circle id="green-spawn-prot" center="115,0.5" radius="20"/>
+    <cylinder id="yellow-spawn" base="-115,41,0.5" radius="1" height="0"/>
+    <circle id="yellow-spawn-prot" center="-115,0.5" radius="20"/>
+    <!-- Team Spawn Protections -->
+    <apply region="red-spawn-prot" enter="red-team"/>
+    <apply region="blue-spawn-prot" enter="blue-team"/>
+    <apply region="green-spawn-prot" enter="green-team"/>
+    <apply region="yellow-spawn-prot" enter="yellow-team"/>
+    <apply use="deny-dispenser"/>
+    <!-- Cause is not player -->
+    <apply block="deny-player"/>
+</regions>
+<time>10m</time>
+<score>
+    <kills>1</kills>
+</score>
+<itemkeep>
+    <item>ender pearl</item>
+</itemkeep>
+<kill-rewards>
+    <kill-reward>
+        <item material="ender pearl"/>
+    </kill-reward>
+</kill-rewards>
+<disabledamage>
+    <damage>fall</damage>
+</disabledamage>
+</map>

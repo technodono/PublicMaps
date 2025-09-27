@@ -1,0 +1,144 @@
+<map proto="1.5.0">
+<name>A Watery Grave</name>
+<version>1.2.5</version>
+<objective>Break the enchanting table inside of the enemy team's obsidian core.</objective>
+<authors>
+    <author uuid="9a96b43e-e5d7-47e4-9679-ccbfe3fffc10"/> <!-- Skirmisher47 -->
+</authors>
+<contributors>
+    <contributor uuid="ef4ea031-998f-4ec9-b7b6-1bdd428bcef8" contribution="Map tweaks and XML"/> <!-- Plastix -->
+</contributors>
+<teams>
+    <team id="red" color="dark red" max="16">Red</team>
+    <team id="blue" color="blue" max="16">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" enchantment="arrow infinite" material="bow"/>
+        <item slot="28" material="arrow"/>
+        <item slot="2" material="diamond pickaxe"/>
+        <item slot="3" amount="64" material="smooth brick"/>
+        <item slot="4" amount="16" material="wood"/>
+        <item slot="6" material="mushroom soup"/>
+        <item slot="7" material="mushroom soup"/>
+        <item slot="8" material="mushroom soup"/>
+        <helmet team-color="true" material="leather helmet"/>
+        <chestplate material="iron chestplate"/>
+        <leggings team-color="true" material="leather leggings"/>
+        <boots material="iron boots"/>
+        <effect duration="15" amplifier="2">regeneration</effect>
+        <effect duration="10" amplifier="10">heal</effect>
+        <effect duration="15" amplifier="4">resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red" kit="spawn-kit" yaw="90">
+        <region>
+            <cuboid min="42,114,13" max="39,114,7"/>
+        </region>
+    </spawn>
+    <spawn team="blue" kit="spawn-kit" yaw="-90">
+        <region>
+            <cuboid min="75,114,6" max="80,114,14"/>
+        </region>
+    </spawn>
+    <default>
+        <region>
+            <cylinder base="58,114,9" radius="5" height="0"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <any id="only-obsidian-only-blue">
+        <team id="only-blue">blue</team>
+        <not>
+            <any>
+                <filter id="only-blue"/>
+                <material>obsidian</material>
+            </any>
+        </not>
+    </any>
+    <any id="only-obsidian-only-red">
+        <team id="only-red">red</team>
+        <not>
+            <any>
+                <filter id="only-red"/>
+                <material>obsidian</material>
+            </any>
+        </not>
+    </any>
+</filters>
+<regions>
+    <union id="spawns">
+        <cuboid id="red-spawn" min="6,18,15" max="-7,25,5"/>
+        <cuboid id="blue-spawn" min="111,18,4" max="126,25,16"/>
+    </union>
+    <union id="spawn-areas">
+        <cuboid min="6,14,15" max="-7,25,5"/>
+        <cuboid min="111,14,4" max="126,25,16"/>
+    </union>
+    <union id="spawn-drops">
+        <cuboid min="-7,85,5" max="-1,24,15"/>
+        <cuboid min="124,85,14" max="120,24,6"/>
+    </union>
+    <apply region="red-spawn" enter="only-red" message="You may not enter the enemy's spawn!"/>
+    <apply region="blue-spawn" enter="only-blue" message="You may not enter the enemy's spawn!"/>
+    <apply region="spawn-areas" block="never" message="You may not modifiy the spawn area!"/>
+    <apply region="spawn-drops" block="never" message="You may not modify the spawn drops!"/>
+    <!-- The following region applications should NOT be confused with DTC, 
+    they are meant for decorative, non-functional obsidian cores covering the actual monument -->
+    <apply block-break="only-obsidian-only-blue" message="You may not break your own obsidian core!">
+        <region>
+            <cuboid min="12,17,12" max="18,25,8"/>
+        </region>
+    </apply>
+    <apply block-break="only-obsidian-only-red" message="You may not break your own obsidian core!">
+        <region>
+            <cuboid min="105,17,7" max="101,25,13"/>
+        </region>
+    </apply>
+</regions>
+<destroyables name="Enchanting Table" materials="enchantment table">
+    <destroyable owner="blue">
+        <region>
+            <block>102,20,9</block>
+        </region>
+    </destroyable>
+    <destroyable owner="red">
+        <region>
+            <block>14,20,9</block>
+        </region>
+    </destroyable>
+</destroyables>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>diamond pickaxe</tool>
+    <tool>bow</tool>
+    <tool>arrow</tool>
+</toolrepair>
+<itemremove>
+    <item>leather helmet</item>
+    <item>iron chestplate</item>
+    <item>leather leggings</item>
+    <item>iron boots</item>
+    <item>brown mushroom</item>
+    <item>red mushroom</item>
+    <item>bowl</item>
+    <item>mushroom soup</item>
+    <item>smooth brick</item>
+    <item>wood</item>
+    <item>log</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+        <item amount="2" material="brown mushroom"/>
+        <item amount="2" material="red mushroom"/>
+        <item amount="2" material="bowl"/>
+        <item amount="16" material="smooth brick"/>
+        <item amount="4" material="wood"/>
+    </kill-reward>
+</kill-rewards>
+<timelock>on</timelock>
+<maxbuildheight>40</maxbuildheight>
+</map>

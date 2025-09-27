@@ -1,0 +1,140 @@
+<map proto="1.5.0">
+<name>Escensio</name>
+<version>1.0.11</version>
+<objective>Destroy the three enemy flags to win the match.</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="2a289d2a-d970-49c5-9a6c-01fc0264e317"/> <!-- Stealth5061 -->
+    <author uuid="22ba442b-cf26-4d09-b290-8d4e50a551b2"/> <!-- dinner1111 -->
+    <author uuid="060baa18-2852-40d8-afcb-e61607c04be3"/> <!-- pepsidawg00 -->
+    <author uuid="76cf5483-a7ea-4b5d-8830-385f768c4807"/> <!-- xannallax33 -->
+</authors>
+<contributors>
+    <contributor uuid="82c796a5-c033-43be-af30-fa06496995f9" contribution="XML Fixing"/> <!-- IM_A_H0B0 -->
+</contributors>
+<teams>
+    <team id="blue-team" color="blue" max="25">Blue</team>
+    <team id="red-team" color="dark red" max="25">Red</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" enchantment="durability;dig speed" material="iron axe"/>
+        <item slot="1" material="bow"/>
+        <item slot="2" material="stone pickaxe"/>
+        <item slot="4" amount="32" damage="2" material="log"/>
+        <item slot="5" material="golden apple"/>
+        <item slot="3" amount="32" material="cooked beef"/>
+        <item slot="6" material="shears"/>
+        <item slot="28" amount="64" material="arrow"/>
+        <helmet team-color="true" material="leather helmet"/>
+        <chestplate color="FFFFFF" material="leather chestplate"/>
+        <leggings color="000000" material="leather leggings"/>
+        <boots team-color="true" material="leather boots"/>
+        <effect duration="5">heal</effect>
+        <effect duration="5" amplifier="2">damage resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="blue-team" kit="spawn-kit" yaw="270">
+        <regions>
+            <cuboid min="-94,39,-83" max="-91,39,-87"/>
+        </regions>
+    </spawn>
+    <spawn team="red-team" kit="spawn-kit" yaw="90">
+        <regions>
+            <cuboid min="96,39,-11" max="95,39,-15"/>
+        </regions>
+    </spawn>
+    <default>
+        <regions>
+            <cuboid min="-0,57,-122" max="3,57,-119"/>
+        </regions>
+    </default>
+</spawns>
+<regions>
+    <union id="spawns">
+        <cuboid id="red-spawn" min="91,37,-25" max="101,oo,-2"/>
+        <cuboid id="blue-spawn" min="-89,37,-75" max="-97,oo,-96"/>
+    </union>
+    <negative id="playable-inverse">
+        <rectangle min="-100,0" max="102,-100"/>
+    </negative>
+    <apply block="never">
+        <region>
+            <cuboid min="101,8,-99" max="-98,-7,-98"/>
+        </region>
+    </apply>
+    <apply region="red-spawn" enter="red-team" message="You may not enter the enemy's spawn!"/>
+    <apply region="blue-spawn" enter="blue-team" message="You may not enter the enemy's spawn!"/>
+    <apply region="spawns" block="never" message="You may not modify the spawn!"/>
+    <apply region="playable-inverse" block="never" message="You may not build outside of the map!"/>
+</regions>
+<destroyables completion="75%" materials="wool:11;wool:15;wool:14;wool:7;wool">
+    <destroyables owner="red-team">
+        <destroyable name="Right Flag">
+            <region>
+                <cuboid min="74,35,-91" max="77,49,-98"/>
+            </region>
+        </destroyable>
+        <destroyable name="Center Flag">
+            <region>
+                <cuboid min="34,47,-63" max="37,35,-70"/>
+            </region>
+        </destroyable>
+        <destroyable name="Left Flag">
+            <region>
+                <cuboid min="73,76,-46" max="72,34,-37"/>
+            </region>
+        </destroyable>
+    </destroyables>
+    <destroyables owner="blue-team">
+        <destroyable name="Left Flag">
+            <region>
+                <cuboid min="-69,33,-61" max="-70,47,-52"/>
+            </region>
+        </destroyable>
+        <destroyable name="Center Flag">
+            <region>
+                <cuboid min="-34,47,-36" max="-31,35,-27"/>
+            </region>
+        </destroyable>
+        <destroyable name="Right Flag">
+            <region>
+                <cuboid min="-74,48,-8" max="-71,36,1"/>
+            </region>
+        </destroyable>
+    </destroyables>
+</destroyables>
+<toolrepair>
+    <tool>iron axe</tool>
+    <tool>bow</tool>
+    <tool>stone pickaxe</tool>
+</toolrepair>
+<itemremove>
+    <item>arrow</item>
+    <item>wool:11</item>
+    <item>wool:14</item>
+    <item>wool:15</item>
+    <item>wool:0</item>
+    <item>wool:7</item>
+    <item>wool</item>
+    <item>log:2</item>
+    <item>wood:2</item>
+    <item>spruce wood stairs</item>
+    <item>wood step:1</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>cooked beef</item>
+    <item>shears</item>
+    <item>golden apple</item>
+</itemremove>
+<tnt>
+    <instantignite>on</instantignite>
+    <licensing>off</licensing>
+    <friendly-defuse>off</friendly-defuse>
+    <blockdamage>off</blockdamage>
+</tnt>
+<maxbuildheight>60</maxbuildheight>
+</map>

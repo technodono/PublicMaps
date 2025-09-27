@@ -1,0 +1,137 @@
+<map proto="1.5.0">
+<name>Diramu Valley DTM</name>
+<version>1.1.4</version>
+<constants>
+    <constant id="eff.modes-preset">every-5m</constant>
+    <constant id="eff.team-1">blue</constant>
+    <constant id="eff.team-2">red</constant>
+    <constant id="eff.t1-m1-region">red-monument</constant>
+    <constant id="eff.t2-m1-region">blue-monument</constant>
+</constants>
+<include id="efficiency-variables"/>
+<include id="gapple-kill-reward"/>
+<variant id="christmas" world="christmas" override="true">Danagal Valley DTM</variant>
+<objective>Destroy the enemy monument to win!</objective>
+<created>2018-01-29</created>
+<authors>
+    <author uuid="f690a591-348b-482e-a18d-7779d0c0a28c"/> <!-- mitchiii_ -->
+</authors>
+<if variant="christmas">
+    <contributors>
+        <contributor uuid="0c44ca5a-6a42-49b7-81f2-58dc6d2ae3e9" contribution="Christmas-ification"/> <!-- Xerocoles -->
+    </contributors>
+</if>
+<teams>
+    <unless variant="christmas">
+        <team id="red" color="dark red" max="8">Red</team>
+    </unless>
+    <if variant="christmas">
+        <team id="red" color="green" max="8">Green</team>
+    </if>
+    <team id="blue" color="blue" max="8">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <clear/>
+        <item slot="0" unbreakable="true" material="stone sword"/>
+        <item slot="1" unbreakable="true" enchantment="arrow infinite:1" material="bow"/>
+        <item slot="2" unbreakable="true" material="diamond pickaxe"/>
+        <item slot="3" unbreakable="true" material="stone axe"/>
+        <item slot="4" unbreakable="true" material="stone spade"/>
+        <item slot="5" amount="48" damage="1" material="wood"/>
+        <item slot="7" amount="12" material="vine"/>
+        <item slot="8" material="golden apple"/>
+        <item slot="28" material="arrow"/>
+        <helmet unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" team-color="true" material="leather chestplate"/>
+        <leggings unbreakable="true" material="chainmail leggings"/>
+        <boots unbreakable="true" team-color="true" material="leather boots"/>
+        <potion duration="3" amplifier="3">heal</potion>
+        <potion duration="6">damage resistance</potion>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="blue" kit="spawn-kit">
+        <regions>
+            <cuboid min="-90.5,24,130.5" max="-92.5,24,132.5"/>
+        </regions>
+    </spawn>
+    <spawn team="red" kit="spawn-kit">
+        <regions yaw="180">
+            <cuboid min="-92.5,24,274.5" max="-90,24,272.5"/>
+        </regions>
+    </spawn>
+    <default>
+        <regions yaw="-90">
+            <cuboid min="-92.5,8,140.5" max="-91,8,142.5"/>
+        </regions>
+    </default>
+</spawns>
+<filters>
+    <deny id="deny-beacon">
+        <material>beacon</material>
+    </deny>
+    <team id="only-blue">blue</team>
+    <team id="only-red">red</team>
+    <not id="no-void">
+        <void/>
+    </not>
+</filters>
+<regions>
+    <negative id="void-reg">
+        <union id="spawns">
+            <rectangle id="blue-spawn" min="-75.5,139.5" max="-107.5,126.5"/>
+            <rectangle id="red-spawn" min="-75.5,277.5" max="-107.5,265.5"/>
+        </union>
+    </negative>
+    <cuboid id="red-monument" min="-92,23,231" size="1,2,1"/>
+    <cuboid id="blue-monument" min="-92,23,173" size="1,2,1"/>
+    <apply use="deny-beacon"/>
+    <apply block-place="no-void" message="You may not place blocks in this area" region="void-reg"/>
+    <apply block="never" message="You may not edit spawn" region="spawns"/>
+    <apply enter="only-red" message="You may not enter the enemy spawn" region="red-spawn"/>
+    <apply enter="only-blue" message="You may not enter the enemy spawn" region="blue-spawn"/>
+</regions>
+<destroyables name="Monument" mode-changes="true" materials="obsidian" repairable="false">
+    <destroyable owner="red" region="red-monument"/>
+    <destroyable owner="blue" region="blue-monument"/>
+</destroyables>
+<maxbuildheight>36</maxbuildheight>
+<itemremove>
+    <item>obsidian</item>
+    <item>wood</item>
+    <item>string</item>
+    <item>glowstone dust</item>
+    <item>apple</item>
+    <item>sapling</item>
+    <item>sugar cane</item>
+    <item>clay ball</item>
+    <item>stone plate</item>
+    <item>sand</item>
+    <item>wood</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>chainmail leggings</item>
+    <item>leather boots</item>
+    <item>red rose</item>
+    <item>arrow</item>
+    <item>beacon</item>
+    <if variant="christmas">
+        <item>snow ball</item>
+        <item>vine</item>
+    </if>
+</itemremove>
+<itemkeep>
+    <item>golden apple</item>
+</itemkeep>
+<toolrepair>
+    <tool>stone sword</tool>
+    <tool>bow</tool>
+    <tool>diamond pickaxe</tool>
+    <tool>stone axe</tool>
+    <tool>stone spade</tool>
+</toolrepair>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+</map>

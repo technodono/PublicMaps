@@ -1,0 +1,102 @@
+<map proto="1.5.0" game="Blitz: UHC">
+<name>Metallicus</name>
+<version>1.0.11</version>
+<objective>Be the last team standing, but remember you don't regenerate health!</objective>
+<gamemode>blitz</gamemode>
+<authors>
+    <author uuid="dad8b95c-cf6a-44df-982e-8c8dd70201e0"/> <!-- ElectroidFilms -->
+    <author uuid="e37f18f1-117b-47db-8806-6d3a0854b518"/> <!-- chickolympics -->
+</authors>
+<teams>
+    <team id="red" color="dark red" max="25">Red</team>
+    <team id="blue" color="blue" max="25">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" unbreakable="true" material="stone sword"/>
+        <item slot="1" unbreakable="true" material="bow"/>
+        <item slot="2" amount="12" material="arrow"/>
+        <helmet unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" enchantment="protection projectile" team-color="true" material="leather chestplate"/>
+        <leggings unbreakable="true" material="iron leggings"/>
+        <boots unbreakable="true" team-color="true" material="leather boots"/>
+        <effect duration="3">heal</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red" kit="spawn-kit">
+        <region>
+            <point>-4.5,6,-2.5</point>
+        </region>
+    </spawn>
+    <spawn team="blue" kit="spawn-kit" yaw="-180">
+        <region>
+            <point>-4.5,6,93.5</point>
+        </region>
+    </spawn>
+    <default yaw="45">
+        <region>
+            <point>29.5,27,46.5</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <material id="allow-glass">thin glass</material>
+</filters>
+<regions>
+    <apply block-break="allow-glass" block-place="never"/>
+</regions>
+<time>12m</time>
+<blitz>
+    <lives>2</lives>
+</blitz>
+<portals bidirectional="true">
+    <portal x="-16" y="2" z="-16" yaw="45">
+        <region>
+            <block id="blue-portal">0,11,76</block>
+        </region>
+    </portal>
+    <portal x="16" y="2" z="16" yaw="45">
+        <region>
+            <block id="red-portal">-10,11,14</block>
+        </region>
+    </portal>
+</portals>
+<kill-rewards>
+    <kill-reward>
+        <filter>
+            <kill-streak count="1"/>
+        </filter>
+        <item name="`c`lMed Kit" damage="8261" potions="regeneration:80:2:false" material="potion"/>
+        <item amount="8" material="arrow"/>
+    </kill-reward>
+    <kill-reward>
+        <filter>
+            <kill-streak count="2"/>
+        </filter>
+        <item name="`c`lMed Kit" damage="8261" potions="regeneration:100:2:false" material="potion"/>
+        <item amount="12" material="arrow"/>
+    </kill-reward>
+    <kill-reward>
+        <filter>
+            <kill-streak count="3"/>
+        </filter>
+        <item name="`c`lSuper Med Kit" damage="8261" potions="regeneration:100:3:false" material="potion"/>
+        <item amount="16" material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+<itemremove>
+    <item>stone sword</item>
+    <item>bow</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>iron leggings</item>
+    <item>leather boots</item>
+    <item>thin glass</item>
+    <item>glass bottle</item>
+</itemremove>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<respawn auto="true"/>
+</map>

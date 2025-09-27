@@ -1,0 +1,77 @@
+<map proto="1.5.0">
+<name>Bedrock Fortress Battles</name>
+<phase>staging</phase>
+<version>1.0.4</version>
+<objective>Leak lava from the enemy's obsidian core into the void.</objective>
+<authors>
+    <author uuid="3a549b18-08ed-4756-a78c-b34d29a4fd87"/> <!-- Torn_Ares -->
+    <author uuid="98a4a81e-4393-4041-8d43-40a0196b5832"/> <!-- Thungon -->
+    <author uuid="0ae466ff-d3a1-4307-a323-89043643ace5"/> <!-- GammaRay_89 -->
+</authors>
+<rules>
+    <rule>Do not bypass or glitch through the bedrock wall!</rule>
+</rules>
+<broadcasts>
+    <alert after="1s">The bedrock wall will drop at the 15 minute mark!</alert>
+    <alert after="15m">The bedrock wall has dropped!</alert>
+</broadcasts>
+<teams>
+    <team id="blue" color="blue" max="100">Blue</team>
+    <team id="red" color="dark red" max="100">Red</team>
+</teams>
+<spawns>
+    <spawn team="red" yaw="90">
+        <regions>
+            <point>1249,27,519</point>
+        </regions>
+    </spawn>
+    <spawn team="blue" yaw="270">
+        <regions>
+            <point>1286,27,519</point>
+        </regions>
+    </spawn>
+    <default yaw="180">
+        <regions>
+            <cylinder base="1267,27,518" radius="7" height="0"/>
+        </regions>
+    </default>
+</spawns>
+<regions>
+    <rectangle id="spawns" min="1301,547" max="1234,517"/>
+    <cuboid id="bedrock-wall" min="1268,0,542" max="1266,94,646"/>
+    <negative id="playable-inverse">
+        <rectangle id="playable" min="1336,549" max="1199,637"/>
+    </negative>
+    <apply region="spawns" enter="never" message="You may not enter spawns"/>
+    <apply region="playable-inverse" block="never" message="You may not build outside the playable region"/>
+</regions>
+<cores material="obsidian" leak="5">
+    <core team="red">
+        <region>
+            <cuboid min="1233,22,597" max="1227,30,589"/>
+        </region>
+    </core>
+    <core team="blue">
+        <region>
+            <cuboid min="1302,22,589" max="1307,30,597"/>
+        </region>
+    </core>
+</cores>
+<!-- TODO: integrate this with custom modes -->
+<actions>
+    <action id="wall" scope="match">
+        <fill id="clear-wall" region="bedrock-wall" material="air"/>
+    </action>
+    <trigger action="wall" scope="match">
+        <filter>
+            <after duration="15m" message="The bedrock wall will drop in {0}">
+                <match-running/>
+            </after>
+        </filter>
+    </trigger>
+</actions>
+<itemremove>
+    <item>obsidian</item>
+</itemremove>
+<maxbuildheight>72</maxbuildheight>
+</map>

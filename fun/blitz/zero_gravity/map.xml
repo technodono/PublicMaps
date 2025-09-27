@@ -1,0 +1,90 @@
+<map proto="1.5.0">
+<name>Zero Gravity</name>
+<version>1.0.3</version>
+<objective>Knock all of your enemies into the void before time runs out.</objective>
+<authors>
+    <author uuid="dad8b95c-cf6a-44df-982e-8c8dd70201e0"/> <!-- ElectroidFilms -->
+</authors>
+<contributors>
+    <contributor uuid="1875ccd6-77ab-442c-92f9-0c7f3d2e524e" contribution="Map Pruning"/> <!-- Froobasaures -->
+    <contributor uuid="df3705ab-6296-49ce-8062-2d794f769a60" contribution="XML Help"/> <!-- bookofnathan -->
+</contributors>
+<rules>
+    <rule>Fall damage is disabled!</rule>
+</rules>
+<teams>
+   <team id="cyan" color="dark aqua" max="12">Cyan</team>
+   <team id="lime" color="green" max="12">Lime</team>
+</teams>
+<constants>
+    <constant id="void-plane">10</constant>
+</constants>
+<include id="void-death"/>
+<kits>
+    <kit id="effects" force="true">
+        <effect>night vision</effect>
+        <effect amplifier="5">jump</effect>
+        <effect>speed</effect>
+    </kit>
+    <kit id="spawn-kit" parents="effects">
+        <item slot="0" enchantment="knockback:15" name="`8One-Hit Kill" material="iron sword"/>
+        <item slot="1" enchantment="arrow knockback:15" name="`8One-Shot Kill" material="bow"/>
+        <item slot="2" material="arrow"/>
+        <helmet team-color="true" material="leather helmet"/>
+        <chestplate team-color="true" material="leather chestplate"/>
+        <leggings team-color="true" material="leather leggings"/>
+        <boots enchantment="protection fall:10" material="diamond boots"/>
+        <game-mode>adventure</game-mode>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="cyan" kit="spawn-kit" yaw="-45">
+        <regions>
+            <cylinder base="-24,24,-26" radius="2" height="2"/>
+        </regions>
+    </spawn>
+    <spawn team="lime" kit="spawn-kit" yaw="135">
+        <regions>
+            <cylinder base="24,24,26" radius="2" height="2"/>
+        </regions>
+    </spawn>
+    <default yaw="-135" kit="effects">
+        <regions>
+            <cylinder base="0,61,-2" radius="2" height="2"/>
+        </regions>
+    </default>
+</spawns>
+<regions>
+    <apply block="never"/>
+</regions>
+<time>3m</time>
+<blitz>
+    <lives>1</lives>
+</blitz>
+<tnt>
+    <instantignite>on</instantignite>
+    <licensing>off</licensing>
+    <friendly-defuse>off</friendly-defuse>
+    <blockdamage>off</blockdamage>
+    <yield>50</yield>
+</tnt>
+<itemremove>
+    <item>diamond boots</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+</itemremove>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+</toolrepair>
+<kill-rewards>
+    <kill-reward>
+        <item material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+<disabledamage>
+    <damage>fall</damage>
+</disabledamage>
+<timelock>on</timelock>
+</map>

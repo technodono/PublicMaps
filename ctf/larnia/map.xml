@@ -1,0 +1,132 @@
+<map proto="1.5.0">
+<name>Larnia</name>
+<version>1.6.3</version>
+<objective>Capture or defend the green flag!</objective>
+<time result="defenders-team">15m</time>
+<include id="conquest"/>
+<constant id="respawn-timer">3s</constant>
+<constant id="damage-resistance">8s</constant>
+<gamemode>ad</gamemode>
+<gamemode>ctf</gamemode>
+<authors>
+    <author uuid="a4266139-34f3-46c5-a730-f8828376a15a"/> <!-- LArrowHead -->
+    <author uuid="2958ea4c-3501-404e-88cc-12e8632f68cc"/> <!-- NixaniaXi -->
+</authors>
+<broadcasts>
+    <tip after="5s" every="95s">`2The Green Beacon`r is where `2The Green Flag`r is located.</tip>
+    <tip after="12s" every="95s">`4The Red Beacon`r is the net for `4The Attackers`r to `6capture that flag`r.</tip>
+    <tip after="19s" every="95s">To win `2The Defenders`r have to prevent 3 flag captures`r for 15 minutes.</tip>
+    <alert after="10m">`4The Attackers Spawn`r has moved up!</alert>
+</broadcasts>
+<teams>
+    <team id="attackers-team" color="dark red" max="17" plural="true">Attackers</team>
+    <team id="defenders-team" color="dark green" max="17" plural="true">Defenders</team>
+</teams>
+<kits>
+    <kit id="spawn-kit" parent="base-kit">
+        <item amount="2" material="golden apple"/>
+        <item amount="28" material="arrow"/>
+        <action>
+            <enchant-item ignore-metadata="true" enchantment="projectile_protection" level="1">
+                <find material="chainmail leggings"/>
+            </enchant-item>
+            <enchant-item ignore-metadata="true" enchantment="depth_strider" level="1">
+                <find material="iron boots"/>
+            </enchant-item>
+        </action>
+        <effect duration="30s">speed</effect>
+        <game-mode>survival</game-mode>
+    </kit>
+    <kit id="attackers-kit" parent="spawn-kit">
+        <item slot="3" amount="2" material="glass"/>
+        <effect duration="1s" amplifier="3">strength</effect>
+    </kit>
+    <kit id="defenders-kit" parent="spawn-kit">
+        <item slot="3" amount="6" material="glass"/>
+        <effect duration="2s" amplifier="3">strength</effect>
+    </kit>
+    <kit id="slowness" force="true">
+        <effect amplifier="2">slowness</effect>
+    </kit>
+    <kit id="slowness-rm" force="true">
+        <effect duration="0s" amplifier="0">slowness</effect>
+    </kit>
+</kits>
+<spawns>
+    <default>
+        <region yaw="180">
+            <point>327.5,77,-167.5</point>
+        </region>
+    </default>
+    <spawn team="attackers-team" kit="attackers-kit" filter="before-10m">
+        <region yaw="180">
+            <point>263.5,13,-126.5</point>
+        </region>
+    </spawn>
+    <spawn team="attackers-team" kit="attackers-kit" filter="after-10m">
+        <region yaw="180">
+            <point>299.5,17,-170.5</point>
+        </region>
+    </spawn>
+    <spawn team="defenders-team" kit="defenders-kit">
+        <region yaw="180">
+            <point>359.5,30,-129.5</point>
+        </region>
+    </spawn>
+</spawns>
+<filters>
+    <any id="only-glass">
+        <material>glass</material>
+        <material>long grass</material>
+        <material>red rose</material>
+    </any>
+    <not id="before-10m">
+        <time id="after-10m">10m</time>
+    </not>
+    <team id="only-attackers">attackers-team</team>
+</filters>
+<regions>
+    <negative id="void-region">
+        <rectangle id="map" min="379,-227" max="256,-122"/>
+    </negative>
+    <cuboid id="red-net" min="263,0,-222" max="265,256,-220"/>
+    <cuboid id="flag-area" min="362,0,-191" max="381,46,-229"/>
+    <union id="spawns">
+        <rectangle id="green-spawn" min="365,-122" max="355,-133"/>
+        <rectangle id="red-spawn" min="267,-122" max="260,-130"/>
+        <rectangle id="second-red-spawn" min="304,-167" max="296,-172"/> 
+    </union>
+    <apply region="void-region" block="not(void)" message="You may not modify the void area!"/>
+    <apply region="red-net" block="never" message="You may not modify the net area!"/>
+    <apply region="spawns" block="never" message="You may not modify the spawns!"/>
+    <apply region="flag-area" block="never" message="You may not modify or block the flag room area!"/>
+    <apply block="only-glass" message="You may only break or place glass!"/>
+</regions>
+<flags>
+    <post id="red-flag-post" respawn-time="15s" recover-time="15s" pickup-filter="only-attackers" yaw="-90">376.5,17.5,-209.5</post>
+    <flag id="green-flag" carry-message="Take the Flag to `4Red Beacon" pickup-kit="slowness" drop-kit="slowness-rm" name="Green Flag" color="green" post="red-flag-post"/>
+    <net post="red-flag-post" points="1" region="red-net" capture-filter="only-attackers"/>
+</flags>
+<score scoreboard-filter="only-attackers">
+    <limit>3</limit>
+</score>
+<itemkeep>
+    <item>glass</item>
+</itemkeep>
+<itemremove>
+    <item>chest</item>
+    <item>long grass</item>
+    <item>red rose</item>
+    <item>seeds</item>
+</itemremove>
+<toolrepair>
+    <tool>stone sword</tool>
+    <tool>bow</tool>
+</toolrepair>
+<kill-rewards>
+    <kill-reward>
+        <item amount="2" material="glass"/>
+    </kill-reward>
+</kill-rewards>
+<maxbuildheight>39</maxbuildheight>
+</map>

@@ -1,0 +1,138 @@
+<map proto="1.5.0">
+<name>Yggdrasil</name> 
+<version>1.0.4</version>
+<created>2013-06-14</created> 
+<objective>Get the most kills for your team within the allowed time.</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="2ca8072f-74be-4798-85b8-bbce03aa91af"/> <!-- Tywnis -->
+</authors>
+<rules>
+    <rule>Fall damage is off!</rule>
+</rules>
+<teams>
+    <team id="blue-team" color="blue" max="40">Blue</team>
+    <team id="red-team" color="dark red" max="40">Red</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" unbreakable="true" material="stone sword"/>
+        <item slot="1" unbreakable="true" enchantment="arrow infinite" material="bow"/>
+        <item slot="2" unbreakable="true" enchantment="dig speed" material="iron axe"/>
+        <item slot="4" material="golden apple"/>
+        <item slot="8" amount="8" material="torch"/>
+        <item slot="28" material="arrow"/>
+        <helmet unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" team-color="true" material="leather chestplate"/>
+        <leggings unbreakable="true" enchantment="protection projectile:3" material="chainmail leggings"/>
+        <boots unbreakable="true" material="iron boots"/>
+        <effect duration="6">heal</effect>
+        <effect duration="6">damage resistance</effect>
+        <double-jump power="2" recharge-time="3s" recharge-before-landing="true"/>
+    </kit>
+    <kit id="red-kit" parents="spawn-kit">
+        <item slot="3" amount="12" damage="0" material="wood"/>
+    </kit>
+    <kit id="blue-kit" parents="spawn-kit">
+        <item slot="3" amount="12" damage="1" material="wood"/>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red-team" kit="red-kit" yaw="180">
+        <region>
+            <cylinder base="2276.5,98,-1041.5" radius="2" height="0"/>
+        </region>
+    </spawn>
+    <spawn team="blue-team" kit="blue-kit">
+        <region>
+            <cylinder base="2262.5,101,-1178.5" radius="2" height="0"/>
+        </region>
+    </spawn>
+    <default yaw="-90"> 
+        <region>
+            <cylinder base="2274.5,158,-1101.5" radius="3" height="0" />
+        </region>
+    </default>
+</spawns>
+<regions>
+    <!-- World -->
+    <negative id="world-inverse">
+        <cylinder id="world" base="2262.5,-400,-1105.5" radius="90" height="560"/>
+    </negative>
+    <!-- Enter events -->
+    <apply enter="red-team" message="You may not enter in the enemy's spawn!">
+        <region>
+            <cylinder base="2276.5,98,-1041.5" radius="6" height="4"/>
+        </region>
+    </apply>
+    <apply enter="blue-team" message="You may not enter in the enemy's spawn!">
+        <region>
+            <cylinder base="2262.5,101,-1178.5" radius="6" height="4"/>
+        </region>
+    </apply>
+    <!-- place and break events at spawn -->
+    <apply block="never" message="You may not place or break blocks near the spawn!">
+        <region>
+            <cylinder base="2276.5,95,-1041.5" radius="10" height="8"/>
+        </region>
+    </apply>
+    <apply block="never" message="You may not place or break blocks near the spawn!">
+        <region>
+            <cylinder base="2262.5,98,-1178.5" radius="10" height="8"/>
+        </region>
+    </apply>
+    <!-- XYZ limits of the map -->
+    <apply region="world-inverse" enter="never" message="You may not go beyond this point."/>
+</regions>
+<portals>
+    <portal y="-89">
+        <region>
+            <block>2252.5,113,-1101.5</block>
+        </region>
+    </portal>
+    <portal y="89">
+        <region>
+            <block>2252.5,24,-1101.5</block>
+        </region>
+    </portal>
+    <portal y="-61">
+        <region>
+            <block>2278.5,65,-1111.5</block>
+        </region>
+    </portal>
+    <portal y="61">
+        <region>
+            <block>2278.5,4,-1111.5</block>
+        </region>
+    </portal>
+</portals>
+<time>8m</time>
+<score>
+    <kills>1</kills>
+</score>
+<itemremove>
+    <item>arrow</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>chainmail leggings</item>
+    <item>iron boots</item>
+    <item>torch</item>
+</itemremove>
+<itemkeep>
+    <item>golden apple</item>
+    <item>arrow</item>
+</itemkeep>
+<toolrepair>
+    <tool>bow</tool>
+    <tool>stone sword</tool>
+    <tool>iron axe</tool>
+</toolrepair>
+<disabledamage>
+    <damage>fall</damage>
+    <damage>suffocation</damage>
+</disabledamage>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<timelock>off</timelock>
+</map>

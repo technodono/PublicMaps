@@ -1,0 +1,134 @@
+<map proto="1.5.0">
+<name>Greecia</name>
+<version>1.2.4</version>
+<created>2014-07-07</created>
+<objective>Destroy the other team's core before they destroy yours!</objective>
+<authors>
+    <author uuid="b8539c6d-533b-4be2-8f0d-3f70431eee87"/> <!-- CatchingMC -->
+</authors>
+<teams>
+    <team id="red-team" color="dark red" max="6" max-overfill="8">Red</team>
+    <team id="blue-team" color="blue" max="6" max-overfill="8">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <clear/>
+        <item slot="0" material="iron sword"/>
+        <item slot="1" material="bow"/>
+        <item slot="28" amount="16" material="arrow"/>
+        <item slot="2" enchantment="dig speed;durability:2" material="diamond pickaxe"/>
+        <item slot="3" enchantment="durability:2" material="diamond axe"/>
+        <item slot="4" amount="64" damage="1" material="wood"/>
+        <item slot="5" amount="16" team-color="true" material="stained clay"/>
+        <item slot="31" amount="64" damage="1" material="wood"/>
+        <item slot="6" damage="16453" material="potion"/>
+        <item slot="7" amount="32" material="golden carrot"/>
+        <helmet unbreakable="true" team-color="true" locked="true" material="leather helmet"/>
+        <chestplate unbreakable="true" locked="true" material="chainmail chestplate"/>
+        <leggings unbreakable="true" team-color="true" locked="true" material="leather leggings"/>
+        <boots unbreakable="true" team-color="true" enchantment="protection fall:2" locked="true" material="leather boots"/>
+        <effect duration="5">heal</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red-team" kit="spawn-kit" yaw="90">
+        <region>
+            <cuboid min="401,17,-660" max="406,17,-652"/>
+        </region>
+    </spawn>
+    <spawn team="blue-team" kit="spawn-kit" yaw="-90">
+        <region>
+            <cuboid min="305,17,-666" max="300,17,-674"/>
+        </region>
+    </spawn>
+    <default>
+        <region>
+            <cuboid min="352,38,-626" max="354,38,-624"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <deny id="deny-spawner">
+        <material>mob spawner</material>
+    </deny>
+</filters>
+<regions>
+    <union id="bases">
+        <cuboid id="blue-base" min="308,16,-664" max="298,oo,-677"/>
+        <cuboid id="red-base" min="399,16,-650" max="409,oo,-663"/>
+    </union>
+    <negative id="not-map">
+        <rectangle id="map" min="297,-649" max="410,-678"/>
+    </negative>
+    <!-- Applied -->   
+    <apply region="blue-base" enter="blue-team" message="You may not enter the enemy's base!"/>
+    <apply region="red-base" enter="red-team" message="You may not enter the enemy's base!"/>
+    <apply region="bases" block="never" message="You may not edit the bases!"/>
+    <apply region="not-map" block="never" message="You may not bridge outside of the map!"/>
+    <apply region="map" block-break="deny-spawner" message="You may not break the spawner!"/>
+</regions>
+<cores material="obsidian" leak="2" mode-changes="true">
+    <core team="blue-team">
+        <region>
+            <sphere origin="329.5,13,-672.5" radius="3"/>
+        </region>
+    </core>
+    <core team="red-team">
+        <region>
+            <sphere origin="377.5,13,-654.5" radius="3"/>
+        </region>
+    </core>
+</cores>
+<modes>
+    <mode after="15m" material="gold block" name="GOLD CORE MODE"/>
+    <mode after="30m" material="glass" name="GLASS CORE MODE"/>
+</modes>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+    <tool>diamond pickaxe</tool>
+    <tool>diamond axe</tool>
+</toolrepair>
+<itemremove>
+    <item>golden carrot</item>
+    <item>chainmail chestplate</item>
+    <item>leather helmet</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>log</item>
+    <item>stained clay</item>
+    <item>wood</item>
+    <item>carpet</item>
+    <item>potion</item>
+    <item>diamond</item>
+    <item>seeds</item>
+    <item>yellow flower</item>
+    <item>red rose</item>
+</itemremove>
+<itemkeep>
+    <item>golden apple</item>
+    <item>arrow</item>
+</itemkeep>
+<kill-rewards>
+    <kill-reward>
+        <filter>
+            <kill-streak max="4"/>
+        </filter>
+        <item material="golden apple"/>
+        <item amount="8" material="arrow"/>
+        <item damage="16453" material="potion"/>
+    </kill-reward>
+    <kill-reward>
+        <filter>
+            <kill-streak min="5"/>
+        </filter>
+        <item material="golden apple"/>
+        <item amount="16" material="arrow"/>
+        <item damage="16421" material="potion"/>
+    </kill-reward>
+</kill-rewards>
+<gamerules>
+    <doDaylightCycle>false</doDaylightCycle>
+</gamerules>
+<maxbuildheight>40</maxbuildheight>
+</map>

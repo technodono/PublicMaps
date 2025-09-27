@@ -1,0 +1,230 @@
+<map proto="1.5.0">
+<name>Hadron</name>
+<version>1.0.10</version>
+<objective>Take both of the enemy team's wools back to your base before the other team can do the same!</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="2a289d2a-d970-49c5-9a6c-01fc0264e317" contribution="Overall map design and aesthetics"/> <!-- Stealth5061 -->
+</authors>
+<contributors>
+    <contributor uuid="1379cb6e-f291-4498-9807-e636f9674ac0" contribution="Minor aesthetics help"/> <!-- SH4D0W_HAWK -->
+</contributors>
+<teams>
+    <team id="red" color="dark red" max="35">Red</team>
+    <team id="blue" color="blue" max="35">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" enchantment="arrow infinite" material="bow"/>
+        <item slot="28" material="arrow"/>
+        <item slot="2" enchantment="durability:3;dig speed" material="iron pickaxe"/>
+        <item slot="3" material="iron axe"/>
+        <item slot="4" amount="32" material="cooked chicken"/>
+        <item slot="5" amount="32" damage="2" material="log"/>
+        <item slot="6" amount="64" material="smooth brick"/>
+        <item slot="7" amount="2" material="golden apple"/>
+    </kit>
+</kits>
+<spawns>
+    <spawns kit="spawn-kit">
+        <spawn team="blue">
+            <region>
+                <cylinder id="blue1" base="47,16,97" radius="3" height="0"/>
+            </region>
+            <region yaw="180">
+                <cylinder id="blue2" base="47,16,121" radius="3" height="0"/>
+            </region>
+        </spawn>
+        <spawn team="red">
+            <region>
+                <cylinder id="red1" base="175,16,97" radius="3" height="0"/>
+            </region>
+            <region yaw="180">
+                <cylinder id="red2" base="175,16,121" radius="3" height="0"/>
+            </region>
+        </spawn>
+    </spawns>
+    <default yaw="-90">
+        <region>
+            <cylinder base="111,8,109" radius="2" height="0"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <material id="only-iron">iron block</material>
+    <!-- Spawn room filters only allow breaking of iron blocks-->
+    <all id="blue-spawn-prot">
+        <filter id="only-iron"/>
+        <team id="only-blue">blue</team>
+    </all>
+    <all id="red-spawn-prot">
+        <filter id="only-iron"/>
+        <team id="only-red">red</team>
+    </all>
+    <!-- Wool room filters -->
+    <not id="blue-wool">
+        <all>
+            <material>chest</material>
+            <filter id="only-red"/>
+        </all>
+    </not>
+    <not id="red-wool">
+        <all>
+            <material>chest</material>
+            <filter id="only-blue"/>
+        </all>
+    </not>
+    <not id="only-red-usage">
+        <all>
+            <any>
+                <material>chest</material>
+                <material>workbench</material>
+            </any>
+            <filter id="only-blue"/>
+        </all>
+    </not>
+    <not id="only-blue-usage">
+        <all>
+            <any>
+                <material>chest</material>
+                <material>workbench</material>
+            </any>
+            <filter id="only-red"/>
+        </all>
+    </not>
+</filters>
+<regions>
+    <!-- Blue side room regions -->
+    <complement id="outside-green">
+        <circle center="9.5,25.5" radius="15.5"/>
+        <circle id="green-wool" center="9.5,25.5" radius="11.5"/>
+    </complement>
+    <complement id="outside-purple">
+        <circle center="9.5,193.5" radius="15.5"/>
+        <circle id="purple-wool" center="9.5,193.5" radius="11.5"/>
+    </complement>
+    <!-- Only allow reds to build in blue's wool rooms-->
+    <apply block="red-wool" enter="red-wool" use="only-red-usage" message="Only Red may enter and modify this wool room.">
+        <region>
+            <region id="green-wool"/>
+            <region id="purple-wool"/>
+        </region>
+    </apply>
+    <!-- Red side wool rooms -->
+    <complement id="outside-pink">
+        <circle center="213.5,25.5" radius="15.5"/>
+        <circle id="pink-wool" center="213.5,25.5" radius="11.5"/>
+    </complement>
+    <complement id="outside-magenta">
+        <circle center="213.5,193.5" radius="15.5"/>
+        <circle id="magenta-wool" center="213.5,193.5" radius="11.5"/>
+    </complement>
+    <!-- Add protections -->
+    <apply block="blue-wool" enter="blue-wool" use="only-blue-usage" message="Only Blue may enter and modify this wool room.">
+        <region>
+            <region id="pink-wool"/>
+            <region id="magenta-wool"/>
+        </region>
+    </apply>
+    <!-- Blue spawn -->
+    <apply block-break="blue-spawn-prot" block-place="never" message="Blue may modify only iron blocks in their base. Red can't break blocks here.">
+        <region>
+            <rectangle min="35,82" max="60,102"/>
+            <rectangle min="35,117" max="60,137"/>
+            <cuboid min="31,13,100" max="64,32,119"/>
+        </region>
+    </apply>
+    <!-- Red spawn -->
+    <apply block-break="red-spawn-prot" block-place="never" message="Red may modify only iron blocks in their base. Blue can't break blocks here.">
+        <region>
+            <rectangle min="163,117" max="188,136"/>
+            <rectangle min="163,82" max="188,102"/>
+            <cuboid min="159,13,100" max="192,32,119"/>
+        </region>
+    </apply>
+    <!-- Prevent all building outside wool rooms -->
+    <apply block="never" message="You may not modify the area around the wool rooms.">
+        <region>
+            <region id="outside-pink"/>
+            <region id="outside-purple"/>
+            <region id="outside-green"/>
+            <region id="outside-magenta"/>
+        </region>
+    </apply>
+    <!-- Protect wool Monuments -->
+    <apply block-break="never">
+        <region>
+            <cuboid id="pink" min="46,8,116" max="49,11,117"/>
+            <block>47,8,115</block>
+            <cuboid id="magenta" min="46,8,102" max="49,11,103"/>
+            <block>47,8,103</block>
+            <cuboid id="purple" min="174,8,116" max="177,11,117"/>
+            <block>175,8,115</block>
+            <cuboid id="green" min="174,8,102" max="177,11,103"/>
+            <block>175,8,103</block>
+        </region>
+    </apply>
+    <!-- Prevent players from building over the void -->
+    <apply block="deny(void)" message="You may not edit the void area.">
+        <region>
+            <complement>
+                <rectangle id="main" min="-11,5" max="234,214"/>
+                <union>
+                    <rectangle id="fl1" min="97,143" max="126,168"/>
+                    <rectangle id="fl2" min="97,51" max="125,76"/>
+                </union>
+            </complement>
+        </region>
+    </apply>
+    <apply block="never" message="You may not edit the void area.">
+        <region>
+            <negative>
+                <region id="main"/>
+            </negative>
+        </region>
+    </apply>
+</regions>
+<wools>
+    <!-- Blue wools -->
+    <wool team="blue" color="magenta" location="213.5,10,25.5">
+        <monument>
+            <block>47,9,102</block>
+        </monument>
+    </wool>
+    <wool team="blue" color="pink" location="213.5,10,193.5">
+        <monument>
+            <block>47,9,116</block>
+        </monument>
+    </wool>
+    <!-- Red wools -->
+    <wool team="red" color="green" location="9.5,10,25.5">
+        <monument>
+            <block>175,9,102</block>
+        </monument>
+    </wool>
+    <wool team="red" color="purple" location="9.5,10,193.5">
+        <monument>
+            <block>175,9,116</block>
+        </monument>
+    </wool>
+</wools>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>iron pickaxe</tool>
+    <tool>bow</tool>
+    <tool>iron axe</tool>
+</toolrepair>
+<itemremove>
+    <item>arrow</item>
+    <item>cooked chicken</item>
+    <item>glowstone dust</item>
+    <item>sapling</item>
+    <item>string</item>
+    <item>golden apple</item>
+    <item>smooth brick</item>
+    <item>log</item>
+    <item>wood</item>
+</itemremove>
+<maxbuildheight>40</maxbuildheight>
+</map>

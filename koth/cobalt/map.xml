@@ -1,0 +1,105 @@
+<map proto="1.5.0">
+<name>Cobalt</name>
+<version>3.0.1</version>
+<variant id="5v5">5v5</variant>
+<variant id="7v7">7v7</variant>
+<constant id="damage-resistance">4s</constant>
+<if variant="7v7">
+    <constant id="score">2500</constant>
+    <constant id="respawn-timer">5s</constant>
+    <constant id="points-per-second">3</constant>
+    <constant id="team-size">7</constant>
+    <constant id="max-overfill">7</constant>
+</if>
+<unless variant="7v7">
+    <constant id="score">750</constant>
+    <constant id="respawn-timer">3s</constant>
+    <constant id="points-per-second">1</constant>
+</unless>
+<if variant="5v5">
+    <constant id="team-size">5</constant>
+    <constant id="max-overfill">5</constant>
+</if>
+<unless variant="5v5,7v7">
+    <constant id="team-size">12</constant>
+    <constant id="max-overfill" delete="true"/>
+    <include id="conquest"/>
+</unless>
+<if variant="5v5,7v7">
+    <include id="conquest-comp"/>
+</if>
+<objective>Reach ${score} points before the opposing team!</objective>
+<authors>
+    <author uuid="0c44ca5a-6a42-49b7-81f2-58dc6d2ae3e9"/> <!-- Xerocoles -->
+</authors>
+<contributors>
+    <contributor uuid="3a64dcf4-5d71-4664-80bf-4e5c54e41b86"/> <!-- Zaquez -->
+    <contributor uuid="621b2aa8-4e5f-4ed8-bd36-0ae2f8952a06" contribution="v3.0 update"/> <!-- Strangey -->
+</contributors>
+<teams> <!-- This is the colorblind blue vs red edit -->
+    <team id="blue" color="blue" max="${team-size}" max-overfill="${max-overfill}">Blue</team>
+    <team id="red" color="dark red" max="${team-size}" max-overfill="${max-overfill}">Red</team>
+</teams>
+<kits>
+    <kit id="default-kit">
+        <effect>night vision</effect>
+    </kit>
+    <kit id="spawn-kit" parents="default-kit,base-kit"/>
+</kits>
+<spawns>
+    <default kit="default-kit">
+        <region yaw="-90">
+            <cuboid min="243,33,93" max="246,33,98"/>
+        </region>
+    </default>
+    <spawn team="blue" kit="spawn-kit">
+        <region yaw="180">
+            <cuboid min="288.35,38,130.65" max="290.65,38,132.35"/>
+        </region>
+    </spawn>
+    <spawn team="red" kit="spawn-kit">
+        <region yaw="0">
+            <cuboid min="290.65,38,60.35" max="288.35,38,58.65"/>
+        </region>
+    </spawn>
+</spawns>
+<regions>
+    <union id="capture-west">
+        <cuboid min="265,12,99" max="260,16,92"/>
+        <cuboid min="266,12,98" max="259,16,93"/>
+    </union>
+    <cuboid id="captured-west" min="259,34,92" max="266,41,99"/>
+    <union id="capture-mid">
+        <cuboid min="286,18,98" max="293,22,93"/>
+        <cuboid min="292,18,92" max="287,22,99"/>
+    </union>
+    <cuboid id="captured-mid" min="286,40,92" max="293,47,99"/>
+    <union id="capture-east">
+        <cuboid min="320,12,93" max="313,16,98"/>
+        <cuboid min="319,12,92" max="314,16,99"/>
+    </union>
+    <cuboid id="captured-east" min="313,34,92" max="320,41,99"/>
+    <apply block="never" use="never"/>
+</regions>
+<king>
+    <hills required="false" capture-time="5s" points="${points-per-second}" time-multiplier="0" show-progress="true" neutral-state="true" recovery="1" decay="0" permanent="false">
+        <hill name="West" capture="capture-west" progress="capture-west" captured="captured-west"/>
+        <hill name="Mid" capture="capture-mid" progress="capture-mid" captured="captured-mid"/>
+        <hill name="East" capture="capture-east" progress="capture-east" captured="captured-east"/>
+    </hills>
+</king>
+<score>
+    <limit>${score}</limit>
+</score>
+<spawners>
+    <spawner delay="6s">
+        <spawn-region>
+            <cuboid min="289.4,12.5,95.4" max="289.6,12.5,95.6"/>
+        </spawn-region>
+        <player-region>
+            <cuboid min="281,7,91" max="299,17,100"/>
+        </player-region>
+        <item material="golden apple"/>
+    </spawner>
+</spawners>
+</map>

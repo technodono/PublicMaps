@@ -1,0 +1,146 @@
+<map proto="1.5.0">
+<name>Race for Victory</name>
+<version>1.2.6</version>
+<objective>Take the enemy's wool located to either side of the enemy's base and place it in your victory monument.</objective>
+<authors>
+    <author uuid="ef4ea031-998f-4ec9-b7b6-1bdd428bcef8" contribution="Map design"/> <!-- Plastix -->
+    <author uuid="3c7db14d-ac4b-4e35-b2c6-3b2237f382be" contribution="Map design and gameplay management"/> <!-- MonsieurApple -->
+    <author uuid="25961a08-c90c-4abd-b136-dad90e89c2eb" contribution="Item management"/> <!-- Anxuiz -->
+</authors>
+<rules>
+    <rule>Players may not obstruct the wool rooms with lava or obsidian.</rule>
+    <rule>Players may not obstruct the majority of the lane with lava or obsidian.</rule>
+    <rule>Players may not use lava or obsidian to block a team's spawn.</rule>
+    <rule>Players may not venture below the bottom bedrock layer of the map.</rule>
+</rules>
+<teams>
+    <team id="blue-team" color="blue" max="12" max-overfill="18">Blue</team>
+    <team id="red-team" color="dark red" max="12" max-overfill="18">Red</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" material="bow"/>
+        <item slot="28" amount="64" material="arrow"/>
+        <item slot="2" material="iron pickaxe"/>
+        <item slot="3" material="iron axe"/>
+        <item slot="4" amount="64" damage="1" material="wood"/>
+        <item slot="5" amount="64" material="ladder"/>
+        <item slot="8" amount="64" material="bread"/>
+        <helmet team-color="true" material="leather helmet"/>
+        <chestplate team-color="true" material="leather chestplate"/>
+        <leggings team-color="true" material="leather leggings"/>
+        <boots team-color="true" material="leather boots"/>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="blue-team" kit="spawn-kit" yaw="180">
+        <region>
+            <cuboid min="-1.5,68,108.5" max="1.5,68,110.5"/>
+        </region>
+    </spawn>
+    <spawn team="red-team" kit="spawn-kit">
+        <region>
+            <cuboid min="-1.5,68,-111.5" max="1.5,68,-108.5"/>
+        </region>
+    </spawn>
+    <default yaw="90">
+        <region>
+            <cylinder base="-80,70,0" radius="3" height="0"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <material id="chest">chest</material>
+</filters>
+<regions>
+    <union id="spawn-protections">
+        <rectangle id="red-base" min="-13,-oo" max="13,-97"/>
+        <rectangle id="blue-base" min="-13,97" max="13,oo"/>
+    </union>
+    <union id="wool-monuments">
+        <block id="blue-team-purple-wool">-1,75,97</block>
+        <block id="blue-team-yellow-wool">0,75,97</block>
+        <block id="red-team-lime-wool">0,75,-98</block>
+        <block id="red-team-orange-wool">-1,75,-98</block>
+    </union>
+    <union id="victory-monuments">
+        <cuboid id="red-victory-monument" min="-2,73,-100" size="4,4,3"/>
+        <cuboid id="blue-victory-monument" min="-2,73,97" size="4,4,3"/>
+    </union>
+    <union id="wool-rooms">
+        <union id="red-wool-rooms">
+            <rectangle id="purple-room" min="-25,-80" max="-oo,-oo"/>
+            <rectangle id="yellow-room" min="25,-80" max="oo,-oo"/>
+        </union>
+        <union id="blue-wool-rooms">
+            <rectangle id="lime-room" min="25,80" max="oo,oo"/>
+            <rectangle id="orange-room" min="-25,80" max="-oo,oo"/>
+        </union>
+    </union>
+    <union id="map-protection">
+        <negative id="not-map">
+            <rectangle id="map" min="-57,-123" max="57,123"/>
+        </negative>
+        <cylinder base="0,67,-110" height="4" radius="3"/>
+        <cylinder base="0,67,110" height="4" radius="3"/>
+    </union>
+    <union id="void-area">
+        <complement>
+            <union>
+                <rectangle min="-13,-90" max="-oo,90"/>
+                <rectangle min="13,-90" max="oo,90"/>
+            </union>
+            <rectangle min="-oo,15" max="oo,-15"/>
+        </complement>
+        <rectangle min="42,-101" max="13,-112"/>
+        <rectangle min="-42,-101" max="-13,-112"/>
+        <rectangle min="13,111" max="42,101"/>
+        <rectangle min="-13,111" max="-42,101"/>
+    </union>
+    <apply region="wool-rooms" block="deny(chest)"/>
+    <apply region="victory-monuments" block="never"/>
+    <apply region="blue-wool-rooms" block="red-team" use="red-team"/>
+    <apply region="blue-wool-rooms" enter="red-team" message="You may not enter your own wool room!"/>
+    <apply region="red-wool-rooms" block="blue-team" use="blue-team"/>
+    <apply region="red-wool-rooms" enter="blue-team" message="You may not enter your own wool room!"/>
+    <apply region="red-base" enter="red-team" message="You may not enter the enemy's spawn!"/>
+    <apply region="red-base" block="red-team" use="red-team"/>
+    <apply region="blue-base" enter="blue-team" message="You may not enter the enemy's spawn!"/>
+    <apply region="blue-base" block="blue-team" use="blue-team"/>
+    <apply region="void-area" block="never" message="You may not build over the void!"/>
+    <apply region="map-protection" block="never" message="You may not edit blocks in this area!"/>
+</regions>
+<wools craftable="false">
+    <wool team="blue-team" color="purple" monument="blue-team-purple-wool" location="-49,69,-96"/>
+    <wool team="blue-team" color="yellow" monument="blue-team-yellow-wool" location="48,69,-96"/>
+    <wool team="red-team" color="lime" monument="red-team-lime-wool" location="48,69,95"/>
+    <wool team="red-team" color="orange" monument="red-team-orange-wool" location="-49,69,95"/>
+</wools>
+<kill-rewards>
+    <kill-reward>
+        <item material="golden apple"/>
+        <item amount="16" material="arrow"/>
+        <item damage="1" amount="8" material="wood"/>
+    </kill-reward>
+</kill-rewards>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+    <tool>iron pickaxe</tool>
+    <tool>iron axe</tool>
+</toolrepair>
+<itemremove>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>arrow</item>
+    <item>wood</item>
+    <item>log</item>
+    <item>ladder</item>
+    <item>bread</item>
+    <item>golden apple</item>
+</itemremove>
+<maxbuildheight>100</maxbuildheight>
+</map>

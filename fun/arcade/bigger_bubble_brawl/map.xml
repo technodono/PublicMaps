@@ -1,0 +1,104 @@
+<map proto="1.5.0">
+<name>Bigger Bubble Brawl</name>
+<version>1.0.5</version>
+<gamemode>arcade</gamemode>
+<phase>staging</phase>
+<objective>Knock all opponents out of the water!</objective>
+<authors>
+    <author uuid="6bec5c3a-4934-4b19-9aa8-c7c569820f7d"/> <!-- Claf -->
+    <author uuid="9929437a-9b7d-4d7a-b05d-e22fe93ac042"/> <!-- triplezko -->
+</authors>
+<contributors>
+    <contributor contribution="Moral Support" uuid="cf1b2da8-3718-45a9-8836-bb70b0628773"/> <!-- Winnerizor -->
+    <contributor contribution="Maximized Bubble" uuid="a9f11454-beac-4cc3-a138-1780802c8794"/> <!-- Crazy_ -->
+</contributors>
+<broadcasts>
+    <alert after="1s">Fishing rod upgrades will be given every minute!</alert>
+    <alert after="1m">Fishing rods upgraded! `e`lKnockback III</alert>
+    <alert after="2m">Fishing rods upgraded! `6`lKnockback IV</alert>
+    <alert after="3m">Fishing rods upgraded! `4`lKnockback V</alert>
+</broadcasts>
+<players max="50" colors="true"/>
+<kits>
+    <kit id="spawn-kit" force="true">
+        <game-mode>adventure</game-mode>
+        <item slot="0" unbreakable="true" enchantment="knockback:2" material="fishing rod"/>
+        <helmet unbreakable="true" locked="true" enchantment="oxygen:10" material="diamond helmet"/>
+        <boots unbreakable="true" locked="true" enchantment="depth strider:3" material="chainmail boots"/>
+        <effect>water breathing</effect>
+        <effect>night vision</effect>
+        <effect amplifier="10">resistance</effect>
+    </kit>
+    <kit id="death-kit" force="true">
+        <effect duration="0">resistance</effect>
+        <effect amplifier="10">instant_damage</effect>
+    </kit>
+    <kit id="upgrade-1" force="true">
+        <item slot="0" unbreakable="true" enchantment="knockback:3" name="`e`lGood Fishing Rod" material="fishing rod"/>
+    </kit>
+    <kit id="upgrade-2" force="true">
+        <item slot="0" unbreakable="true" enchantment="knockback:4" name="`6`lGreat Fishing Rod" material="fishing rod"/>
+    </kit>
+    <kit id="upgrade-3" force="true">
+        <item slot="0" unbreakable="true" enchantment="knockback:5" name="`4`lSuper Fishing Rod" material="fishing rod"/>
+    </kit>
+    <give kit="upgrade-1" filter="upgrade-1-filter"/>
+    <give kit="upgrade-2" filter="upgrade-2-filter"/>
+    <give kit="upgrade-3" filter="upgrade-3-filter"/>
+</kits>
+<item-mods>
+    <rule>
+        <match>
+            <material>raw fish</material>
+        </match>
+        <modify>
+            <enchantment level="7">knockback</enchantment>
+        </modify>
+    </rule>
+</item-mods>
+<filters>
+    <all id="upgrade-1-filter">
+        <time>1m</time>
+        <participating/>
+    </all>
+    <all id="upgrade-2-filter">
+        <time>2m</time>
+        <participating/>
+    </all>
+    <all id="upgrade-3-filter">
+        <time>3m</time>
+        <participating/>
+    </all>
+</filters>
+<regions>
+    <apply kit="death-kit">
+        <region>
+            <below y="18"/>
+        </region>
+    </apply>
+</regions>
+<spawns>
+    <spawn kit="spawn-kit">
+        <regions pitch="90">
+            <cylinder base="77,85,5" radius="3" height="2"/>
+        </regions>
+    </spawn>
+    <default>
+        <region yaw="180">
+            <point>78.5,8,83.5</point>
+        </region>
+    </default>
+</spawns>
+<itemremove>
+    <item>fishing rod</item>
+    <item>diamond helmet</item>
+</itemremove>
+<blitz>
+    <lives>1</lives>
+</blitz>
+<time>4m</time>
+<timelock>on</timelock>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+</map>

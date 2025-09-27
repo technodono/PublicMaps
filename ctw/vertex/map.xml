@@ -1,0 +1,202 @@
+<map proto="1.5.0">
+<name>Vertex</name>
+<version>1.3.2</version>
+<objective>Capture the wool and return it to your victory monument</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="f690a591-348b-482e-a18d-7779d0c0a28c"/> <!-- mitchiii -->
+</authors>
+<teams>
+    <team id="blue-team" color="blue" max="7">Blue</team>
+    <team id="red-team" color="dark red" max="7">Red</team>
+</teams>
+<kits>
+    <kit id="main-kit">
+        <clear/>
+        <item slot="0" material="stone sword" unbreakable="true"/>
+        <item slot="1" material="bow" unbreakable="true"/>
+        <item slot="2" material="stone pickaxe" unbreakable="true"/>
+        <item slot="3" material="stone axe" unbreakable="true"/>
+        <item slot="4" material="wood" amount="48" damage="1"/>
+        <item slot="5" material="stained glass" amount="24" team-color="true"/>
+        <item slot="8" material="golden apple"/>
+        <item slot="28" material="arrow" amount="48"/>
+        <item slot="30" material="stone spade" unbreakable="true"/>
+        <helmet material="leather helmet" unbreakable="true" team-color="true"/>
+        <chestplate material="chainmail chestplate" unbreakable="true"/>
+        <leggings material="leather leggings" unbreakable="true" team-color="true"/>
+        <boots unbreakable="true" material="iron boots"/>
+        <effect duration="3" amplifier="255">resistance</effect>
+    </kit>
+</kits>
+<spawns>
+    <default>
+        <regions>
+            <point yaw="180">268,18,346</point>
+            <point yaw="-90">199,18,277</point>
+        </regions>
+    </default>
+    <spawn team="blue-team" kit="main-kit" yaw="180">
+        <region>
+            <cylinder base="268,3,344" radius="1.5" height="1"/>
+        </region>
+    </spawn>
+    <spawn team="red-team" kit="main-kit" yaw="-90">
+        <region>
+            <cylinder base="201,3,277" radius="1.5" height="1"/>
+        </region>
+    </spawn>
+</spawns>
+<filters>
+    <deny id="deny-woolroom-blocks">
+        <blocks region="wool-rooms">
+            <not>
+                <any>
+                    <material>air</material>
+                    <material>web</material>
+                </any>
+            </not>
+        </blocks>
+    </deny>
+    <deny id="deny-bottom-layer">
+        <all>
+            <below y="1"/>
+            <material>stone:6</material>
+        </all>
+    </deny>
+</filters>
+<regions>
+    <union id="team-spawns">
+        <union id="blue-spawn">
+            <cuboid id="blue-spawn-main" min="263,0,341" max="273,8,348"/>
+            <cuboid id="blue-spawn-door" min="265,0,340" max="271,7,341"/>
+        </union>
+        <mirror id="red-spawn" region="blue-spawn" origin="261,0,284" normal="-1,0,-1"/>
+    </union>
+    <union id="wool-rooms">
+        <cuboid id="blue-wool" min="264,10,341" max="272,21,349"/>
+        <mirror id="red-wool" region="blue-wool" origin="261,0,284" normal="-1,0,-1"/>
+    </union>
+    <point id="blue-wool-spawner">268,13,345</point>
+    <mirror id="red-wool-spawner" region="blue-wool-spawner" origin="261,0,284" normal="-1,0,-1"/>
+    <union id="playable-area">
+        <rectangle id="blue-side" min="281,349" max="249,264"/>
+        <mirror id="red-side" region="blue-side" origin="261,0,284" normal="-1,0,-1"/>
+    </union>
+    <apply region="blue-spawn" enter="blue-team" message="You may not enter the enemy's spawn!"/>
+    <apply region="red-spawn" enter="red-team" message="You may not enter the enemy's spawn!"/>
+    <apply region="team-spawns" block="never" message="You may not modify the spawn area!"/>
+    <apply region="blue-wool" enter="red-team" message="You may not enter this wool room!"/>
+    <apply region="red-wool" enter="blue-team" message="You may not enter this wool room!"/>
+    <apply region="blue-wool" block="all(deny-woolroom-blocks, red-team)" use="red-team" message="You may not modify that block!"/>
+    <apply region="red-wool" block="all(deny-woolroom-blocks, blue-team)" use="blue-team" message="You may not modify that block!"/>
+    <apply block-place="playable-area" block-break="deny-bottom-layer"/>
+</regions>
+<wools>
+    <wool team="blue-team" color="orange" location="200,12,277">
+        <monument>
+            <block>268,4,346</block>
+        </monument>
+    </wool>
+    <wool team="red-team" color="light blue" location="268,12,353">
+        <monument>
+            <block>198,4,276</block>
+        </monument>
+    </wool>
+</wools>
+<spawners max-entities="1" delay="1s">
+    <spawner spawn-region="blue-wool-spawner" player-region="blue-wool" filter="red-team">
+        <item material="wool" damage="3"/>
+    </spawner>
+    <spawner spawn-region="red-wool-spawner" player-region="red-wool" filter="blue-team">
+        <item material="wool" damage="1"/>
+    </spawner>
+</spawners>
+<kill-rewards>
+    <kill-reward>
+        <item material="arrow" amount="16"/>
+        <item material="wood" amount="12" damage="1"/>
+        <item material="stained glass" amount="6" team-color="true"/>
+    </kill-reward>
+    <kill-reward>
+        <filter>
+            <kill-streak count="3" repeat="false"/>
+        </filter>
+        <item material="flint and steel" damage="61"/>
+        <item material="tnt" amount="1"/>
+    </kill-reward>
+</kill-rewards>
+<block-drops>
+    <rule wrong-tool="true">
+        <filter>
+            <material>gold block</material>
+        </filter>
+        <drops>
+            <item material="gold ingot" amount="9"/>
+        </drops>
+    </rule>
+    <rule>
+        <filter>
+            <material>stone:6</material>
+        </filter>
+        <drops>
+            <item material="stone" damage="5"/>
+        </drops>
+    </rule>
+</block-drops>
+<renewables>
+    <renewable interval="30" grow="true">
+        <renew-filter>
+            <material>gold block</material>
+        </renew-filter>
+    </renewable>
+</renewables>
+<item-mods>
+    <rule>
+        <match>
+            <material>bow</material>
+            <material>iron chestplate</material>
+        </match>
+        <modify unbreakable="true"/>
+    </rule>
+</item-mods>
+<crafting>
+    <disable>boat</disable>
+</crafting>
+<toolrepair>
+    <tool>bow</tool>
+    <tool>iron chestplate</tool>
+    <tool>stone sword</tool>
+    <tool>stone pickaxe</tool>
+    <tool>stone axe</tool>
+    <tool>gold helmet</tool>
+    <tool>gold chestplate</tool>
+    <tool>gold leggings</tool>
+    <tool>gold boots</tool>
+    <tool>gold sword</tool>
+    <tool>gold pickaxe</tool>
+    <tool>gold axe</tool>
+    <tool>gold spade</tool>
+</toolrepair>
+<itemremove>
+    <item>leather helmet</item>
+    <item>chainmail chestplate</item>
+    <item>leather leggings</item>
+    <item>iron boots</item>
+    <item>seeds</item>
+    <item>sapling</item>
+    <item>apple</item>
+    <item>string</item>
+</itemremove>
+<itemkeep>
+    <item>stained clay</item>
+    <item>stained glass</item>
+    <item>wood</item>
+    <item>arrow</item>
+    <item>golden apple</item>
+</itemkeep>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<maxbuildheight>20</maxbuildheight>
+</map>

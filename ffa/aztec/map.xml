@@ -1,0 +1,90 @@
+<map proto="1.5.0">
+<name>Aztec</name>
+<gamemode>ffa</gamemode>
+<version>1.0.3</version>
+<objective>Kill as many players as possible in 8 minutes</objective>
+<created>2015-12-28</created>
+<phase>staging</phase>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="07fa10c6-f564-4630-861e-fe134ae27527"/> <!--yoyo_-->
+</authors>
+<players min="2" max="10" max-overfill="10" colors="true"/>
+<kits>
+    <kit id="players-kit">
+        <clear/>
+        <item slot="0" unbreakable="true" material="stone sword"/>
+        <item slot="1" unbreakable="true" material="bow"/>
+        <item slot="2" material="golden apple"/>
+        <item slot="8" amount="16" material="arrow"/>
+        <helmet unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" team-color="true" material="leather chestplate"/>
+        <leggings unbreakable="true" material="chainmail leggings"/>
+        <boots unbreakable="true" team-color="true" enchantment="protection fall:2" material="leather boots"/>
+        <effect duration="2.5" amplifier="10">resistance</effect>
+        <game-mode>adventure</game-mode>
+    </kit>
+</kits>
+<spawns>
+    <spawn kit="players-kit" spread="true" safe="true">
+        <regions angle="-18.5,40,-3.5">
+            <point>29.5,45,34.5</point>
+            <point>5.5,37,47.6</point>
+            <point>-32.5,40,36.5</point>
+            <point>-46.5,36,48.5</point>
+            <point>-68.5,28,33.5</point>
+            <point>-56.5,28,12.5</point>
+            <point>-75.5,39,41.5</point>
+            <point>-67.5,40,5.5</point>
+            <point>-70.5,34,-22.5</point>
+            <point>-50.5,34,-36.5</point>
+            <point>-28.5,30,-32.5</point>
+            <point>-14.5,41,-32.5</point>
+            <point>-30.5,38,-14.5</point>
+            <point>30.5,42,-42.5</point>
+            <point>30.5,48,-16.5</point>
+            <point>5.5,33,-17.5</point>
+            <point>7.5,32,4.5</point>
+            <point>-15.5,31,9.5</point>
+            <point>-29.5,40,11.5</point>
+            <point>-21.5,45,-38.5</point>
+        </regions>
+    </spawn>
+    <default yaw="90">
+        <region>
+            <point>-18.5,40,-3.5</point>
+        </region>
+    </default>
+</spawns>
+<regions>
+    <apply block="never"/>
+</regions>
+<time>5m</time>
+<score>
+    <kills>1</kills>
+</score>
+<itemremove>
+    <item>arrow</item>
+    <item>apple</item>
+    <item>sapling</item>
+    <item>long grass</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>chainmail leggings</item>
+    <item>leather boots</item>
+    <item>golden apple</item>
+</itemremove>
+<toolrepair>
+    <tool>bow</tool>
+    <tool>stone sword</tool>
+</toolrepair>
+<kill-rewards>
+    <kill-reward>
+        <item amount="8" material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+<timelock>on</timelock>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+</map>

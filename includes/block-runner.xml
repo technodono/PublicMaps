@@ -1,0 +1,89 @@
+<!-- Block Runner gamemode include file -->
+<!-- Modified for modern PGM - Original block-runner.xml file from the Overcast Network -->
+<!-- Version 2025.03.14-1 -->
+<map proto="1.5.0" game="`eProgress">
+<objective>Be the first to the end!</objective>
+<gamemode>arcade</gamemode> 
+<blitz>
+    <lives>1</lives>
+</blitz>
+<players min="4" max="8" colors="true"/>
+<broadcasts>
+    <alert after="2s">`6`lBlocks falling in 3 seconds</alert>
+    <alert after="3s">`6`lBlocks falling in 2 seconds</alert>
+    <alert after="4s">`6`lBlocks falling in 1 seconds</alert>
+    <alert after="5s">`6`lThe path is falling away! Run!</alert>
+</broadcasts>
+<time>2m</time>
+<score>
+    <limit>4</limit>
+    <kills>0</kills>
+    <box points="1" silent="true" region="checkpoint1"/>
+    <box points="1" silent="true" region="checkpoint2"/>
+    <box points="1" silent="true" region="checkpoint3"/>
+    <box points="1" silent="true" region="box-win"/>
+</score>
+<regions>
+    <apply enter="never">
+        <region>
+            <negative>
+                <region id="checkpoint1"/>
+            </negative>
+        </region>
+    </apply>
+    <apply enter="never">
+        <region>
+            <negative>
+                <region id="checkpoint2"/>
+            </negative>
+        </region>
+    </apply>
+    <apply enter="never">
+        <region>
+            <negative>
+                <region id="checkpoint3"/>
+            </negative>
+        </region>
+    </apply>
+</regions>
+<kits>
+    <kit id="spawn">
+        <game-mode>adventure</game-mode>
+        <effect>invisibility</effect>
+        <effect>fire resistance</effect>
+        <boots unbreakable="true" material="gold boots"/>
+    </kit>
+</kits>
+<structures>
+    <structure id="mon-struct" region="mon" air="false"/>
+    <dynamic structure="mon-struct" offset="0,0,0" trigger="countdown"/>
+</structures>
+<filters>
+    <not id="countdown">
+        <time>5s</time>
+    </not>
+    <not id="all-blocks">
+        <material>air</material>
+    </not>
+</filters>
+<falling-blocks delay="4">
+    <rule filter="all-blocks">
+        <sticky>
+            <all>
+                <filter id="all-blocks"/>
+                <material>redstone block</material>
+            </all>
+        </sticky>
+    </rule>
+</falling-blocks>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<disabledamage>
+    <damage>fall</damage>
+    <damage>entity attack</damage>
+</disabledamage>
+<gamerules>
+    <doTileDrops>false</doTileDrops>
+</gamerules>
+</map>

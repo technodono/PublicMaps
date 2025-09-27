@@ -1,0 +1,69 @@
+<map proto="1.5.0">
+<name>Voltage</name>
+<version>1.0.8</version>
+<objective>Capture the opposing team's flag 4 times!</objective>
+<time result="score" overtime="1m" max-overtime="1m">10m</time>
+<include id="conquest"/>
+<constant id="damage-resistance">1s</constant>
+<constant id="respawn-timer">3s</constant>
+<authors>
+    <author uuid="0c44ca5a-6a42-49b7-81f2-58dc6d2ae3e9"/> <!-- Xerocoles -->
+</authors>
+<teams>
+    <team id="green" color="dark green" max="8">Green</team>
+    <team id="purple" color="dark purple" max="8">Purple</team>
+</teams>
+<kits>
+    <kit id="flag-kit" force="true">
+        <effect>slowness</effect>
+    </kit>
+    <kit id="reset-kit" force="true">
+        <effect duration="0s" amplifier="0">slowness</effect>
+    </kit>
+</kits>
+<spawns>
+    <default>
+        <region yaw="-135">
+            <cylinder base="-10.5,19,48.5" radius="1" height="0"/>
+        </region>
+    </default>
+    <spawn team="green" kit="base-kit">
+        <region yaw="180">
+            <point>1,6,74.5</point>
+        </region>
+    </spawn>
+    <spawn team="purple" kit="base-kit">
+        <region yaw="-90">
+            <point>-36.5,6,37</point>
+        </region>
+    </spawn>
+</spawns>
+<filters>
+    <team id="only-green">green</team>
+    <team id="only-purple">purple</team>
+</filters>
+<regions>
+    <apply block="never"/>
+</regions>
+<flags>
+    <flag id="green-flag" name="Green Flag" color="lime" pickup-kit="flag-kit" drop-kit="reset-kit">
+        <post recover-time="8s" respawn-time="3s" pickup-filter="only-purple" yaw="135">-12,11,60</post>
+        <net points="1">
+            <region>
+                <cuboid min="-22,11,49" max="-23,13,50"/>
+            </region>
+        </net>
+    </flag>
+    <flag id="purple-flag" name="Purple Flag" color="purple" pickup-kit="flag-kit" drop-kit="reset-kit">
+        <post recover-time="8s" respawn-time="3s" pickup-filter="only-green" yaw="-45">-23,11,49</post>
+        <net points="1">
+            <region>
+                <cuboid min="-11,11,61" max="-12,13,60"/>
+            </region>
+        </net>
+    </flag>
+</flags>
+<score>
+    <limit>4</limit>
+</score>
+</map>

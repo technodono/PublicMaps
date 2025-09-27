@@ -1,0 +1,210 @@
+<map proto="1.5.0">
+<name>Tempest</name>
+<version>2.0.5</version>
+<objective>Destroy the enemy's two capacitors and their cendrum to win!</objective>
+<authors>
+    <author uuid="dee1cc51-66d2-4c5e-a8d4-403dcd1d8c83"/> <!-- lonelyhornet -->
+    <author uuid="06078e7e-6a7b-4d31-8f74-853072b182bb" contribution="Building, aesthetics, and WorldEdit magic"/> <!-- xXFracXx -->
+</authors>
+<contributors>
+    <contributor uuid="ba4a93aa-4935-4a71-bab2-a58f9a124e7b" contribution="Feedback, aesthetics, building, and XML fixing"/> <!-- ItsMiiOlly -->
+    <contributor uuid="2ca8072f-74be-4798-85b8-bbce03aa91af" contribution="Feedback"/> <!-- Tywnis -->
+    <contributor uuid="714ff88f-25d9-4754-9caa-d0f3cf24f230" contribution="Feedback, building"/> <!-- thegoodguy -->
+    <contributor uuid="939a9a1c-f735-467a-bfd7-ae77cafd6693" contribution="Building, feedback"/> <!-- PlasmaCross -->
+    <contributor uuid="3c7db14d-ac4b-4e35-b2c6-3b2237f382be" contribution="XML"/> <!-- MonsieurApple -->
+    <contributor uuid="374988d6-4569-444e-885a-409c2f55e310" contribution="Bug fixing and feedback"/> <!-- Articray -->
+    <contributor contribution="Help and Support">The Orange Sunglasses Build Team</contributor>
+</contributors>
+<teams>
+    <team id="cyan" color="dark aqua" max="50">Cyan</team>
+    <team id="green" color="green" max="50">Green</team>
+</teams>
+<kits>
+    <kit id="heal">
+        <effect duration="10" amplifier="4">damage resistance</effect>
+        <effect duration="5">heal</effect>
+    </kit>
+    <kit id="speed-node">
+        <effect duration="120">speed</effect>
+    </kit>
+    <kit id="haste-node">
+        <effect duration="120">fast digging</effect>
+    </kit>
+    <kit id="spawn-kit" parents="heal">
+        <item slot="0" unbreakable="true" material="stone sword"/>
+        <item slot="1" unbreakable="true" material="stone pickaxe"/>
+        <item slot="7" amount="32" material="grilled pork"/>
+        <item slot="8" name="`7Upgrade Scroll" material="book"/>
+        <chestplate unbreakable="true" team-color="true" material="leather chestplate"/>
+        <boots unbreakable="true" team-color="true" material="leather boots"/>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="cyan" kit="spawn-kit" yaw="270">
+        <region>
+            <cylinder base="-44.5,14,123.5" radius="3" height="0"/>
+        </region>
+    </spawn>
+    <spawn team="green" kit="spawn-kit" yaw="90">
+        <region>
+            <cylinder base="305.5,14,123.5" radius="3" height="0"/>
+        </region>
+    </spawn>
+    <default>
+        <region>
+            <cylinder base="130.5,78,19.5" radius="4" height="0"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="cyan-only">cyan</team>
+    <team id="green-only">green</team>
+    <any id="blocks-only">
+        <material>emerald ore</material>
+        <material>emerald block</material>
+        <material>tnt</material>
+    </any>
+</filters>
+<regions>
+    <!-- Region Definitions -->
+    <rectangle id="all" min="-54,38" max="315,231"/>
+    <union id="bases">
+        <circle id="cyan-base" center="-54,123.5" radius="35"/>
+        <circle id="green-base" center="315,123.5" radius="35"/>
+    </union>
+    <union id="mountains">
+        <cuboid min="273,10,49" max="-11,21,39"/>
+        <cuboid min="272,22,216" max="-53,51,231"/>
+        <cuboid min="314,19,161" max="265,65,244"/>
+    </union>
+    <union id="nodes">
+        <union id="green-nodes">
+            <circle id="green-speed-node" center="53,143" radius="2"/>
+            <circle id="green-haste-node" center="25,86" radius="2"/>
+        </union>
+        <union id="cyan-nodes">
+            <circle id="cyan-speed-node" center="207,143" radius="2"/>
+            <circle id="cyan-haste-node" center="235,86" radius="2"/>
+        </union>
+    </union>
+    <!-- Filter Applications -->
+    <apply kit="speed-node">
+        <region>
+            <region id="green-speed-node"/>
+            <region id="cyan-speed-node"/>
+        </region>
+    </apply>
+    <apply kit="haste-node">
+        <region>
+            <region id="green-haste-node"/>
+            <region id="cyan-haste-node"/>
+        </region>
+    </apply>
+    <apply region="green-nodes" enter="green-only" message="You may not use your own node!"/>
+    <apply region="cyan-nodes" enter="cyan-only" message="You may not use your own node!"/>
+    <apply region="mountains" enter="never" message="The mountains are out of bounds! Climb down now."/>
+    <apply region="cyan-base" enter="cyan-only" kit="heal" message="You may not enter the enemy's base!"/>
+    <apply region="green-base" enter="green-only" kit="heal" message="You may not enter the enemy's base!"/>
+    <apply region="bases" block="never"/>
+    <apply region="all" block="blocks-only"/>
+</regions>
+<destroyables materials="emerald block">
+    <destroyables owner="cyan">
+        <destroyable name="Cendrum">
+            <region>
+                <cuboid min="-37,13,56" max="-33,17,60"/>
+            </region>
+        </destroyable>
+        <destroyable name="Left Capacitor">
+            <region>
+                <cuboid min="11,5,108" max="15,10,112"/>
+            </region>
+        </destroyable>
+        <destroyable name="Right Capacitor">
+            <region>
+                <cuboid min="-10,5,167" max="-6,10,171"/>
+            </region>
+        </destroyable>
+    </destroyables>
+    <destroyables owner="green">
+        <destroyable name="Cendrum">
+            <region>
+                <cuboid min="295,13,56" max="299,17,60"/>
+            </region>
+        </destroyable>
+        <destroyable name="Left Capacitor">
+            <region>
+                <cuboid min="268,5,167" max="272,10,171"/>
+            </region>
+        </destroyable>
+        <destroyable name="Right Capacitor">
+            <region>
+                <cuboid min="247,5,108" max="251,10,112"/>
+            </region>
+        </destroyable>
+    </destroyables>
+</destroyables>
+<portals>
+    <portal x="@-44.5" y="@15" z="@123.5" pitch="@0" yaw="@270" filter="cyan-only">
+        <region>
+            <cuboid min="11,14,94" max="13,19,96"/>
+            <cuboid min="12,14,137" max="14,19,139"/>
+            <cuboid min="59,14,96" max="61,16,98"/>
+            <cuboid min="91,14,112" max="93,16,114"/>
+            <cuboid min="91,14,156" max="93,16,158"/>
+        </region>
+    </portal>
+    <portal x="@305.5" y="@15" z="@123.5" pitch="@0" yaw="@90" filter="green-only">
+        <region>
+            <cuboid min="249,14,94" max="251,19,96"/>
+            <cuboid min="248,14,137" max="250,19,139"/>
+            <cuboid min="201,14,96" max="203,19,98"/>
+            <cuboid min="169,14,112" max="171,19,114"/>
+            <cuboid min="169,14,156" max="171,19,158"/>
+        </region>
+    </portal>
+    <portal x="@54" y="@8" z="@-20">
+        <region>
+            <cuboid min="40,3,-32" max="42,5,-30"/>
+        </region>
+    </portal>
+    <portal x="@-53" y="@8" z="@21">
+        <region>
+            <cuboid min="-40,3,32" max="-38,5,34"/>
+        </region>
+    </portal>
+</portals>
+<itemremove>
+    <item>stone sword</item>
+    <item>leather chestplate</item>
+    <item>leather boots</item>
+    <item>bow</item>
+    <item>gold sword</item>
+    <item>iron sword</item>
+    <item>diamond sword</item>
+    <item>leather leggings</item>
+    <item>iron leggings</item>
+    <item>diamond leggings</item>
+    <item>iron chestplate</item>
+    <item>diamond chestplate</item>
+    <item>gold chestplate</item>
+    <item>wood pickaxe</item>
+    <item>stone pickaxe</item>
+    <item>diamond pickaxe</item>
+    <item>bread</item>
+    <item>glass bottle</item>
+    <item>iron pickaxe</item>
+    <item>grilled pork</item>
+    <item>arrow</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+        <item name="`7Upgrade Scroll" material="book"/>
+    </kill-reward>
+</kill-rewards>
+<tnt>
+    <instantignite>on</instantignite>
+    <yield>0</yield>
+</tnt>
+<timelock>on</timelock>
+</map>

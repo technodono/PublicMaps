@@ -1,0 +1,116 @@
+<map proto="1.5.0">
+<name>Justice</name>
+<version>0.9.4</version>
+<objective>Capture the enemy's flag as many times as possible in 12 minutes!</objective>
+<constant id="damage-resistance">4s</constant>
+<constant id="respawn-timer">2s</constant>
+<include id="conquest"/>
+<authors>
+    <author uuid="2ca8072f-74be-4798-85b8-bbce03aa91af"/> <!-- Tywnis -->
+</authors>
+<teams>
+    <team id="green-team" max="16" color="dark green">Green</team>
+    <team id="purple-team" max="16" color="dark purple">Purple</team>
+</teams>
+<kits>
+    <kit id="flag-pickup" force="true">
+        <effect>slowness</effect>
+    </kit>
+    <kit id="flag-reset" force="true">
+        <effect duration="0" amplifier="0">slowness</effect>
+    </kit>
+</kits>
+<spawns>
+    <default>
+        <region yaw="-90">
+            <cylinder base="146.5,23,180.5" radius="1" height="1"/>
+        </region>
+    </default>
+    <spawn team="green-team" kit="base-kit">
+        <region>
+            <cylinder base="200.5,7,123.5" radius="1" height="0"/>
+        </region>
+    </spawn>
+    <spawn team="purple-team" kit="base-kit">
+        <region yaw="180">
+            <cylinder base="200.5,7,237.5" radius="1" height="0"/>
+        </region>
+    </spawn>
+</spawns>
+<filters>
+    <material id="web-material">web</material>
+    <material id="beacon-material">beacon</material>
+</filters>
+<regions>
+    <above id="above-map" y="22"/>
+    <union id="spawns">
+        <cylinder id="green-spawn" base="200.5,7,123.5" radius="5" height="3"/>
+        <cylinder id="purple-spawn" base="200.5,7,237.5" radius="5" height="3"/>
+    </union>
+    <union id="nets">
+        <cylinder id="green-net" base="200.5,12,123.5" radius="3" height="3"/>
+        <cylinder id="purple-net" base="200.5,12,237.5" radius="3" height="3"/>
+    </union>
+    <apply enter="never" region="above-map" message="This area is off limits!"/>
+    <apply enter="green-team" region="green-spawn" message="You may not enter the enemy's spawn!"/>
+    <apply enter="purple-team" region="purple-spawn" message="You may not enter the enemy's spawn!"/>
+    <apply block="web-material" use="deny(beacon-material)"/>
+</regions>
+<time overtime="2m" max-overtime="6m" result="score">12m</time>
+<flags drop-on-water="false">
+    <flag id="green-flag" name="Green Flag" owner="green-team" color="green" pickup-kit="flag-pickup" drop-kit="flag-reset">
+        <post yaw="0" recover-time="20s" pickup-filter="purple-team">200.5,13,123.5</post>
+        <net points="1" region="purple-net"/>
+    </flag>
+    <flag id="purple-flag" name="Purple Flag" owner="purple-team" color="purple" pickup-kit="flag-pickup" drop-kit="flag-reset">
+        <post yaw="180" recover-time="20s" pickup-filter="green-team">200.5,13,237.5</post>
+         <net points="1" region="green-net"/>
+     </flag>
+</flags>
+<score>
+    <mercy>3</mercy>
+</score>
+<itemremove>
+    <item>string</item>
+</itemremove>
+<itemkeep>
+    <item>web</item>
+</itemkeep>
+<kill-rewards>
+    <kill-reward>
+        <item amount="10" material="arrow"/>
+    </kill-reward>
+    <kill-reward>
+        <filter>
+            <kill-streak count="3"/>
+        </filter>
+        <item material="web"/>
+    </kill-reward>
+</kill-rewards>
+<item-mods>
+    <rule>
+        <match>
+            <material>web</material>
+        </match>
+        <modify show-can-place-on="false">
+            <can-place-on>
+                <all-blocks/>
+            </can-place-on>
+        </modify>
+    </rule>
+    <rule>
+        <match>
+            <all-materials/>
+            <all-blocks/>
+        </match>
+        <modify show-can-destroy="false">
+            <can-destroy>
+                <material>web</material>
+            </can-destroy>
+        </modify>
+    </rule>
+</item-mods>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+</map>

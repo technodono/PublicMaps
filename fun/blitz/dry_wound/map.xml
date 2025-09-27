@@ -1,0 +1,75 @@
+<map proto="1.5.0">
+<name>Dry Wound</name>
+<version>1.0.7</version>
+<created>2013-06-09</created>
+<objective>Eliminate the other team before 5 minutes is up</objective>
+<gamemode>br</gamemode>
+<authors>
+    <author uuid="ef4ea031-998f-4ec9-b7b6-1bdd428bcef8"/> <!-- Plastix -->
+    <author uuid="2ca8072f-74be-4798-85b8-bbce03aa91af"/> <!-- Tywnis -->
+</authors>
+<teams>
+    <team id="red" color="dark red" max="20">Red</team>
+    <team id="blue" color="blue" max="20">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" enchantment="damage all:10" lore="`91-Hit Kill!" material="iron sword"/>
+        <item slot="1" enchantment="arrow damage:10;arrow fire:10" lore="`91-Shot Kill!" material="bow"/>
+        <item slot="2" material="arrow"/>
+        <helmet locked="true" team-color="true" material="leather helmet"/>
+        <chestplate locked="true" team-color="true" material="leather chestplate"/>
+        <leggings locked="true" team-color="true" material="leather leggings"/>
+        <boots locked="true" team-color="true" material="leather boots"/>
+        <effect duration="5">heal</effect>
+        <effect duration="5" amplifier="4">damage resistance</effect>
+        <game-mode>adventure</game-mode>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red" kit="spawn-kit" yaw="45">
+        <region>
+            <point>27.5,10,-53.5</point>
+        </region>
+    </spawn>
+    <spawn team="blue" kit="spawn-kit" yaw="-135">
+        <region>
+            <point>-26.5,10,54.5</point>
+        </region>
+    </spawn>
+    <default yaw="90">
+        <region>
+            <cylinder base="-45,39,0" radius="1" height="0"/>
+        </region>
+    </default>
+</spawns>
+<regions>
+    <apply block="never"/>
+</regions>
+<time>5m</time>
+<blitz>
+    <lives>1</lives>
+</blitz>
+<rage/>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+</toolrepair>
+<itemremove>
+    <item>arrow</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+        <item material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<timelock>on</timelock>
+<respawn auto="true"/>
+</map>

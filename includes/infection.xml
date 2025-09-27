@@ -1,0 +1,148 @@
+<map>
+<!-- Infection gamemode include file -->
+<!-- Created by Cazadorian -->
+<!-- Modified by zzuf -->
+<!-- Version 2025-07-15-1 -->
+<constants fallback="true">
+    <constant id="time-limit">8</constant> <!-- Time limit in minutes -->
+    <constant id="compass-distribution-time">7</constant> <!-- The time limit in minutes minus 1 -->
+    <constant id="zombie-team-name">Zombies</constant>
+    <constant id="human-team-name">Humans</constant>
+    <constant id="zombie-team-color">dark green</constant>
+    <constant id="human-team-color">gold</constant>
+    <constant id="disabled-damage">fall</constant>
+    <constant id="enable-player-tracker">always</constant> <!-- Maps can opt out by using 'never' or customize by setting their own filter ID -->
+</constants>
+<objective>${human-team-name} must survive against the ${zombie-team-name} for ${time-limit} minutes!</objective>
+<gamemode>infection</gamemode>
+<broadcasts>
+    <tip after="4s" filter="human-team">You are a ${human-team-name}, you must survive for as long as possible against the waves of ${zombie-team-name}. If you die, you join the ${zombie-team-name}!</tip>
+    <tip after="4s" filter="zombie-team">You are a ${zombie-team-name}, you must kill all of the ${human-team-name} to win!</tip>
+    <unless min-server-version="1.8">
+        <alert after="${compass-distribution-time}m" filter="${enable-player-tracker}">${zombie-team-name} can now `etrack`r the nearest ${human-team-name} with a compass!</alert>
+    </unless>
+    <if min-server-version="1.9">
+        <alert after="${compass-distribution-time}m" filter="${enable-player-tracker}">${zombie-team-name} can now `etrack`r glowing ${human-team-name}!</alert>
+    </if>
+</broadcasts>
+<teams>
+    <team id="zombie-team" color="${zombie-team-color}" plural="true" min="1" max="4">${zombie-team-name}</team>
+    <team id="human-team" color="${human-team-color}" show-name-tags="false" plural="true" min="1" max="36">${human-team-name}</team>
+</teams>
+<time result="human-team">${time-limit}m</time>
+<respawns auto="true">
+    <respawn delay="0s" filter="human-team"/>
+    <respawn delay="0s" filter="all(zombie-team,not(wait-filter))"/>
+    <respawn delay="2s" filter="all(zombie-team,wait-filter)"/>
+</respawns>
+<filters>
+    <!-- Needed since PGM doesn't respawn you fast enough to switch to the zombie team once you die as human -->
+    <after id="wait-filter" duration="0.05s">
+        <player>
+            <team>zombie-team</team>
+        </player>
+    </after>
+</filters>
+<blitz filter="never" join-filter="always">
+    <broadcastLives>false</broadcastLives>
+</blitz>
+<kits>
+    <kit id="default-human-kit">
+        <item slot="0" unbreakable="true" material="iron sword"/>
+        <item slot="1" unbreakable="true" material="bow"/>
+        <item slot="2" material="arrow" amount="48"/>
+        <helmet unbreakable="true" material="chainmail helmet"/>
+        <chestplate unbreakable="true" material="chainmail chestplate"/>
+        <leggings unbreakable="true" material="chainmail leggings"/>
+        <boots unbreakable="true" material="iron boots"/>
+        <game-mode>adventure</game-mode>
+    </kit>
+    <kit id="default-zombie-kit">
+        <item slot="0" unbreakable="true" material="stone sword" name="`2`lInfection Sword"/>
+        <helmet locked="true" material="skull item" damage="2"/>
+        <chestplate locked="true" unbreakable="true" team-color="true" material="leather chestplate"/>
+        <leggings locked="true" unbreakable="true" team-color="true" material="leather leggings"/>
+        <boots locked="true" unbreakable="true" team-color="true" material="leather boots"/>
+        <effect duration="5s">increase damage</effect>
+        <effect>speed</effect>
+        <game-mode>adventure</game-mode>
+    </kit>
+    <kit id="zombie-switch-kit" force="true">
+        <team-switch team="zombie-team"/>
+    </kit>
+</kits>
+<compass show-distance="true">
+    <player filter="human-team" name="`eClosest ${human-team-name}"/>
+</compass>
+<regions>
+    <apply block="deny(participating)"/>
+</regions>
+<actions>
+    <unless min-server-version="1.8">
+        <trigger scope="player">
+            <action>
+                <kit>
+                    <item prevent-sharing="true" material="compass"/>
+                </kit>
+            </action>
+            <filter>
+                <all>
+                    <filter id="${enable-player-tracker}"/>
+                    <filter id="zombie-team"/>
+                    <time>${compass-distribution-time}m</time>
+                    <alive/>
+                    <not>
+                        <carrying>
+                            <item prevent-sharing="true" material="compass"/> <!-- Return compass after death or dropping -->
+                        </carrying>
+                    </not>
+                </all>
+            </filter>
+        </trigger>
+    </unless>
+    <if min-server-version="1.9">
+        <trigger scope="player">
+            <action>
+                <kit>
+                    <effect>glowing</effect>
+                </kit>
+            </action>
+            <filter>
+                <all>
+                    <filter id="${enable-player-tracker}"/>
+                    <filter id="human-team"/>
+                    <time>${compass-distribution-time}m</time>
+                </all>
+            </filter>
+        </trigger>
+    </if>
+</actions>
+<itemremove>
+    <item>arrow</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>chainmail chestplate</item>
+    <item>chainmail leggings</item>
+    <item>chainmail boots</item>
+    <item>chainmail helmet</item>
+    <item>iron chestplate</item>
+    <item>iron leggings</item>
+    <item>iron boots</item>
+    <item>iron helmet</item>
+    <item>skull item</item>
+    <item>stone sword</item>
+    <item>iron sword</item>
+    <item>armor stand</item>
+    <item>bow</item>
+    <item>iron boots</item>
+    <item>compass</item>
+</itemremove>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<disabledamage>
+    <damage>${disabled-damage}</damage>
+</disabledamage>
+</map>

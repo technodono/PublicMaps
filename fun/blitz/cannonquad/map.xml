@@ -1,0 +1,221 @@
+<map proto="1.5.0">
+<name>CannonQuad</name>
+<phase>staging</phase>
+<version>1.4.1</version>
+<objective>Destroy your opponents within 10 minutes and 30 seconds.</objective>
+<created>2014-09-02</created>
+<gamemode>blitz</gamemode>
+<variant id="christmas" world="christmas" override="true">ChristmasQuad</variant>
+<authors>
+    <author uuid="9bfbc560-244a-4e28-ab70-185f39740ec1"/> <!-- Zan -->
+    <if variant="christmas">
+        <author uuid="205d1aad-c619-499b-9885-b91c372b1c13" contribution="Christmas-izing"/> <!-- lord_creeper01 -->
+    </if>
+</authors>
+<contributors>
+    <contributor uuid="3fbec7dd-0a5f-40bf-9d11-885a54507112" contribution="Kits and Ideas (From Cannon Duel)"/> <!-- last_username -->
+    <contributor uuid="dad8b95c-cf6a-44df-982e-8c8dd70201e0" contribution="Kits and Ideas (From Cannon Duel)"/> <!-- ElectroidFilms -->
+    <contributor uuid="a9f11454-beac-4cc3-a138-1780802c8794" contribution="Gameplay enhancements (From the map previously known as CannonQuad+)"/> <!-- Crazy_ -->
+</contributors>
+<rules>
+    <rule>Do not attempt to hide.</rule>
+</rules>
+<broadcasts>
+    <alert after="1s">`7You have 20 seconds to prepare.</alert>
+    <tip after="10s">`7After 4 minutes bridges between sides will connect.</tip>
+    <tip after="15s" every="1m" count="6" filter="only-red">`7You can only bridge between the four `4Red `7islands.</tip>
+    <tip after="15s" every="1m" count="6" filter="only-blue">`7You can only bridge between the four `9Blue `7islands.</tip>
+    <tip after="15s" every="1m" count="6" filter="only-yellow">`7You can only bridge between the four `eYellow `7islands.</tip>
+    <tip after="15s" every="1m" count="6" filter="only-green">`7You can only bridge between the four `2Green `7islands.</tip>
+    <alert after="25s">`7TNT is hidden underneath the islands, so be careful or you may be destroyed.</alert>
+    <alert after="6m">`7You may now build in the center.</alert>
+</broadcasts>
+<teams>
+    <team id="red" color="dark red" max="10">Red</team>
+    <team id="blue" color="blue" max="10">Blue</team>
+    <team id="green" color="green" max="10">Green</team>
+    <team id="yellow" color="yellow" max="10">Yellow</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item amount="1" attributes="generic.attackDamage:add:2" enchantment="knockback:1" name="`fBlunt Diamond Pickaxe" slot="0" material="diamond pickaxe" unbreakable="true"/>
+        <item amount="64" slot="1" material="snow ball"/>
+        <item amount="64" damage="3" name="Bridge Builder" slot="8" material="leaves"/>
+        <item slot="28" name="`a`oiCarus Blade" material="wood sword"/>
+        <item slot="10" amount="64" material="tnt"/>
+        <item slot="2" amount="64" material="vine"/>
+        <item slot="11" amount="64" material="tnt"/>
+        <item slot="4" amount="64" material="nether fence"/>
+        <item slot="9" amount="64" material="tnt"/>
+        <item slot="18" amount="64" material="tnt"/>
+        <item slot="19" amount="64" material="tnt"/>
+        <item slot="20" amount="64" material="tnt"/>
+        <item slot="31" amount="64" material="step"/>
+        <item slot="22" amount="16" material="ladder"/>
+        <item slot="5" amount="16" material="stone button"/>
+        <item slot="32" amount="8" material="stone plate"/>
+        <item slot="23" amount="16" material="lever"/>
+        <item slot="14" amount="16" material="trap door"/>
+        <item slot="6" material="water bucket"/>
+        <item slot="33" material="water bucket"/>
+        <item slot="24" material="water bucket"/>
+        <item slot="15" amount="16" material="piston base"/>
+        <item slot="7" amount="16" material="redstone block"/>
+        <item slot="34" amount="64" material="redstone"/>
+        <item slot="25" amount="16" material="redstone torch on"/>
+        <item slot="16" amount="16" material="diode"/>
+        <item slot="35" amount="8" material="sand"/>
+        <item slot="26" amount="3" material="dispenser"/>
+        <item slot="17" amount="8" material="redstone comparator"/>
+        <item slot="21" team-color="true" amount="64" material="stained clay"/>
+        <item slot="30" team-color="true" amount="64" material="stained clay"/>
+        <item slot="3" team-color="true" amount="64" material="stained clay"/>
+        <helmet locked="true" team-color="true" enchantment="water worker:3" unbreakable="true" material="leather helmet"/>
+        <chestplate locked="true" team-color="true" unbreakable="true" material="leather chestplate"/>
+        <leggings locked="true" team-color="true" unbreakable="true" material="leather leggings"/>
+        <boots locked="true" team-color="true" unbreakable="true" material="leather boots"/>
+        <effect duration="25" amplifier="5">damage resistance</effect>
+        <effect duration="25" amplifier="5">heal</effect>
+    </kit>
+    <kit id="death">
+        <effect amplifier="5">harm</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red" kit="spawn-kit" yaw="90">
+        <region>
+            <cylinder base="24.5,61,-75.5" radius="3" height="0"/>
+        </region>
+    </spawn>
+    <spawn team="blue" kit="spawn-kit" yaw="180">
+        <region>
+            <cylinder base="24.5,61,-1.5" radius="3" height="0"/>
+        </region>
+    </spawn>
+    <spawn team="green" kit="spawn-kit">
+        <region>
+            <cylinder base="-49.5,61,-75.5" radius="3" height="0"/>
+        </region>
+    </spawn>
+    <spawn team="yellow" kit="spawn-kit" yaw="-90">
+        <region>
+            <cylinder base="-49.5,61,-1.5" radius="3" height="0"/>
+        </region>
+    </spawn>
+    <default pitch="20">
+        <region>
+            <cylinder base="-12.5,37,-38.5" radius="1" height="0"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-red">red</team>
+    <team id="only-blue">blue</team>
+    <team id="only-green">green</team>
+    <team id="only-yellow">yellow</team>
+    <deny id="deny-break">
+        <any>
+            <material>stained glass pane</material>
+            <material>stained glass</material>
+            <material>chest</material>
+        </any>
+    </deny>
+    <all id="region-enabled">
+        <time>6m</time>
+    </all>
+    <not id="blitz-join-filter">
+        <time>20s</time>
+    </not>
+</filters>
+<regions>
+    <!-- Region Definitions -->
+    <negative id="void-area">
+        <rectangle id="playable" min="34,8" max="-60,-86"/>
+    </negative>
+    <cuboid id="top" min="oo,51,oo" max="-oo,oo,-oo"/>
+    <cuboid id="death-kit-region" min="-18,31,-44" max="-8,50,-34"/>
+    <negative id="no-bridge-region">
+        <rectangle id="green-side" min="-60,-86" max="-19,-45"/>
+        <rectangle id="red-side" min="-6,-87" max="36,-45"/>
+        <rectangle id="blue-side" min="-6,-32" max="35,10"/>
+        <rectangle id="yellow-side" min="-59,-32" max="-19,8"/>
+    </negative>
+    <union id="center-bridging-areas">
+        <rectangle min="-19.0,-20.0" max="-6,-57.0"/>
+        <rectangle min="6.0,-32.0" max="-31.0,-45.0"/>
+    </union>
+    <cuboid id="connected-bridges" min="100,63,100" max="-100,6,-100"/>
+    <!-- Applied Rules -->
+    <apply kit="death" region="death-kit-region"/>
+    <apply block="never" region="top" message="You may not build here."/>
+    <apply block="never" region="void-area" message="You may not build outside the playable area."/>
+    <apply block="region-enabled" region="center-bridging-areas" message="This region is disabled until 6m have passed."/>
+    <apply block="never" region="no-bridge-region" message="You may not bridge outside your area."/>
+    <apply block-break="deny-break" message="You may not break this block."/>
+</regions>
+<time>10m30s</time>
+<blitz join-filter="blitz-join-filter">
+    <lives>1</lives>
+</blitz>
+<disabledamage>
+    <damage ally="true" self="false" enemy="false" other="false">block explosion</damage>
+</disabledamage>
+<itemremove>
+    <item>diamond pickaxe</item>
+    <item>snow ball</item>
+    <item>leaves</item>
+    <item>vine</item>
+    <item>stained clay</item>
+    <item>stained glass</item>
+    <item>nether fence</item>
+    <item>step</item>
+    <item>ladder</item>
+    <item>trap door</item>
+    <item>stone plate</item>
+    <item>piston base</item>
+    <item>redstone block</item>
+    <item>redstone</item>
+    <item>stone button</item>
+    <item>lever</item>
+    <item>redstone torch on</item>
+    <item>diode</item>
+    <item>water bucket</item>
+    <item>bucket</item>
+    <item>tnt</item>
+    <item>leather helmet</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>bucket</item>
+    <item>diamond block</item>
+    <item>iron block</item>
+    <item>iron ingot</item>
+    <item>hopper</item>
+    <item>redstone comparator</item>
+    <item>sand</item>
+    <item>leather chestplate</item>
+    <item>dispenser</item>
+    <item>wool</item>
+    <item>wood sword</item>
+    <item>snow ball</item>
+    <item>log</item>
+    <item>glowstone dust</item>
+</itemremove>
+<timelock>on</timelock>
+<maxbuildheight>25</maxbuildheight>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<!-- TODO: replace fake destroyable with fill action -->
+<destroyables>
+    <destroyable name="Placeholder" materials="stained glass" completion="0%" show="false" mode-changes="true" owner="blue" region="connected-bridges"/>
+</destroyables>
+<modes>
+    <mode after="20s" material="air" show-before="20" name="Fight!"/>
+    <mode after="4m" material="95:15" show-before="60" name="Connecting the platforms."/>
+    <mode after="6m" material="95:15" show-before="60" name="Border shrink begins."/>
+</modes>
+<world-borders center="-12.5,-38.5">
+    <world-border size="125"/>
+    <world-border size="10" after="6m" duration="4m30s"/>
+</world-borders>
+</map>

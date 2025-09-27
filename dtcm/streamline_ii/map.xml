@@ -1,0 +1,150 @@
+<map proto="1.5.0">
+<name>Streamline II</name>
+<version>1.0.5</version>
+<objective>Destroy and leak the enemy team's obsidian cores.</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="e37f18f1-117b-47db-8806-6d3a0854b518"/> <!-- chickolympics -->
+    <author uuid="621b2aa8-4e5f-4ed8-bd36-0ae2f8952a06"/> <!-- thestrangeboy1 -->
+    <author uuid="dad8b95c-cf6a-44df-982e-8c8dd70201e0"/> <!-- ElectroidFilms -->
+</authors>
+<teams>
+    <team id="blue" color="blue" max="25">Blue</team>
+    <team id="red" color="dark red" max="25">Red</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" unbreakable="true" material="iron sword"/>
+        <item slot="1" unbreakable="true" enchantment="arrow damage" material="bow"/>
+        <item slot="2" unbreakable="true" material="diamond pickaxe"/>
+        <item slot="3" unbreakable="true" material="iron axe"/>
+        <item slot="5" amount="64" material="wood"/>
+        <item slot="32" amount="64" material="wood"/>
+        <item slot="4" amount="64" material="smooth brick"/>
+        <item slot="31" amount="64" material="smooth brick"/>
+        <item slot="8" amount="32" material="arrow"/>
+        <helmet team-color="true" enchantment="protection projectile;protection explosions;durability:2" material="leather helmet"/>
+        <chestplate team-color="true" material="leather chestplate"/>
+        <effect duration="5" amplifier="4">damage resistance</effect>
+        <effect duration="5" amplifier="4">heal</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="blue" kit="spawn-kit" yaw="180">
+        <region>
+            <cylinder base="0.5,10,89.5" radius="2" height="0"/>
+        </region>
+    </spawn>
+    <spawn team="red" kit="spawn-kit">
+        <region>
+            <cylinder base="0.5,10,-89.5" radius="2" height="0"/>
+        </region>
+    </spawn>
+    <default yaw="-90">
+        <region>
+            <point>-72.5,10,0.5</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <deny id="no-beacon">
+        <material>beacon</material>
+    </deny>
+    <not id="no-water">
+        <any>
+            <material>water</material>
+            <material>stationary water</material>
+        </any>
+    </not>
+    <not id="manual-break-core">
+        <all>
+            <cause>explosion</cause>
+            <material id="core-materials">obsidian</material>
+        </all>
+    </not>
+</filters>
+<regions>
+    <union id="centers">
+        <rectangle id="blue-center" min="28,77" max="-27,33"/>
+        <rectangle id="red-center" min="-27,-77" max="28,-33"/>
+    </union>
+    <union id="spawns">
+        <cylinder id="blue-spawn-area" base="0.5,9,89.5" radius="5" height="4"/>
+        <cylinder id="red-spawn-area" base="0.5,9,-89.5" radius="5" height="4"/>
+    </union>
+    <negative id="outside-cores">
+        <union id="cores">
+            <sphere id="blue-front-core-sphere" origin="-19.5,15.5,26.5" radius="3.5"/>
+            <sphere id="blue-back-core-sphere" origin="35.5,16.5,48.5" radius="3.5"/>
+            <sphere id="red-front-core-sphere" origin="20.5,15.5,-26.5" radius="3.5"/>
+            <sphere id="red-back-core-sphere" origin="-34.5,16.5,-48.5" radius="3.5"/>
+        </union>
+    </negative>
+    <union id="no-water-area">
+        <circle id="blue-front-water" center="-19.5,26.5" radius="5"/>
+        <circle id="blue-back-water" center="35.5,48.5" radius="5"/>
+        <circle id="red-front-water" center="20.5,-26.5" radius="5"/>
+        <circle id="red-back-water" center="-34.5,-48.5" radius="5"/>
+    </union>
+    <union id="diamond-islands">
+        <cuboid id="island-a" min="-27,9,4" max="-32,12,-3"/>
+        <mirror id="island-b" region="island-a" origin="0.5,0,0.5" normal="-1,0,0"/>
+    </union>
+    <negative id="outside-map">
+        <rectangle id="map" min="44,96" max="-43,-96"/>
+    </negative>
+    <apply region="spawns" block="never" message="You may not modify the spawns!"/>
+    <apply region="outside-map" block="never" message="You may not bridge outside of the map!"/>
+    <apply region="no-water-area" block-place="no-water" message="No water around the core"/>
+    <apply region="cores" block-break="manual-break-core"/>
+    <apply region="centers" block="deny(void)" message="You may not modify the void area!"/>
+    <apply use="no-beacon"/>
+</regions>
+<cores material="obsidian" leak="4">
+    <core id="red-back-core" name="Back Core" team="red" region="red-back-core-sphere"/>
+    <core id="red-front-core" name="Front Core" team="red" region="red-front-core-sphere"/>
+    <core id="blue-back-core" name="Back Core" team="blue" region="blue-back-core-sphere"/>
+    <core id="blue-front-core" name="Front Core" team="blue" region="blue-front-core-sphere"/>
+</cores>
+<renewables>
+    <renewable region="diamond-islands" rate="0.35" grow="true" particles="true">
+        <renew-filter>
+            <material>diamond block</material>
+        </renew-filter>
+    </renewable>
+</renewables>
+<itemremove>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>arrow</item>
+    <item>wood</item>
+    <item>smooth brick</item>
+    <item>glass</item>
+    <item>obsidian</item>
+    <item>quartz block</item>
+    <item>quartz stairs</item>
+    <item>clay ball</item>
+    <item>item frame</item>
+    <item>beacon</item>
+    <item>golden apple</item>
+</itemremove>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>iron chestplate</tool>
+    <tool>diamond pickaxe</tool>
+    <tool>iron axe</tool>
+    <tool>bow</tool>
+</toolrepair>
+<kill-rewards>
+    <kill-reward>
+        <item amount="16" material="arrow"/>
+        <item amount="16" material="smooth brick"/>
+        <item amount="16" material="wood"/>
+        <item amount="16" material="tnt"/>
+    </kill-reward>
+</kill-rewards>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<maxbuildheight>18</maxbuildheight>
+</map>

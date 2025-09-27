@@ -1,0 +1,132 @@
+<map proto="1.5.0">
+<name>Mayan Apocalypse</name>
+<version>1.1.9</version>
+<objective>Destroy the enemy's core!</objective>
+<created>2012-12-13</created>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="e8d1ad63-bd9e-4d0e-9a6c-27f2b047d924" contribution="Overall Map Design"/> <!-- Mikeg542 -->
+</authors>
+<contributors>
+    <contributor uuid="10e0a7d8-065a-4a93-8136-42a2c5d78b54" contribution="XML Code"/> <!-- XX_iiShockzz_XX -->
+    <contributor uuid="02e231d1-107d-46e0-9327-d32a0fed78ab" contribution="Cleansing XML Code"/> <!-- msalihov -->
+</contributors>
+<teams>
+    <team id="orange" color="gold" max="32">Orange</team>
+    <team id="purple" color="dark purple" max="32">Purple</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <clear/>
+        <item slot="0" material="iron sword"/>
+        <item slot="1" material="bow"/>
+        <item slot="28" amount="64" material="arrow"/>
+        <item slot="2" material="diamond pickaxe"/>
+        <item slot="3" material="iron axe"/>
+        <item amount="64" damage="2" slot="4" material="log"/>
+        <item slot="7" material="golden apple"/>
+        <helmet team-color="true" unbreakable="true" enchantment="protection fall" material="leather helmet"/>
+        <chestplate team-color="true" unbreakable="true" material="leather chestplate"/>
+    </kit>
+</kits>
+<spawns>
+    <default>
+        <region>
+            <cylinder base="-17.0,67.0,116" height="0" radius="2"/>
+        </region>
+    </default>
+    <spawn team="orange" kit="spawn-kit">
+        <region>
+            <cylinder base="-134.0,31.0,4.5" height="0" radius="2"/>
+        </region>
+    </spawn>
+    <spawn team="purple" kit="spawn-kit" yaw="180">
+        <region>
+            <cylinder base="107.0,31.0,75" height="0" radius="2"/>
+        </region>
+    </spawn>
+</spawns>
+<filters>
+    <any id="spawn-permit">
+        <material>iron block</material>
+        <material>water</material>
+        <material>stationary water</material>
+    </any>
+    <deny id="deny-beacon">
+        <material>beacon</material>
+    </deny>
+</filters>
+<regions>
+    <union id="beacons">
+        <cuboid max="-152,23,73" min="-148,100,69"/>
+        <cuboid max="125,23,7" min="121,100,11"/>
+    </union>
+    <union id="spawns">
+        <rectangle id="orange-spawn" max="-116,37" min="-152,0"/>
+        <rectangle id="purple-spawn" max="126,81" min="89,43"/>
+    </union>
+    <rectangle id="playable-area" max="126,81" min="-152,0"/>
+    <!-- Beacon protection -->
+    <apply block="never" use="deny-beacon" message="You may not interact with the core beacon!" region="beacons"/>
+    <!-- Spawn protection -->
+    <apply block-break="spawn-permit" block-place="deny(participating)" message="You may not break any blocks other than iron!" region="spawns"/>
+    <!-- Playable region -->
+    <apply block="deny(void)" message="You may not build outside the map!">
+        <region>
+            <complement>
+                <everywhere/>
+                <region id="playable-area"/>
+            </complement>
+        </region>
+    </apply>
+</regions>
+<cores leak="4" material="obsidian" mode-changes="true">
+    <core team="orange">
+        <region>
+            <cuboid max="-144.0,40.0,66.0" min="-138.0,34.0,75.0"/>
+        </region>
+    </core>
+    <core team="purple">
+        <region>
+            <cuboid max="117.0,40.0,14.0" min="112.0,34.0,6.0"/>
+        </region>
+    </core>
+</cores>
+<modes>
+    <mode after="20m" material="gold block" name="`6GOLD CORE MODE"/>
+</modes>
+<toolrepair>
+    <tool>iron axe</tool>
+    <tool>iron sword</tool>
+    <tool>diamond pickaxe</tool>
+    <tool>bow</tool>
+</toolrepair>
+<itemremove>
+    <item>log</item>
+    <item>wood</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>obsidian</item>
+    <item>gold block</item>
+    <item>flint</item>
+    <item>string</item>
+    <item>seeds</item>
+</itemremove>
+<itemkeep>
+    <item>golden apple</item>
+    <item>arrow</item>
+</itemkeep>
+<kill-rewards>
+    <kill-reward>
+        <item amount="16" material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+<world>
+    <timelock>on</timelock>
+    <timeset>18000</timeset>
+</world>
+<maxbuildheight>75</maxbuildheight>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+</map>

@@ -1,0 +1,115 @@
+<map proto="1.5.0">
+<name>Sweet Tooth</name>
+<variant id="halloween" world="halloween" override="true">Sore Teeth</variant>
+<version>1.0.10</version>
+<objective>Elimate the enemy team before time runs out!</objective>
+<gamemode>br</gamemode>
+<authors>
+    <author uuid="38ab65dd-95f9-406f-917c-6accc995421f"/> <!-- GoldenOre -->
+    <author uuid="0eadbe6d-0a2e-41c6-aec3-e1ba291fb266"/> <!-- Cheesedaman -->
+</authors>
+<rules>
+    <rule>Fall damage is disabled.</rule>
+</rules>
+<teams>
+    <unless variant="halloween">
+        <team id="lime" color="green" max="20" max-overfill="25">Lime</team>
+        <team id="blue" color="blue" max="20" max-overfill="25">Blue</team>
+    </unless>
+    <if variant="halloween">
+        <team id="lime" color="green" max="20" max-overfill="25">Green</team>
+        <team id="blue" color="dark purple" max="20" max-overfill="25">Purple</team>
+    </if>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="1" enchantment="arrow damage:10" material="bow" unbreakable="true"/>
+        <item slot="2" material="arrow"/>
+        <item slot="3" amount="14" material="golden carrot"/>
+        <effect duration="5" amplifier="25">heal</effect>
+        <effect duration="5" amplifier="25">damage resistance</effect>
+        <effect duration="oo" amplifier="2">speed</effect>
+        <chestplate team-color="true" material="leather chestplate" unbreakable="true"/>
+        <leggings team-color="true" material="leather leggings" unbreakable="true"/>
+        <game-mode>adventure</game-mode>
+    </kit>
+    <kit id="regular-kit" parents="spawn-kit">
+        <item slot="0" enchantment="damage all:10" material="gold sword" unbreakable="true"/>
+        <helmet material="gold helmet" unbreakable="true"/>
+        <boots material="gold boots" unbreakable="true"/>
+    </kit>
+    <kit id="halloween-kit" parents="spawn-kit">
+        <item slot="0" enchantment="damage all:10" material="iron sword" unbreakable="true"/>
+        <helmet material="iron helmet" unbreakable="true"/>
+        <boots material="iron boots" unbreakable="true"/>
+    </kit>
+</kits>
+<spawns>
+    <unless variant="halloween">
+        <spawn team="blue" kit="regular-kit">
+            <region yaw="90">
+                <point>72.5,52,3.5</point>
+            </region>
+        </spawn>
+        <spawn team="lime" kit="regular-kit">
+            <region yaw="-90">
+                <point>-69.5,52,-4.5</point>
+            </region>
+        </spawn>
+        <default>
+            <region yaw="-90">
+                <point>1.5,68,0</point>
+            </region>
+        </default>
+    </unless>
+    <if variant="halloween">
+        <spawn team="blue" kit="halloween-kit">
+            <region yaw="90">
+                <point>72.5,50,5</point>
+            </region>
+        </spawn>
+        <spawn team="lime" kit="halloween-kit">
+            <region yaw="-90">
+                <point>-71.5,50,-6</point>
+            </region>
+        </spawn>
+        <default>
+            <region yaw="180">
+                <point>0,104,-2.5</point>
+            </region>
+        </default>
+    </if>
+</spawns>
+<regions>
+    <apply block="never"/>
+</regions>
+<time>5m</time>
+<blitz>
+    <lives>1</lives>
+    <broadcastLives>true</broadcastLives>
+</blitz>
+<rage/>
+<itemremove>
+    <item>golden carrot</item>
+    <item>gold sword</item>
+    <item>iron sword</item>
+    <item>arrow</item>
+    <item>bow</item>
+    <item>leather chestplate</item>
+    <item>gold boots</item>
+    <item>gold helmet</item>
+    <item>iron boots</item>
+    <item>iron helmet</item>
+    <item>leather leggings</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+        <item material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+<disabledamage>
+    <damage>fall</damage>
+</disabledamage>
+<timelock>on</timelock>
+<respawn auto="true"/>
+</map>

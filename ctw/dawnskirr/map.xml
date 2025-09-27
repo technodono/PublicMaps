@@ -1,0 +1,232 @@
+<map proto="1.5.0">
+<name>Dawnskirr</name>
+<version>1.2.4</version>
+<objective>Capture the enemy's wool and bring it to your monument!</objective>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="2ca8072f-74be-4798-85b8-bbce03aa91af"/> <!-- Tywnis -->
+</authors>
+<teams>
+    <team id="red" color="dark red" max="12" max-overfill="16">Red</team>
+    <team id="blue" color="blue" max="12" max-overfill="16">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" unbreakable="true" material="stone sword"/>
+        <item slot="1" unbreakable="true" enchantment="arrow infinite" material="bow"/>
+        <item slot="2" unbreakable="true" material="iron pickaxe"/>
+        <item slot="3" unbreakable="true" material="iron axe"/>
+        <item slot="4" damage="2" amount="64" material="wood"/>
+        <item slot="5" amount="32" damage="9" material="stained glass"/>
+        <item slot="6" amount="64" material="cooked fish"/>
+        <item slot="7" enchantment="knockback" material="stick"/>
+        <item slot="28" material="arrow"/>
+        <chestplate team-color="true" unbreakable="true" material="leather chestplate"/>
+        <boots team-color="true" unbreakable="true" material="leather boots"/>
+        <effect duration="5" amplifier="4">damage resistance</effect>
+        <effect duration="5" amplifier="4">heal</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red" kit="spawn-kit">
+        <regions yaw="-45">
+            <cuboid min="2022,7,-1580" max="2025,7,-1577"/>
+        </regions>
+        <regions yaw="45">
+            <cuboid min="2104,7,-1577" max="2107,7,-1580"/>
+        </regions>
+    </spawn>
+    <spawn team="blue" kit="spawn-kit">
+        <regions yaw="135">
+            <cuboid min="2104,7,-1438" max="2107,7,-1435"/>
+        </regions>
+        <regions yaw="-135">
+            <cuboid min="2025,7,-1438" max="2022,7,-1435"/>
+        </regions>
+    </spawn>
+    <default>
+        <regions yaw="-90">
+            <cylinder base="2030.5,55,-1507.5" radius="2" height="0"/>
+        </regions>
+    </default>
+</spawns>
+<filters>
+    <deny id="deny-some">
+        <any id="denied-blocks">
+            <material>mob spawner</material>
+            <material>chest</material>
+            <material>fence</material>
+            <material>beacon</material>
+        </any>
+    </deny>
+    <any id="only-blue-w">
+        <team id="only-blue">blue</team>
+        <filter id="deny-some"/>
+    </any>
+    <any id="only-red-w">
+        <team id="only-red">red</team>
+        <filter id="deny-some"/>
+    </any>
+    <not id="only-red-usage">
+        <all>
+            <any>
+                <material>chest</material>
+                <material>workbench</material>
+            </any>
+            <team>blue</team>
+        </all>
+    </not>
+    <not id="only-blue-usage">
+        <all>
+            <any>
+                <material>chest</material>
+                <material>workbench</material>
+            </any>
+            <team>red</team>
+        </all>
+    </not>
+</filters>
+<regions>
+    <negative id="playable-inverse">
+        <rectangle id="main-area" min="2024,-1432" max="2105,-1583"/>
+        <rectangle id="blue wool castle" min="2074.5,-1583.5" max="2054.5,-1602.5"/>
+        <rectangle id="red wool castle" min="2074.5,-1412.5" max="2054.5,-1431.5"/>
+    </negative>
+    <union id="spawns">
+        <union id="red-spawn-areas">
+            <circle id="r-spawn-1" center="2105,-1579" radius="10"/>
+            <circle id="r-spawn-2" center="2023,-1579" radius="10"/>
+        </union>
+        <union id="blue-spawn-areas">
+            <circle id="b-spawn-1" center="2023,-1437" radius="10"/>
+            <circle id="b-spawn-2" center="2105,-1437" radius="10"/>
+        </union>
+    </union>
+    <union id="victory-monuments">
+        <cylinder id="b-monument" base="2064.5,0,-1557.5" radius="2" height="13"/> 
+        <cylinder id="r-monument" base="2064.5,0,-1457.5" radius="2" height="13"/>
+    </union>
+    <union id="woolrooms">
+        <rectangle id="red-woolroom-interior" min="2078.5,-1591.5" max="2046.5,-1607.5"/>
+        <rectangle id="red-woolroom-all" min="2078.5,-1591.5" max="2046.5,-1607.5"/>
+        <rectangle id="blue-woolroom-interior" min="2078.5,-1423.5" max="2046.5,-1407.5"/>
+        <rectangle id="blue-woolroom-all" min="2078.5,-1423.5" max="2046.5,-1407.5"/>
+    </union>
+    <apply region="red-spawn-areas" enter="only-red" message="You may not enter the enemy's spawn!"/>
+    <apply region="blue-spawn-areas" enter="only-blue" message="You may not enter the enemy's spawn!"/>
+    <apply region="spawns" block="never" message="You may not modify this area!"/>
+    <apply region="victory-monuments" block="never" message="You may not modify the victory monument!"/>
+    <apply region="blue-woolroom-interior" enter="only-red" message="You may not enter the enemy's wool room!"/>
+    <apply region="red-woolroom-interior" enter="only-blue" message="You may not enter the enemy's wool room!"/>
+    <apply region="blue-woolroom-all" block="only-red-w" enter="only-red" use="only-red-usage" message="You may not modify the wool rooms!"/>
+    <apply region="red-woolroom-all" block="only-blue-w" enter="only-blue" use="only-blue-usage" message="You may not modify the wool rooms!"/>
+    <apply region="playable-inverse" block="never"/>
+    <apply block="deny-some" use="deny-some"/>
+</regions>
+<wools>
+    <wool team="blue" color="light blue" location="2064.5,18,-1414.5">
+        <monument>
+            <block>2064.5,10,-1457.5</block>
+        </monument>
+    </wool>
+    <wool team="red" color="red" location="2064.5,18,-1600.5">
+        <monument>
+            <block>2064.5,10,-1557.5</block>
+        </monument>
+    </wool>
+</wools>
+<falling-blocks>
+    <!-- make glass fall if it is not attached to wood or glass -->
+    <rule>
+        <filter>
+            <material>wood</material>
+        </filter>
+        <sticky>
+            <any>
+                <material>wood</material>
+                <material>stained glass</material>
+                <material>grass</material>
+                <material>dirt</material>
+                <material>gravel</material>
+                <material>sand</material>
+                <material>log</material>
+                <material>leaves</material>
+                <material>nether brick</material>
+                <material>step</material>
+                <material>iron block</material>
+                <material>bedrock</material>
+                <material>fence</material>
+                <material>double step</material>
+                <material>piston base</material>
+                <material>wool</material>
+                <material>redstone block</material>
+                <material>redstone lamp off</material>
+                <material>redstone lamp on</material>
+                <material>log 2</material>
+                <material>workbench</material>
+                <material>wood stairs</material>
+                <material>wood step</material>
+                <material>wood double step</material>
+            </any>
+        </sticky>
+    </rule>
+    <rule>
+        <filter>
+            <material>stained glass</material>
+        </filter>
+        <sticky>
+            <any>
+                <material>wood</material>
+                <material>stained glass</material>
+                <material>grass</material>
+                <material>dirt</material>
+                <material>gravel</material>
+                <material>sand</material>
+                <material>log</material>
+                <material>leaves</material>
+                <material>nether brick</material>
+                <material>step</material>
+                <material>iron block</material>
+                <material>bedrock</material>
+                <material>fence</material>
+                <material>double step</material>
+                <material>piston base</material>
+                <material>wool</material>
+                <material>redstone block</material>
+                <material>redstone lamp off</material>
+                <material>redstone lamp on</material>
+                <material>log 2</material>
+                <material>workbench</material>
+                <material>wood stairs</material>
+                <material>wood step</material>
+                <material>wood double step</material>
+            </any>
+        </sticky>
+    </rule>
+</falling-blocks>
+<toolrepair>
+    <tool>stone sword</tool>
+    <tool>bow</tool>
+    <tool>iron pickaxe</tool>
+    <tool>iron axe</tool>
+    <tool>arrow</tool>
+</toolrepair>
+<itemremove>
+    <item>stick</item>
+    <item>wool</item>
+    <item>stained glass</item>
+    <item>cooked fish</item>
+    <item>wood</item>
+    <item>cobblestone</item>
+    <item>dirt</item>
+    <item>sand</item>
+    <item>gravel</item>
+    <item>log</item>
+    <item>leather chestplate</item>
+    <item>leather boots</item>
+    <item>obsidian</item>
+    <item>golden apple</item>
+</itemremove>
+<maxbuildheight>32</maxbuildheight>
+<timelock>off</timelock>
+</map>

@@ -1,0 +1,142 @@
+<map proto="1.5.0" game="Destroy the Enemy">
+<name>Ximorta</name>
+<version>1.0.7</version>
+<created>2014-06-24</created>
+<objective>Destroy 50% of the other team's base! You have 8 minutes!</objective>
+<authors>
+    <author uuid="df5fd9f4-4840-4293-9346-5c77bf7bc08f"/> <!-- kalikakitty -->
+</authors>
+<contributors>
+    <contributor uuid="130be12a-f3b9-4b7d-ad39-7b45e84d3d0f" contribution="Building"/> <!-- Veiyl -->
+    <contributor uuid="dad8b95c-cf6a-44df-982e-8c8dd70201e0" contribution="Feedback and XML help"/> <!-- ElectroidFilms -->
+    <contributor uuid="060baa18-2852-40d8-afcb-e61607c04be3" contribution="Server Host"/> <!-- pepsidawg00 -->
+    <contributor uuid="ba4a93aa-4935-4a71-bab2-a58f9a124e7b" contribution="Feedback + Naming"/> <!-- ItsMiiOlly -->
+    <contributor uuid="2a289d2a-d970-49c5-9a6c-01fc0264e317" contribution="XML help"/> <!-- Stealth5061 -->
+</contributors>
+<rules>
+    <rule>Fall damage is disabled!</rule>
+</rules>
+<teams>
+    <team id="red" color="dark red" max="16" max-overfill="18">Red</team>
+    <team id="blue" color="blue" max="16" max-overfill="18">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" unbreakable="true" material="stone sword"/>
+        <item slot="1" unbreakable="true" enchantment="arrow infinite" material="bow"/>
+        <item slot="2" unbreakable="true" material="iron pickaxe"/>
+        <item slot="3" unbreakable="true" material="iron axe"/>
+        <item slot="4" amount="64" material="smooth brick"/>
+        <item slot="31" amount="64" damage="1" material="wood"/>
+        <item slot="22" amount="64" damage="1" material="wood"/>
+        <item slot="5" amount="64" material="tnt"/>
+        <item slot="32" amount="64" material="tnt"/>
+        <item slot="23" amount="8" material="redstone block"/>
+        <item slot="6" material="water bucket"/>
+        <item slot="33" material="water bucket"/>
+        <item slot="24" amount="8" material="fence gate"/>
+        <item slot="15" amount="8" material="trap door"/>
+        <item slot="7" amount="16" material="wood step"/>
+        <item slot="8" amount="32" material="redstone"/>
+        <item slot="34" amount="8" material="fence"/>
+        <item slot="35" amount="8" material="ladder"/>
+        <item slot="25" amount="4" material="diode"/>
+        <item slot="26" amount="16" material="stone button"/>
+        <item slot="16" amount="16" material="lever"/>
+        <item slot="17" amount="16" material="stone plate"/>
+        <item slot="28" material="arrow"/>
+        <helmet unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" enchantment="protection explosions:4;water worker:3" material="chainmail chestplate"/>
+        <leggings unbreakable="true" color="111111" material="leather leggings"/> <!-- intentional color -->
+        <boots unbreakable="true" team-color="true" material="leather boots"/>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red" kit="spawn-kit" yaw="180">
+        <region>
+            <cuboid min="57,31,30" max="55,31,26"/>
+        </region>
+    </spawn>
+    <spawn team="blue" kit="spawn-kit">
+        <region>
+            <cuboid min="55,31,-77" max="57,31,-73"/>
+        </region>
+    </spawn>
+    <default yaw="-90">
+        <region>
+            <cuboid min="-25,36.2,-25" max="-28,36.2,-22"/>
+        </region>
+    </default>
+</spawns>
+<regions>
+    <rectangle id="no-bridge-area" min="0,-3" max="112,-44"/>
+    <union id="spawn-areas">
+        <cuboid min="48,14,6" max="64,40,37"/>
+        <cuboid min="48,14,-54" max="64,40,-87"/>
+        <cuboid min="43,14,-63" max="70,40,-59"/>
+        <cuboid min="43,14,15" max="70,40,11"/>
+    </union>
+    <negative id="not-map">
+        <rectangle id="map" min="0,25" max="112,-73"/>
+    </negative>
+    <apply region="no-bridge-area" block="never" message="`6You have to destroy the other island using `ccannons`6! You cannot bridge to the other side."/>
+    <apply region="spawn-areas" block="never"/>
+    <apply region="not-map" block="never"/>
+</regions>
+<destroyables name="Base" materials="stone;cobblestone;smooth brick;smooth brick:3;smooth stairs;step:0;step:8;step:5;carpet:7;wood:1;leaves;double step:8;gravel;grass;fence" show-progress="true" completion="50%" repairable="true">
+    <destroyable owner="red">
+        <region>
+            <cuboid min="114,0,-3" max="-1,50,27"/>
+        </region>
+    </destroyable>
+    <destroyable owner="blue">
+        <region>
+            <cuboid min="114,0,-74" max="-1,50,-43"/>
+        </region>
+    </destroyable>
+</destroyables>
+<time result="objectives">8m</time>
+<itemremove>
+    <item>stone sword</item>
+    <item>iron pickaxe</item>
+    <item>iron axe</item>
+    <item>bow</item>
+    <item>arrow</item>
+    <item>step</item>
+    <item>chainmail chestplate</item>
+    <item>leather boots</item>
+    <item>leather leggings</item>
+    <item>leather helmet</item>
+    <item>rails</item>
+    <item>ladder</item>
+    <item>stained clay</item>
+    <item>water bucket</item>
+    <item>stone plate</item>
+    <item>diode</item>
+    <item>lever</item>
+    <item>iron door</item>
+    <item>fence</item>
+    <item>stone button</item>
+    <item>redstone</item>
+    <item>wood step</item>
+    <item>gravel</item>
+    <item>flint</item>
+    <item>fence gate</item>
+    <item>wood:1</item>
+    <item>tnt</item>
+    <item>trap door</item>
+    <item>redstone block</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+        <item amount="32" material="tnt"/>
+    </kill-reward>
+</kill-rewards>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<disabledamage>
+    <damage>fall</damage>
+</disabledamage>
+<respawn auto="true"/>
+</map>

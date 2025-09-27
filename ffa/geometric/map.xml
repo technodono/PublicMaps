@@ -1,0 +1,95 @@
+<map proto="1.5.0">
+<name>Geometric</name>
+<version>1.9.4</version>
+<objective>Kill as many players as you can with your gun!</objective>
+<created>2016-03-02</created>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="755acf7d-c9b4-4f1d-b7ac-db4dfdfa2b26"/> <!-- Strmr -->
+</authors>
+<contributors>
+    <contributor uuid="105f6a09-f533-412b-93cb-501601763c11" contribution="Feedback and Scaling"/> <!-- JTr -->
+    <contributor uuid="621b2aa8-4e5f-4ed8-bd36-0ae2f8952a06" contribution="Scaling"/> <!-- Strangey -->
+</contributors>
+<players min="2" max="5" colors="true"/>
+<kits>
+    <kit id="spawn-kit">
+        <clear/>
+        <item slot="0" unbreakable="true" material="stone sword"/>
+        <item slot="1" unbreakable="true" material="bow"/>
+        <item slot="2" material="golden apple"/>
+        <item slot="8" amount="16" material="arrow"/>
+        <helmet unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" team-color="true" material="leather chestplate"/>
+        <leggings unbreakable="true" material="chainmail leggings"/>
+        <boots unbreakable="true" team-color="true" enchantment="protection fall:2" material="leather boots"/>
+        <effect duration="2.5" amplifier="10">resistance</effect>
+        <game-mode>adventure</game-mode>
+    </kit>
+</kits>
+<spawns>
+    <spawn kit="spawn-kit" spread="true" safe="true">
+        <regions>
+            <point yaw="42">-3.5,1,-40.5</point>
+            <point yaw="135">-14.5,1,-32.5</point>
+            <point yaw="120">-14.5,1,-43.5</point>
+            <point yaw="-135">-55.5,1,-21.5</point>
+            <point yaw="-145">-66.5,1,-32.5</point>
+            <point yaw="-154">-66.5,5,-43.5</point>
+            <point yaw="-45">-55.5,12,-40.5</point>
+            <point yaw="135">-14.5,21,-32.5</point>
+            <point yaw="-45">-33.5,12,-40.5</point>
+            <point yaw="-135">-22.5,12,-32.5</point>
+            <point yaw="135">-36.5,12,-32.5</point>
+            <point yaw="27">-36.5,1,-51.5</point>
+            <point yaw="-135">-33.5,1,-21.5</point>
+            <point yaw="-27">-55.5,1,-40.5</point>
+            <point yaw="119">-25.5,1,-21.5</point>
+            <point yaw="123">-13.5,12,-29.5</point>
+            <point yaw="123">-22.5,16,-42.5</point>
+            <point yaw="-117">-62.5,16,-42.5</point>
+        </regions>
+    </spawn>
+    <default>
+        <region>
+            <cuboid min="-39,14,-74" max="-37,16,-72"/>
+        </region>
+    </default>
+</spawns>
+<regions>
+    <apply velocity="0.0,1.0,0.0">
+        <region>
+            <cuboid min="4.5,14,-0.5" max="3.5,14,0.5"/>
+        </region>
+    </apply>
+    <apply block="never" message="You may not edit the map!"/>
+</regions>
+<score>
+    <kills>1</kills>
+</score>
+<time>5m</time>
+<toolrepair>
+    <tool>bow</tool>
+    <tool>stone sword</tool>
+</toolrepair>
+<itemremove>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>chainmail leggings</item>
+    <item>leather boots</item>
+    <item>arrow</item>
+    <item>golden apple</item>
+</itemremove>
+<disabledamage>
+    <damage>suffocation</damage>
+</disabledamage>
+<kill-rewards>
+    <kill-reward>
+        <item amount="8" material="arrow"/>
+    </kill-reward>
+</kill-rewards>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<timelock>on</timelock>
+</map>

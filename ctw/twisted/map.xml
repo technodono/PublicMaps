@@ -1,0 +1,207 @@
+<map proto="1.5.0">
+<name>Twisted</name>
+<version>1.3.8</version>
+<objective>Take the enemy's wool located to either side of the enemy's base and place it in your victory monument.</objective>
+<created>2013-03-08</created>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="ed1fe2bd-0431-4a56-8c5c-d4657389dd1f"/> <!-- artur1197 -->
+    <author uuid="06c2f980-d6b1-4908-b578-a9cf42a1418a"/> <!-- hanchulonXD1 -->
+    <author uuid="8eb34538-a6e0-4bc0-b695-b993f3f14aaa"/> <!-- Puyi2912 -->
+    <author uuid="c14862ba-058a-44a2-a1c3-bfb0b462e198"/> <!-- roro28gutier -->
+    <author uuid="5df77c0e-1bc5-4fff-b41b-6763f29d4125"/> <!-- G_Marturet -->
+</authors>
+<teams>
+    <team id="purple" color="dark purple" max="35">Purple</team>
+    <team id="cyan" color="dark aqua" max="35">Cyan</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" enchantment="arrow infinite" material="bow"/>
+        <item slot="2" enchantment="durability:3;dig speed" material="iron pickaxe"/>
+        <item slot="3" enchantment="durability:3;dig speed" material="iron axe"/>
+        <item slot="4" amount="64" material="log"/>
+        <item slot="5" amount="64" material="leaves"/>
+        <item slot="6" amount="64" material="baked potato"/>
+        <item slot="28" material="arrow"/>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="cyan" kit="spawn-kit" yaw="180">
+        <region>
+            <cylinder base="-296,23,-1253" radius="3" height="0"/>
+        </region>
+    </spawn>
+    <spawn team="purple" kit="spawn-kit">
+        <region>
+            <cylinder base="-296,23,-1431" radius="3" height="0"/>
+        </region>
+    </spawn>
+    <default yaw="-90">
+        <region>
+            <cylinder base="-240,35,-1342" radius="2" height="0"/>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <team id="only-cyan">cyan</team>
+    <team id="only-purple">purple</team>
+    <any id="allow-some">
+        <material>iron block</material>
+        <material>diamond block</material>
+        <material>rails</material>
+        <material>ladder</material>
+    </any>
+    <not id="only-cyan-usage">
+        <all>
+            <any>
+                <material>chest</material>
+                <material>workbench</material>
+            </any>
+            <filter id="only-purple"/>
+        </all>
+    </not>
+    <not id="only-purple-usage">
+        <all>
+            <any>
+                <material>chest</material>
+                <material>workbench</material>
+            </any>
+            <filter id="only-cyan"/>
+        </all>
+    </not>
+</filters>
+<regions>
+    <apply block-break="allow-some" block-place="never" message="You may not modify the base!">
+        <region>
+            <!-- Cyan Base -->
+            <circle center="-297,-1254" radius="22"/>
+            <rectangle min="-275,-1250" max="-271,-1257"/>
+            <rectangle min="-322,-1250" max="-319,-1257"/>
+        </region>
+    </apply>
+    <apply enter="only-cyan" message="You may not enter the enemy's base!">
+        <region>
+            <rectangle min="-312,-1250" max="-311,-1257"/>
+            <rectangle min="-282,-1257" max="-281,-1250"/>
+        </region>
+    </apply>
+    <apply block-break="allow-some" block-place="never" message="You may not modify the base!">
+        <region>
+            <!-- Purple Base -->
+            <circle center="-297,-1432" radius="22"/>
+            <rectangle min="-319,-1435" max="-322,-1428"/>
+            <rectangle min="-275,-1428" max="-271,-1435"/>
+        </region>
+    </apply>
+    <apply enter="only-purple" message="You may not enter the enemy's base!">
+        <region>
+            <rectangle min="-282,-1434" max="-281,-1429"/>
+            <rectangle min="-311,-1428" max="-312,-1435"/>
+        </region>
+    </apply>
+    <apply enter="only-cyan" block="only-cyan" use="only-cyan-usage" message="You may not enter or modify your own wool rooms!">
+        <region>
+            <!-- Light Blue Wool Room -->
+            <circle center="-329,-1503" radius="8"/>
+            <!--Blue Wool Room -->
+            <circle center="-265,-1503" radius="8"/>
+        </region>
+    </apply>
+    <apply enter="only-purple" block="only-purple" use="only-purple-usage" message="You may not enter or modify your own wool rooms!">
+        <region>
+            <!-- Purple Wool Room -->
+            <circle center="-265,-1183" radius="8"/>
+            <!-- Pink Wool Room -->
+            <circle center="-329,-1183" radius="8"/>
+        </region>
+    </apply>
+    <!-- Staircases/Portals Protection -->
+    <apply block-break="allow-some" block-place="never" message="You may not modify this area!">
+        <region>
+            <rectangle min="-295,-1220" max="-298,-1223"/>
+            <rectangle min="-295,-1284" max="-298,-1287"/>
+            <rectangle min="-295,-1398" max="-298,-1401"/>
+            <rectangle min="-295,-1462" max="-298,-1465"/>
+        </region>
+    </apply>
+    <apply block="deny(void)" message="You may not build in the void!">
+        <region>
+            <complement>
+                <everywhere/>
+                <union id="middle-build-zones">
+                    <rectangle min="-336,-1365" max="-257,-1320"/>
+                </union>
+            </complement>
+        </region>
+    </apply>
+    <apply block="never" message="You may not build in the void!">
+        <region>
+            <below y="7"/>
+        </region>
+    </apply>
+</regions>
+<wools>
+    <wool team="purple" color="pink" location="-328.5,23,-1182.5">
+        <monument>
+            <block>-297,27,-1447</block>
+        </monument>
+    </wool>
+    <wool team="purple" color="magenta" location="-264.5,23,-1182.5">
+        <monument>
+            <block>-297,27,-1417</block>
+        </monument>
+    </wool>
+    <wool team="cyan" color="light blue" location="-328.5,23,-1502.5">
+        <monument>
+            <block>-297,27,-1269</block>
+        </monument>
+    </wool>
+    <wool team="cyan" color="blue" location="-264.5,23,-1502.5">
+        <monument>
+            <block>-297,27,-1239</block>
+        </monument>
+    </wool>
+</wools>
+<portals>
+    <portal x="@-295.5" y="@33" z="@-1400.5" yaw="@-90">
+        <region>
+            <cuboid min="-296,13,-1399" max="-298,15,-1401"/>
+        </region>
+    </portal>
+    <portal x="@-297.5" y="@13" z="@-1398.5" yaw="@90">
+        <region>
+            <cuboid min="-296,33,-1399" max="-298,35,-1401"/>
+        </region>
+    </portal>
+    <portal x="@-297.5" y="@33" z="@-1284.5" yaw="@90">
+        <region>
+            <cuboid min="-296,13,-1285" max="-298,15,-1287"/>
+        </region>
+    </portal>
+    <portal x="@-295.5" y="@13" z="@-1286.5" yaw="@-90">
+        <region>
+            <cuboid min="-296,33,-1285" max="-298,35,-1287"/>
+        </region>
+    </portal>
+</portals>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+    <tool>iron pickaxe</tool>
+    <tool>iron axe</tool>
+</toolrepair>
+<itemremove>
+    <item>rails</item>
+    <item>ladder</item>
+    <item>seeds</item>
+    <item>wood</item>
+    <item>log</item>
+    <item>leaves</item>
+    <item>baked potato</item>
+    <item>trap door</item>
+    <item>golden apple</item>
+</itemremove>
+<maxbuildheight>65</maxbuildheight>
+</map>
