@@ -1,6 +1,7 @@
 <map proto="1.5.0" game="Rush">
 <name>Sugar Cane Valley</name>
 <version>1.1.5</version>
+<created>2016-02-20</created>
 <objective>Make it to the end and destroy the Defender's monument!</objective>
 <gamemode>ad</gamemode>
 <gamemode>blitz</gamemode>
@@ -78,18 +79,18 @@
     <broadcastLives>true</broadcastLives>
 </blitz>
 <destroyables>
-    <destroyable owner="defenders" name="Monument" region="monument" materials="sponge" required="true" />
+    <destroyable owner="defenders" name="Monument" region="monument" materials="sponge" required="true"/>
 </destroyables>
 <time result="defenders">6m</time>
 <portals>
     <portal z="78" y="@85" yaw="@180">
         <region>
-            <cuboid min="66,84,-6" max="-404,83,-9" />
+            <cuboid min="66,84,-6" max="-404,83,-9"/>
         </region>
     </portal>
     <portal z="-78" y="@85" yaw="@0">
         <region>
-            <cuboid min="66,84,72" max="-404,83,76" />
+            <cuboid min="66,84,72" max="-404,83,76"/>
         </region>
     </portal>
 </portals>

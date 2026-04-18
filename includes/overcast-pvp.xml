@@ -1,0 +1,372 @@
+<map>
+<!-- Overcast PvP mechanics file -->
+<!-- Created by mameBT -->
+<!-- Based on Overcast Network's legacy global include -->
+<!-- Version 2026.04.06-2 -->
+<if min-server-version="1.21.11">
+    <item-mods>
+        <rule>
+            <match>
+                <all-materials/>
+            </match>
+            <modify components="attack_range={max_reach:3.0095,hitbox_margin:0.1}"/>
+        </rule>
+        <!---
+        <rule>
+            <match>
+                <material>wooden sword</material>
+            </match>
+            <modify components="weapon={disable_blocking_for_seconds:5}"/>
+        </rule>
+        <rule>
+            <match>
+                <material>golden sword</material>
+            </match>
+            <modify components="weapon={disable_blocking_for_seconds:5}"/>
+        </rule>
+        <rule>
+            <match>
+                <material>stone sword</material>
+            </match>
+            <modify components="weapon={disable_blocking_for_seconds:5}"/>
+        </rule>
+        <rule>
+            <match>
+                <material>copper sword</material>
+            </match>
+            <modify components="weapon={disable_blocking_for_seconds:5}"/>
+        </rule>
+        <rule>
+            <match>
+                <material>iron sword</material>
+            </match>
+            <modify components="weapon={disable_blocking_for_seconds:5}"/>
+        </rule>
+        <rule>
+            <match>
+                <material>diamond sword</material>
+            </match>
+            <modify components="weapon={disable_blocking_for_seconds:5}"/>
+        </rule>
+        <rule>
+            <match>
+                <material>netherite sword</material>
+            </match>
+            <modify components="weapon={disable_blocking_for_seconds:5}"/>
+        </rule>
+        -->
+        <rule>
+            <match>
+                <material>wooden spear</material>
+            </match>
+            <modify components="attack_range={min_reach:2,max_reach:4.5,hitbox_margin:0.1}"/>
+        </rule>
+        <rule>
+            <match>
+                <material>golden spear</material>
+            </match>
+            <modify components="attack_range={min_reach:2,max_reach:4.5,hitbox_margin:0.1}"/>
+        </rule>
+        <rule>
+            <match>
+                <material>stone spear</material>
+            </match>
+            <modify components="attack_range={min_reach:2,max_reach:4.5,hitbox_margin:0.1}"/>
+        </rule>
+        <rule>
+            <match>
+                <material>copper spear</material>
+            </match>
+            <modify components="attack_range={min_reach:2,max_reach:4.5,hitbox_margin:0.1}"/>
+        </rule>
+        <rule>
+            <match>
+                <material>iron spear</material>
+            </match>
+            <modify components="attack_range={min_reach:2,max_reach:4.5,hitbox_margin:0.1}"/>
+        </rule>
+        <rule>
+            <match>
+                <material>diamond spear</material>
+            </match>
+            <modify components="attack_range={min_reach:2,max_reach:4.5,hitbox_margin:0.1}"/>
+        </rule>
+        <rule>
+            <match>
+                <material>netherite spear</material>
+            </match>
+            <modify components="attack_range={min_reach:2,max_reach:4.5,hitbox_margin:0.1}"/>
+        </rule>
+        <rule>
+            <match>
+                <material>wood axe</material>
+            </match>
+            <modify>
+                <attribute amount="2" slot="mainhand">attack_damage</attribute>
+                <attribute amount="-2.5" slot="mainhand">attack_speed</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>gold axe</material>
+            </match>
+            <modify>
+                <attribute amount="2" slot="mainhand">attack_damage</attribute>
+                <attribute amount="-2.5" slot="mainhand">attack_speed</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>stone axe</material>
+            </match>
+            <modify>
+                <attribute amount="3" slot="mainhand">attack_damage</attribute>
+                <attribute amount="-2.5" slot="mainhand">attack_speed</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>iron axe</material>
+            </match>
+            <modify>
+                <attribute amount="4" slot="mainhand">attack_damage</attribute>
+                <attribute amount="-2.5" slot="mainhand">attack_speed</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>diamond axe</material>
+            </match>
+            <modify>
+                <attribute amount="5" slot="mainhand">attack_damage</attribute>
+                <attribute amount="-2.5" slot="mainhand">attack_speed</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>netherite axe</material>
+            </match>
+            <modify>
+                <attribute amount="6" slot="mainhand">attack_damage</attribute>
+                <attribute amount="-2.5" slot="mainhand">attack_speed</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>leather helmet</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="1" slot="head">armor</attribute>
+                <attribute amount="400" slot="head">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>leather chestplate</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="3" slot="chest">armor</attribute>
+                <attribute amount="400" slot="chest">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>leather leggings</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="2" slot="legs">armor</attribute>
+                <attribute amount="400" slot="legs">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>leather boots</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="1" slot="feet">armor</attribute>
+                <attribute amount="400" slot="feet">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>gold helmet</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="2" slot="head">armor</attribute>
+                <attribute amount="400" slot="head">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>gold chestplate</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="5" slot="chest">armor</attribute>
+                <attribute amount="400" slot="chest">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>gold leggings</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="3" slot="legs">armor</attribute>
+                <attribute amount="400" slot="legs">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>gold boots</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="1" slot="feet">armor</attribute>
+                <attribute amount="400" slot="feet">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>chainmail helmet</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="2" slot="head">armor</attribute>
+                <attribute amount="400" slot="head">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>chainmail chestplate</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="5" slot="chest">armor</attribute>
+                <attribute amount="400" slot="chest">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>chainmail leggings</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="4" slot="legs">armor</attribute>
+                <attribute amount="400" slot="legs">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>chainmail boots</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="1" slot="feet">armor</attribute>
+                <attribute amount="400" slot="feet">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>iron helmet</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="2" slot="head">armor</attribute>
+                <attribute amount="400" slot="head">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>iron chestplate</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="6" slot="chest">armor</attribute>
+                <attribute amount="400" slot="chest">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>iron leggings</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="5" slot="legs">armor</attribute>
+                <attribute amount="400" slot="legs">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>iron boots</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="2" slot="feet">armor</attribute>
+                <attribute amount="400" slot="feet">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>diamond helmet</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="3" slot="head">armor</attribute>
+                <attribute amount="400" slot="head">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>diamond chestplate</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="8" slot="chest">armor</attribute>
+                <attribute amount="400" slot="chest">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>diamond leggings</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="6" slot="legs">armor</attribute>
+                <attribute amount="400" slot="legs">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>diamond boots</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="3" slot="feet">armor</attribute>
+                <attribute amount="400" slot="feet">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>netherite helmet</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="3" slot="head">armor</attribute>
+                <attribute amount="400" slot="head">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>netherite chestplate</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="8" slot="chest">armor</attribute>
+                <attribute amount="400" slot="chest">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>netherite leggings</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="6" slot="legs">armor</attribute>
+                <attribute amount="400" slot="legs">armor_toughness</attribute>
+            </modify>
+        </rule>
+        <rule>
+            <match>
+                <material>netherite boots</material>
+            </match>
+            <modify show-attributes="false">
+                <attribute amount="3" slot="feet">armor</attribute>
+                <attribute amount="400" slot="feet">armor_toughness</attribute>
+            </modify>
+        </rule>
+    </item-mods>
+</if>
+</map>

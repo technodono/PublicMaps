@@ -1,0 +1,265 @@
+<map proto="1.5.0">
+<name>Chimeric</name>
+<variant id="halloween" world="halloween" override="true">Chimeric Horror</variant>
+<variant id="christmas" world="christmas" override="true">Chimeric Freeze</variant>
+<version>1.2.3</version>
+<objective>Destroy the other team's monument, then capture their wool and return it to your base.</objective>
+<if variant="default">
+    <created>2016-04-17</created>
+    <constant id="monument-name">Monument</constant>
+</if>
+<if variant="halloween">
+    <created>2016-10-14</created>
+    <constant id="monument-name">Horrific Monument</constant>
+</if>
+<if variant="christmas">
+    <created>2016-12-08</created>
+    <constant id="monument-name">Ice Cold Monument</constant>
+</if>
+<constants>
+    <constant id="eff.modes-preset">every-5m</constant>
+    <constant id="eff.efficiency-tool">stone pickaxe</constant>
+    <constant id="eff.team-1">red</constant>
+    <constant id="eff.team-2">blue</constant>
+    <constant id="eff.t1-m1-region">blue-monument-region</constant>
+    <constant id="eff.t2-m1-region">red-monument-region</constant>
+    <constant id="observers-kit" delete="true"/>
+</constants>
+<if variant="halloween">
+    <constant id="observers-kit">default-kit</constant>
+</if>
+<include id="efficiency-variables"/>
+<include id="gapple-kill-reward"/>
+<authors>
+    <author uuid="f876b863-1ccd-4ae2-acad-8a09e2209e81"/> <!-- _DISTRACTION_ -->
+    <author uuid="af56fc4a-51d2-4a6e-b020-2c6d272b9cbf"/> <!-- Ale -->
+</authors>
+<broadcasts>
+    <alert after="1s" every="2m">You may not enter the wool room lane until you have broken the other team's monument!</alert>
+    <tip after="10s" every="2m">The wool room is located on the top of the map, behind each teams' spawns!</tip>
+    <tip after="20s" every="2m">You have Haste II while on your team's side, to help with defense!</tip>
+</broadcasts>
+<teams>
+    <if variant="default">
+        <team id="red" color="dark red" max="11">Red</team>
+        <team id="blue" color="blue" max="11">Blue</team>
+    </if>
+    <if variant="halloween">
+        <team id="red" color="dark red" max="11" plural="true">Bloody Reds</team>
+        <team id="blue" color="blue" max="11" plural="true">Frozen Blues</team>
+    </if>
+    <if variant="christmas">
+        <team id="red" color="dark red" max="11" plural="true">Frigid Reds</team>
+        <team id="blue" color="blue" max="11" plural="true">Glacial Blues</team>
+    </if>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <clear/>
+        <item slot="0" unbreakable="true" material="stone sword"/>
+        <item slot="1" unbreakable="true" material="bow"/>
+        <item slot="2" unbreakable="true" material="stone pickaxe"/>
+        <item slot="3" unbreakable="true" material="stone axe" enchantment="efficiency:2"/>
+        <item slot="4" amount="64" material="wood"/>
+        <item slot="5" amount="32" material="glass"/>
+        <if variant="christmas">
+            <item slot="6" unbreakable="true" material="wood spade"/>
+        </if>
+        <item slot="8" amount="2" material="golden apple"/>
+        <item slot="28" amount="32" material="arrow"/>
+        <helmet unbreakable="true" team-color="true" material="leather helmet"/>
+        <chestplate unbreakable="true" team-color="true" material="leather chestplate"/>
+        <leggings unbreakable="true" team-color="true" material="leather leggings"/>
+        <boots unbreakable="true" team-color="true" material="leather boots"/>
+        <effect duration="5" amplifier="5">regeneration</effect>
+        <effect amplifier="2">haste</effect>
+    </kit>
+    <kit id="home-kit">
+        <effect amplifier="2">haste</effect>
+    </kit>
+    <kit id="default-kit">
+        <effect>night vision</effect>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red" kit="spawn-kit" yaw="-90">
+        <region>
+            <cylinder base="-80,8,0" radius="1" height="0"/>
+        </region>
+    </spawn>
+    <spawn team="blue" kit="spawn-kit" yaw="90">
+        <region>
+            <cylinder base="80,8,0" radius="1" height="0"/>
+        </region>
+    </spawn>
+    <default kit="${observers-kit}" yaw="180">
+        <region>
+            <point>-0,85,1</point>
+        </region>
+    </default>
+</spawns>
+<filters>
+    <any id="only-red-until-monument-gone">
+        <team id="only-red">red</team>
+        <objective>red-monument</objective>
+    </any>
+    <any id="only-blue-until-monument-gone">
+        <team id="only-blue">blue</team>
+        <objective>blue-monument</objective>
+    </any>
+    <not id="no-chests">
+        <material>chest</material>
+    </not>
+    <all id="blue-no-chests">
+        <filter id="only-blue"/>
+        <filter id="no-chests"/>
+    </all>
+    <all id="red-no-chests">
+        <filter id="only-red"/>
+        <filter id="no-chests"/>
+    </all>
+    <material id="only-beacon">beacon</material>
+</filters>
+<regions>
+    <apply block="never" message="You may not build below the map!">
+        <region>
+            <union>
+                <cuboid min="85,44,10" max="93,0,-10"/>
+                <cuboid min="87,47,10" max="89,0,-10"/>
+                <cuboid min="89,49,10" max="93,0,-10"/>
+                <cuboid min="93,50,10" max="125,0,-10"/>
+                <!-- Other side -->
+                <cuboid min="-85,44,10" max="-93,0,-10"/>
+                <cuboid min="-87,47,10" max="-89,0,-10"/>
+                <cuboid min="-89,49,10" max="-93,0,-10"/>
+                <cuboid min="-93,50,10" max="-125,0,-10"/>
+            </union>
+        </region>
+    </apply>
+    <apply block="never" message="You may not edit the spawn!">
+        <region>
+            <union>
+                <cuboid min="-83,7,-9" max="-77,12,9"/>
+                <cuboid min="83,7,9" max="77,12,-9"/>
+            </union>
+        </region>
+    </apply>
+    <apply block="never" message="You have reached the build height limit over the central area.">
+        <region>
+            <cuboid min="-68,27,-oo" max="68,oo,oo"/>
+        </region>
+    </apply>
+    <apply block="always">
+        <region>
+            <union>
+                <rectangle min="75,10" max="125,-10"/>
+                <rectangle min="-125,10" max="-75,-10"/>
+                <rectangle min="-21,-17" max="21,-9"/>
+                <rectangle min="21,17" max="-21,9"/>
+                <cuboid min="125,51,-10" max="128,oo,10"/>
+                <cuboid min="-125,51,-10" max="-128,oo,10"/>
+            </union>
+        </region>
+    </apply>
+    <apply enter="only-red-until-monument-gone" message="The monument must be broken before you can enter this area!">
+        <region>
+            <rectangle min="-oo,-oo" max="-72,oo"/>
+        </region>
+    </apply>
+    <apply enter="only-blue-until-monument-gone" message="The monument must be broken before you can enter this area!">
+        <region>
+            <rectangle min="72,-oo" max="oo,oo"/>
+        </region>
+    </apply>
+    <apply enter="only-blue" block="blue-no-chests" message="You may not do that!">
+        <region>
+            <cuboid min="-140,54,-10" max="-128,67,10"/>
+        </region>
+    </apply>
+    <apply enter="only-red" block="red-no-chests" message="You may not do that!">
+        <region>
+            <cuboid min="128,54,-10" max="140,67,10"/>
+        </region>
+    </apply>
+    <apply filter="only-red" lend-kit="home-kit">
+        <region>
+            <rectangle min="-oo,-oo" max="-21,oo"/>
+        </region>
+    </apply>
+    <apply filter="only-blue" lend-kit="home-kit">
+        <region>
+            <rectangle min="21,-oo" max="oo,oo"/>
+        </region>
+    </apply>
+    <apply use="deny(only-beacon)" block="deny(only-beacon)"/>
+    <apply block="deny(void)" message="You may not build outside the map!"/>
+    <cylinder id="blue-monument-region" base="47.5,12,0.5" radius="2" height="3"/>
+    <cylinder id="red-monument-region" base="-47.5,12,-0.5" radius="2" height="3"/>
+</regions>
+<destroyables name="${monument-name}" repairable="false" sparks="true" show-progress="true" materials="ender stone;emerald block;stained glass" mode-changes="true">
+    <destroyable id="blue-monument" region="blue-monument-region" owner="blue"/>
+    <destroyable id="red-monument" region="red-monument-region" owner="red"/>
+</destroyables>
+<wools craftable="false">
+    <wool team="red" color="cyan" location="134,57,0">
+        <monument>
+            <block>-42,9,6</block>
+        </monument>
+    </wool>
+    <wool team="blue" color="magenta" location="-134,57,0">
+        <monument>
+            <block>41,9,-7</block>
+        </monument>
+    </wool>
+</wools>
+<if variant="christmas">
+    <block-drops>
+        <rule region="everywhere">
+            <filter>
+                <material>snow block</material>
+            </filter>
+            <drops>
+                <item material="snow block"/>
+            </drops>
+        </rule>
+    </block-drops>
+</if>
+<toolrepair>
+    <tool>stone sword</tool>
+    <tool>bow</tool>
+    <tool>stone pickaxe</tool>
+    <tool>stone axe</tool>
+    <if variant="christmas">
+        <tool>wood spade</tool>
+    </if>
+</toolrepair>
+<itemremove>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+    <item>beacon</item>
+    <item>emerald block</item>
+    <item>ender stone</item>
+    <item>coal block</item>
+    <item>iron fence</item>
+    <item>quartz block</item>
+    <item>smooth brick</item>
+</itemremove>
+<itemkeep>
+    <item>wood</item>
+    <item>glass</item>
+    <item>golden apple</item>
+    <item>arrow</item>
+</itemkeep>
+<kill-reward>
+        <item amount="16" material="arrow"/>
+        <item amount="16" material="wood"/>
+        <item amount="8" material="glass"/>
+</kill-reward>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<maxbuildheight>66</maxbuildheight>
+<respawn delay="4s"/>
+</map>

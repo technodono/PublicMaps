@@ -1,7 +1,7 @@
 <map>
 <!-- Flag Football include file -->
 <!-- Created by mameBT -->
-<!-- Version 2025.09.15-1 -->
+<!-- Version 2025.10.30-1 -->
 <!--
     XML notes: team 1 defends their own net,
     scoring on team 2's net and vice-versa
@@ -86,11 +86,13 @@
 <score>
     <if has-variant="comp">
         <unless variant="comp">
-            <mercy>5</mercy>
+            <display>circle</display>
+            <limit>5</limit>
         </unless>
     </if>
     <unless has-variant="comp">
-        <mercy>5</mercy>
+        <display>circle</display>
+        <limit>5</limit>
     </unless>
 </score>
 <portals>

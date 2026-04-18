@@ -2,6 +2,9 @@
 <!-- Sound keys include for all maps -->
 <include id="sound-keys"/>
 
+<!-- Modified combat mechanics for OCC modern -->
+<include id="overcast-pvp"/>
+
 <variables>
     <!-- Add maxbuildheight variable to pre-proto 1.5 maps -->
     <maxbuildheight id="maxbuildheight"/>
@@ -9,12 +12,9 @@
     <worldtime id="worldtime"/>
 </variables>
 
-<!-- Disable players in locator bar -->
-<if min-server-version="1.21.8">
-    <spawns> <!-- Using the locatorBar gamerule also hides entities in maps -->
-        <player-kit>
-            <attribute operation="multiply" amount="-1">waypoint_transmit_range</attribute>
-        </player-kit>
-    </spawns>
+<if has-variant="tournament,te,ranked,comp,5v5,5v5-ac,7v7">
+    <if variant="tournament,te,ranked,comp,5v5,5v5-ac,7v7">
+        <phase>staging</phase>
+    </if>
 </if>
 </map>
