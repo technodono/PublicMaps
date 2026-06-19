@@ -2,7 +2,7 @@
 <!-- 🚩 Flag Battles Include 🚩 -->
 <!-- Gamemode devloped by Technodono -->
 <!-- Version yyyy-mm-dd so I don't forget -->
-<!-- Version 2026.03.02-1 -->
+<!-- Version 2026.06.19-1 -->
 <game>Flag Battles</game>
 <objective>Score flags in enemy portals to reduce their healthbar. Last team standing wins!</objective>
 <include id="gapple-kill-reward"/>
@@ -13,7 +13,6 @@
     <constant id="match-timelimit">360</constant> <!-- How long the match should last before entering sudden death (seconds) --> <!-- default = 360 (6m) -->
     <constant id="sudden-death-timelimit">240</constant> <!-- How long should sudden death last (seconds) --> <!-- default = 240 (4m) -->
     <constant id="starting-score">10</constant> <!-- Starting hearts for each team [❤❤❤❤❤❤❤❤❤❤] -->
-    <constant id="starting-score-plus-one">11</constant> <!-- One higher than the number of starting hearts used for when the full scorebar is enabled -->
     <constant id="show-full-score-bar">1</constant> <!-- When enabled this renders the grey hearts underneath the team life bars. Due to the way scoring works there will always be an extra grey heart after each teams total health -->
     <constant id="flag-normal-score-amount">2</constant> <!-- Damage flags deal when scoring in portals -->
     <constant id="flag-bonus-score-amount">3</constant> <!--  Damage flags deal when scoring in portals in sudden death -->
@@ -105,6 +104,11 @@
         <constant id="team-two-mirror-dir"></constant> [x,y,z] - Vector
         <constant id="team-three-mirror-dir"></constant> [x,y,z] - Vector
         <constant id="team-four-mirror-dir"></constant> [x,y,z] - Vector
+        -->
+        <constant id="team-two-mirror-ref">team-one</constant> <!-- Reference regions for team two mirroring [team id] -->
+        <constant id="team-three-mirror-ref">team-one</constant> <!-- Reference regions for team three mirroring [team id] -->
+        <constant id="team-four-mirror-ref">team-one</constant> <!-- Reference regions for team four mirroring [team id] -->
+        <!---
         <constant id="map-center"></constant> [x,y,z] - Point
 
         This feature does not work with maps that have rotational symmetry unless the teams islands form a + formation (e.g. courtydard isles)
@@ -455,7 +459,6 @@
     <trigger filter="match-loaded" scope="match">
         <action>
             <switch-scope inner="team" observers="true">
-                <action id="team_lives := (${starting-score})"/>
                 <action id="teams_remaining := 4"/>
                 <action id="team_removal_timer := ceil(${auto-kill-timer}/2)"/>
                 <action id="match_timelimit := (${match-timelimit} + ${sudden-death-timelimit})"/>
@@ -910,29 +913,29 @@
         <region id="team-three-spawnroom"/>
         <region id="team-four-spawnroom"/>
     </union>
-    <above id="maxbuild" y="20"/>
+    <above id="maxbuild" y="${build-limit}"/>
     <if constant="symmetry-mode" constant-comparison="defined">
-        <mirror normal="${team-two-mirror-dir}" origin="${map-center}" region="team-one-portal" id="team-two-portal"/>
-        <mirror normal="${team-three-mirror-dir}" origin="${map-center}" region="team-one-portal" id="team-three-portal"/>
-        <mirror normal="${team-four-mirror-dir}" origin="${map-center}" region="team-one-portal" id="team-four-portal"/>
-        <mirror normal="${team-two-mirror-dir}" origin="${map-center}" region="team-one-portal-indicator" id="team-two-portal-indicator"/>
-        <mirror normal="${team-three-mirror-dir}" origin="${map-center}" region="team-one-portal-indicator" id="team-three-portal-indicator"/>
-        <mirror normal="${team-four-mirror-dir}" origin="${map-center}" region="team-one-portal-indicator" id="team-four-portal-indicator"/>
-        <mirror normal="${team-two-mirror-dir}" origin="${map-center}" region="team-one-spawnpoint" id="team-two-spawnpoint"/>
-        <mirror normal="${team-three-mirror-dir}" origin="${map-center}" region="team-one-spawnpoint" id="team-three-spawnpoint"/>
-        <mirror normal="${team-four-mirror-dir}" origin="${map-center}" region="team-one-spawnpoint" id="team-four-spawnpoint"/>
-        <mirror normal="${team-two-mirror-dir}" origin="${map-center}" region="team-one-spawnroom" id="team-two-spawnroom"/>
-        <mirror normal="${team-three-mirror-dir}" origin="${map-center}" region="team-one-spawnroom" id="team-three-spawnroom"/>
-        <mirror normal="${team-four-mirror-dir}" origin="${map-center}" region="team-one-spawnroom" id="team-four-spawnroom"/>
-        <mirror normal="${team-two-mirror-dir}" origin="${map-center}" region="team-one-spawnroom-door" id="team-two-spawnroom-door"/>
-        <mirror normal="${team-three-mirror-dir}" origin="${map-center}" region="team-one-spawnroom-door" id="team-three-spawnroom-door"/>
-        <mirror normal="${team-four-mirror-dir}" origin="${map-center}" region="team-one-spawnroom-door" id="team-four-spawnroom-door"/>
-        <mirror normal="${team-two-mirror-dir}" origin="${map-center}" region="team-one-flag-1-post" id="team-two-flag-1-post"/>
-        <mirror normal="${team-three-mirror-dir}" origin="${map-center}" region="team-one-flag-1-post" id="team-three-flag-1-post"/>
-        <mirror normal="${team-four-mirror-dir}" origin="${map-center}" region="team-one-flag-1-post" id="team-four-flag-1-post"/>
-        <mirror normal="${team-two-mirror-dir}" origin="${map-center}" region="team-one-flag-2-post" id="team-two-flag-2-post"/>
-        <mirror normal="${team-three-mirror-dir}" origin="${map-center}" region="team-one-flag-2-post" id="team-three-flag-2-post"/>
-        <mirror normal="${team-four-mirror-dir}" origin="${map-center}" region="team-one-flag-2-post" id="team-four-flag-2-post"/>
+        <mirror normal="${team-two-mirror-dir}" origin="${map-center}" region="${team-two-mirror-ref}-portal" id="team-two-portal"/>
+        <mirror normal="${team-three-mirror-dir}" origin="${map-center}" region="${team-three-mirror-ref}-portal" id="team-three-portal"/>
+        <mirror normal="${team-four-mirror-dir}" origin="${map-center}" region="${team-four-mirror-ref}-portal" id="team-four-portal"/>
+        <mirror normal="${team-two-mirror-dir}" origin="${map-center}" region="${team-two-mirror-ref}-portal-indicator" id="team-two-portal-indicator"/>
+        <mirror normal="${team-three-mirror-dir}" origin="${map-center}" region="${team-three-mirror-ref}-portal-indicator" id="team-three-portal-indicator"/>
+        <mirror normal="${team-four-mirror-dir}" origin="${map-center}" region="${team-four-mirror-ref}-portal-indicator" id="team-four-portal-indicator"/>
+        <mirror normal="${team-two-mirror-dir}" origin="${map-center}" region="${team-two-mirror-ref}-spawnpoint" id="team-two-spawnpoint"/>
+        <mirror normal="${team-three-mirror-dir}" origin="${map-center}" region="${team-three-mirror-ref}-spawnpoint" id="team-three-spawnpoint"/>
+        <mirror normal="${team-four-mirror-dir}" origin="${map-center}" region="${team-four-mirror-ref}-spawnpoint" id="team-four-spawnpoint"/>
+        <mirror normal="${team-two-mirror-dir}" origin="${map-center}" region="${team-two-mirror-ref}-spawnroom" id="team-two-spawnroom"/>
+        <mirror normal="${team-three-mirror-dir}" origin="${map-center}" region="${team-three-mirror-ref}-spawnroom" id="team-three-spawnroom"/>
+        <mirror normal="${team-four-mirror-dir}" origin="${map-center}" region="${team-four-mirror-ref}-spawnroom" id="team-four-spawnroom"/>
+        <mirror normal="${team-two-mirror-dir}" origin="${map-center}" region="${team-two-mirror-ref}-spawnroom-door" id="team-two-spawnroom-door"/>
+        <mirror normal="${team-three-mirror-dir}" origin="${map-center}" region="${team-three-mirror-ref}-spawnroom-door" id="team-three-spawnroom-door"/>
+        <mirror normal="${team-four-mirror-dir}" origin="${map-center}" region="${team-four-mirror-ref}-spawnroom-door" id="team-four-spawnroom-door"/>
+        <mirror normal="${team-two-mirror-dir}" origin="${map-center}" region="${team-two-mirror-ref}-flag-1-post" id="team-two-flag-1-post"/>
+        <mirror normal="${team-three-mirror-dir}" origin="${map-center}" region="${team-three-mirror-ref}-flag-1-post" id="team-three-flag-1-post"/>
+        <mirror normal="${team-four-mirror-dir}" origin="${map-center}" region="${team-four-mirror-ref}-flag-1-post" id="team-four-flag-1-post"/>
+        <mirror normal="${team-two-mirror-dir}" origin="${map-center}" region="${team-two-mirror-ref}-flag-2-post" id="team-two-flag-2-post"/>
+        <mirror normal="${team-three-mirror-dir}" origin="${map-center}" region="${team-three-mirror-ref}-flag-2-post" id="team-three-flag-2-post"/>
+        <mirror normal="${team-four-mirror-dir}" origin="${map-center}" region="${team-four-mirror-ref}-flag-2-post" id="team-four-flag-2-post"/>
     </if>
 </regions>
 <portals>
@@ -1023,7 +1026,8 @@
 </unless>
 <if constant="show-full-score-bar" constant-value="1" constant-comparison="equals">
 <score display="heart">
-    <limit>${starting-score-plus-one}</limit>
+    <initial>${starting-score}</initial>
+    <limit>${starting-score}</limit>
 </score>
 </if>
 <unless constant="show-full-score-bar" constant-value="1" constant-comparison="equals">
